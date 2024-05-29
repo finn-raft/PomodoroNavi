@@ -50,3 +50,28 @@
 - LINE等での通知機能（レポートの作成されてない日が続くと、ナビキャラクターからお叱りのメッセージが届く）
 
 順次、追加したい機能があれば拡張していく予定。
+
+## ■ 使用技術
+**バックエンド**
+- Rails 7.1.3.2(Ruby 3.2.2)
+
+**フロントエンド**
+- Vue.js（Vue CLI, vuex, vuetify, vuerouter)
+- JavaScript（axios）
+
+**インフラ**
+- Fly.io
+- PostgreSQL（データベース）
+
+**主要ライブラリ**
+- Sorcery（ログイン）
+- CarrierWave(画像アップロード)
+- vue-cahrtkick(グラフ)
+- MetaTags(SEO)
+- RSpec(テスト)
+- RuboCop(リントチェック)
+
+**その他**
+- Google API（Googleログイン）
+- LINE Notify（LINE通知機能）
+- Googleアナリティクス

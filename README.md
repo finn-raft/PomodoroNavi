@@ -55,8 +55,9 @@
 - Rails 7.1.3.2(Ruby 3.2.2)
 
 **フロントエンド**
-- Vue.js（Vue CLI, vuex, vuetify, vuerouter)
-- JavaScript（axios）
+- TypeScript
+- Next.js
+- React
 
 **インフラ**
 - Fly.io

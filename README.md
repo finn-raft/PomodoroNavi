@@ -50,7 +50,7 @@
 
 順次、追加したい機能があれば拡張していく予定。
 
-## ■ 使用技術
+## 使用技術
 **バックエンド**
 - Rails 7.1.3.2(Ruby 3.2.2)
 
@@ -77,3 +77,7 @@
 - OpenAI API(ナビキャラクターとの会話、口調設定）
 - Google API（Googleログイン）
 - Googleアナリティクス(ユーザー解析)
+
+## 画面遷移図
+https://www.figma.com/file/YW3sQ5oqfuHa4WP2nLzLT8/PomodoroNavi?node-id=2-4&t=VKcMYAsp3CnvZrFm-1
+

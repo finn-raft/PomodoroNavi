@@ -80,10 +80,9 @@
 - RuboCop(リントチェック)
 
 **その他**
-- OpenAI API(ナビキャラクターとの会話、口調設定）
+- OpenAI API（ナビキャラクターとの会話、口調設定）
 - Google API（Googleログイン）
 - Googleアナリティクス(ユーザー解析)
 
 ## 画面遷移図
 https://www.figma.com/file/YW3sQ5oqfuHa4WP2nLzLT8/PomodoroNavi?node-id=2-4&t=VKcMYAsp3CnvZrFm-1
-

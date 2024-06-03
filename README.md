@@ -88,4 +88,4 @@
 https://www.figma.com/file/YW3sQ5oqfuHa4WP2nLzLT8/PomodoroNavi?node-id=2-4&t=VKcMYAsp3CnvZrFm-1
 
 ## ER図
-https://gyazo.com/5c5dc82ba62b0a2473088009d2dd04a6
+https://gyazo.com/be6e06844233e3d558ea9660f08864f1

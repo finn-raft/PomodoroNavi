@@ -1,2 +1,47 @@
-<h1>Hello!World!</h1>
-<p>Find me in app/views/staticpages/top.html.erb</p>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro Navi</title>
+    <%= stylesheet_link_tag 'styles', media: 'all', 'data-turbolinks-track': 'reload' %>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Pomodoro Navi</h1>
+            <div class="auth">
+                <a href="#">Login</a>
+                <a href="#">SignUp</a>
+            </div>
+        </header>
+        <main>
+        <div class="timer-container">
+                <span id="timer">25:00</span>
+                <div id="status"></div>
+        </div>
+            <div class="controls">
+                <button id="start-stop">Start</button>
+                <button id="end">End</button>
+            </div>
+            <div class="message">
+                <div class="cat-icon">
+                    <img src="<%= asset_path 'cat.png' %>" alt="ニャビ">
+                </div>
+                <br>
+                <p>PomodoroNaviにいらっしゃいニャ！<br>
+                初めての方は画面右上のSignupからお名前とナビを登録してくださいニャ！<br>
+                登録しなくてもタイマーとその設定（画面右上の歯車アイコン）を使うことはできるのニャ。<br>
+                登録するとナビの設定やレポート機能が使えるようになるニャ。<br>
+                それまではニャビが貴方のナビをしますのニャ。</p>
+            </div>
+        </main>
+        <footer>
+            <a href="#">利用規約</a>
+            <a href="#">プライバシーポリシー</a>
+            <a href="#">お問い合わせ</a>
+        </footer>
+    </div>
+    <%= javascript_include_tag 'scripts', 'data-turbolinks-track': 'reload' %>
+</body>
+</html>

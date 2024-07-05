@@ -42,6 +42,7 @@
             <a href="#">お問い合わせ</a>
         </footer>
     </div>
+    <audio id="alarm-sound" src="<%= Rails.env.development? ? '/assets/alarm.mp3' : asset_path('alarm.mp3') %>"></audio>
     <%= javascript_include_tag 'scripts', 'data-turbolinks-track': 'reload' %>
 </body>
 </html>

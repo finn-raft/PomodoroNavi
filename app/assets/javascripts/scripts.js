@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const statusElement = document.getElementById('status');
     const startStopButton = document.getElementById('start-stop');
     const endButton = document.getElementById('end');
+    const alarmSound = document.getElementById('alarm-sound');
 
     function updateTimerDisplay() {
         const minutes = String(currentMinutes).padStart(2, '0');
@@ -30,9 +31,14 @@ document.addEventListener('DOMContentLoaded', () => {
         updateTimerDisplay();
     }
 
+    function playAlarm() {
+        alarmSound.play();
+    }
+
     function tick() {
         if (currentSeconds === 0) {
             if (currentMinutes === 0) {
+                playAlarm();
                 switchMode();
             } else {
                 currentMinutes--;

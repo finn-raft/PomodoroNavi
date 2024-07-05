@@ -1,0 +1,74 @@
+/* 共通レイアウト */
+body {
+    background-color: #419DC4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+/* ヘッダー */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #0073e6;
+    font-family: 'Pray', sans-serif;
+    color: #fff;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.header-left h1 {
+    margin: 0;
+    font-weight: bold;
+    color: #fff;
+    text-decoration: none;
+}
+
+.header-left a:hover {
+    text-decoration: none;
+}
+
+.header-right a {
+    margin-left: 15px;
+    font-size: 20px;
+    color: #fff;
+    text-decoration: none;
+}
+
+.header-right a:hover {
+    opacity: 0.7;
+}
+
+/* フッター */
+footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #0073e6;
+    font-family: 'Pray', sans-serif;
+    font-size: 14px;
+    color: #fff;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.footer-links a {
+    margin-right: 15px;
+    color: #fff;
+    text-decoration: none;
+}
+
+.footer-links a:hover {
+    opacity: 0.7;
+}
+
+.footer-copyright {
+    text-align: right;
+}

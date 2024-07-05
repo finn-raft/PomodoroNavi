@@ -1,0 +1,60 @@
+/* タイマー表示部 */
+.timer-container {
+    font-family: 'Pray', sans-serif;
+    border: 6px solid #fff;
+    padding: 20px; /* タイマー表示部の枠の中の間隔を指定 */
+    margin: 0 auto; /* タイマー表示部を真ん中に固定 */
+    text-align: center; /* タイマーのカウントダウン文字を枠の真ん中に固定 */
+    border-radius: 10px; /* タイマー表示部の枠角の丸みを指定 */
+    width: 350px; /* タイマー表示部の枠サイズを指定 */
+}
+
+#timer {
+    font-size: 60px;
+    color: #fff;
+    letter-spacing: 6px; /* タイマーのカウントダウン文字の間隔を指定 */
+    margin: 20px 0;
+}
+
+#status {
+    font-size: 20px; /* タイマーの「作業中(休憩中)」の文字サイズを指定 */
+    color: #fff;
+}
+
+.controls {
+    text-align: center;
+}
+
+.controls button {
+    font-family: 'Pray', sans-serif;
+    font-size: 28px; /* Start(End)ボタンのサイズを指定 */
+    background: transparent; /* 背景を透過 */
+    color: #fff;
+    border: 3px solid #fff;
+    padding: 10px 20px;
+    margin: 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.controls button:hover {
+    opacity: 0.7;
+}
+
+/* ナビメッセージ表示部 */
+.navi-container {
+    font-family: 'Pray', sans-serif;
+    font-size: 15px;
+    color: #fff;
+    width: 800px;
+}
+
+.navi-message {
+    margin-top: 20px;
+    text-align: left;
+}
+
+.navi-icon img {
+    width: 50px;
+    height: 50px;
+}

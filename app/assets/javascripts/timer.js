@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentSeconds = 0;
     let isWorking = true;
     let timer = null;
+    let startTime = null;
 
     const timerElement = document.getElementById('timer');
     const statusElement = document.getElementById('status');
@@ -16,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const minutes = String(currentMinutes).padStart(2, '0');
         const seconds = String(currentSeconds).padStart(2, '0');
         timerElement.textContent = `${minutes}:${seconds}`;
+        document.title = `PomodoroNavi ${minutes}:${seconds}`; /* ブラウザタブにカウントダウンを表示させる */
     }
 
     function switchMode() {
@@ -28,6 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         currentSeconds = 0;
         isWorking = !isWorking;
+        startTime = new Date();
         updateTimerDisplay();
     }
 
@@ -36,22 +39,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function tick() {
-        if (currentSeconds === 0) {
-            if (currentMinutes === 0) {
-                playAlarm();
-                switchMode();
-            } else {
-                currentMinutes--;
-                currentSeconds = 59;
-            }
+        const now = new Date();
+        const elapsed = Math.floor((now - startTime) / 1000); /* Startを押した現在時間を保存して、その現在時間との差分でカウントダウンする */
+        const totalInitialSeconds = (isWorking ? initialWorkMinutes : initialBreakMinutes) * 60;
+        const remainingSeconds = totalInitialSeconds - elapsed;
+
+        if (remainingSeconds <= 0) {
+            playAlarm();
+            switchMode();
         } else {
-            currentSeconds--;
+            currentMinutes = Math.floor(remainingSeconds / 60);
+            currentSeconds = remainingSeconds % 60;
+            updateTimerDisplay();
         }
-        updateTimerDisplay();
     }
 
     function startTimer() {
         if (timer === null) {
+            startTime = new Date();
             timer = setInterval(tick, 1000);
             startStopButton.textContent = 'Stop';
             statusElement.textContent = isWorking ? '作業中' : '休憩中';

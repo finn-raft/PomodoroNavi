@@ -4,28 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pomodoro Navi</title>
-    <%= stylesheet_link_tag 'styles', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'top', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'timer', media: 'all', 'data-turbolinks-track': 'reload' %>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Pomodoro Navi</h1>
-            <div class="auth">
-                <a href="#">Login</a>
-                <a href="#">SignUp</a>
-            </div>
-        </header>
-        <main>
+    <main>
         <div class="timer-container">
-                <span id="timer">25:00</span>
-                <div id="status"></div>
+            <span id="timer">25:00</span>
+            <div id="status"></div>
         </div>
             <div class="controls">
                 <button id="start-stop">Start</button>
                 <button id="end">End</button>
             </div>
-            <div class="message">
-                <div class="cat-icon">
+        <div class="navi-container">
+            <div class="navi-message">
+                <div class="navi-icon">
                     <img src="<%= asset_path 'cat.png' %>" alt="ニャビ">
                 </div>
                 <br>
@@ -35,13 +29,8 @@
                 登録するとナビの設定やレポート機能が使えるようになるニャ。<br>
                 それまではニャビが貴方のナビをしますのニャ。</p>
             </div>
-        </main>
-        <footer>
-            <a href="#">利用規約</a>
-            <a href="#">プライバシーポリシー</a>
-            <a href="#">お問い合わせ</a>
-        </footer>
-    </div>
+        </div>
+    </main>
     <audio id="alarm-sound" src="<%= Rails.env.development? ? '/assets/alarm.mp3' : asset_path('alarm.mp3') %>"></audio>
     <%= javascript_include_tag 'timer', 'data-turbolinks-track': 'reload' %>
 </body>

@@ -8,6 +8,7 @@
     <%= stylesheet_link_tag 'timer', media: 'all', 'data-turbolinks-track': 'reload' %>
 </head>
 <body>
+<audio id="alarm-sound" src="<%= Rails.env.development? ? '/assets/alarm.mp3' : asset_path('alarm.mp3') %>"></audio>
     <main>
         <div class="timer-container">
             <span id="timer">25:00</span>
@@ -31,7 +32,5 @@
             </div>
         </div>
     </main>
-    <audio id="alarm-sound" src="<%= Rails.env.development? ? '/assets/alarm.mp3' : asset_path('alarm.mp3') %>"></audio>
-    <%= javascript_include_tag 'timer', 'data-turbolinks-track': 'reload' %>
 </body>
 </html>

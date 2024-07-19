@@ -6,6 +6,7 @@
     <title>Pomodoro Navi</title>
     <%= stylesheet_link_tag 'top', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_link_tag 'timer', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'navi_message', media: 'all', 'data-turbolinks-track': 'reload' %>
 </head>
 <body>
 <audio id="alarm-sound" src="<%= Rails.env.development? ? '/assets/alarm.mp3' : asset_path('alarm.mp3') %>"></audio>
@@ -19,18 +20,24 @@
                 <button id="end">End</button>
             </div>
         <div class="navi-container">
+            <div class="navi-icon">
+                <img src="<%= asset_path 'cat.png' %>" alt="ニャビ">
+                <p id="navi-name">ニャビ</p>
+            </div>
             <div class="navi-message">
-                <div class="navi-icon">
-                    <img src="<%= asset_path 'cat.png' %>" alt="ニャビ">
-                </div>
-                <br>
-                <p>PomodoroNaviにいらっしゃいニャ！<br>
+                PomodoroNaviにいらっしゃいニャ！<br>
                 初めての方は画面右上のSignupからお名前とナビを登録してくださいニャ！<br>
                 登録しなくてもタイマーとその設定（画面右上の歯車アイコン）を使うことはできるのニャ。<br>
                 登録するとナビの設定やレポート機能が使えるようになるニャ。<br>
-                それまではニャビが貴方のナビをしますのニャ。</p>
+                それまではニャビが貴方のナビをしますのニャ。
             </div>
         </div>
+        <form id="usermessage_form">
+            <input type="text" id="user_input" placeholder="ナビにメッセージを送る（例：ポモドーロタイマーの使い方は？）">
+            <button id="user_input_button">
+                <img src="<%= asset_path 'navichat.png' %>" alt="送信">
+            </button>
+        </form>
     </main>
 </body>
 </html>

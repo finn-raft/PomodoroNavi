@@ -35,6 +35,9 @@ gem 'sassc-rails'
 # turbolinks を使用
 gem 'turbolinks', '~> 5'
 
+# OpenAI を使用
+gem 'ruby-openai'
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 

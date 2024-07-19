@@ -34,27 +34,9 @@
     padding: 10px 20px;
     margin: 20px;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 10px;
 }
 
 .controls button:hover {
     opacity: 0.7;
-}
-
-/* ナビメッセージ表示部 */
-.navi-container {
-    font-family: 'Pray', sans-serif;
-    font-size: 15px;
-    color: #fff;
-    width: 800px;
-}
-
-.navi-message {
-    margin-top: 20px;
-    text-align: left;
-}
-
-.navi-icon img {
-    width: 50px;
-    height: 50px;
 }

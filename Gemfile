@@ -29,6 +29,9 @@ gem "cssbundling-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
+# bootstrapを使用
+gem 'bootstrap', '~> 5.1'
+
 # SCSS を使用
 gem 'sassc-rails'
 
@@ -37,6 +40,9 @@ gem 'turbolinks', '~> 5'
 
 # OpenAI を使用
 gem 'ruby-openai'
+
+# .env ファイルを使用
+gem 'dotenv-rails', groups: [:development, :test]
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"

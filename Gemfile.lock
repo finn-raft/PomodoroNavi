@@ -77,11 +77,16 @@ GEM
       tzinfo (~> 2.0)
     addressable (2.8.6)
       public_suffix (>= 2.0.2, < 6.0)
+    autoprefixer-rails (10.4.19.0)
+      execjs (~> 2)
     base64 (0.2.0)
     bigdecimal (3.1.8)
     bindex (0.8.1)
     bootsnap (1.18.3)
       msgpack (~> 1.2)
+    bootstrap (5.3.3)
+      autoprefixer-rails (>= 9.1.0)
+      popper_js (>= 2.11.8, < 3)
     builder (3.3.0)
     capybara (3.40.0)
       addressable
@@ -101,9 +106,14 @@ GEM
     debug (1.9.2)
       irb (~> 1.10)
       reline (>= 0.3.8)
+    dotenv (3.1.7)
+    dotenv-rails (3.1.7)
+      dotenv (= 3.1.7)
+      railties (>= 6.1)
     drb (2.2.1)
     erubi (1.12.0)
     event_stream_parser (1.0.0)
+    execjs (2.10.0)
     faraday (2.10.0)
       faraday-net_http (>= 2.0, < 3.2)
       logger
@@ -162,6 +172,7 @@ GEM
     nokogiri (1.16.5-x86_64-linux)
       racc (~> 1.4)
     pg (1.5.6)
+    popper_js (2.11.8)
     psych (5.1.2)
       stringio
     public_suffix (5.0.5)
@@ -272,13 +283,16 @@ GEM
 PLATFORMS
   aarch64-linux
   arm64-darwin-23
+  arm64-darwin-24
   x86_64-linux
 
 DEPENDENCIES
   bootsnap
+  bootstrap (~> 5.1)
   capybara
   cssbundling-rails
   debug
+  dotenv-rails
   jbuilder
   jsbundling-rails
   pg (~> 1.1)

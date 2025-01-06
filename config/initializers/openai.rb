@@ -1,3 +1,4 @@
+require 'dotenv/rails-now'
 require 'openai'
 
 OpenAI.configure do |config|

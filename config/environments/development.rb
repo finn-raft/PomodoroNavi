@@ -62,6 +62,15 @@ Rails.application.configure do
   # Suppress logger output for asset requests.
   config.assets.quiet = true
 
+  # 開発環境でのアセットのプリコンパイル
+  Rails.application.configure do
+    # アセットの動的コンパイルを有効にする
+    config.assets.compile = true
+  
+    # node_modules ディレクトリをアセットパスに追加
+    config.assets.paths << Rails.root.join('node_modules')
+  end
+
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
 

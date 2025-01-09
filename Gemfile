@@ -44,6 +44,9 @@ gem 'ruby-openai'
 # .env ファイルを使用
 gem 'dotenv-rails', groups: [:development, :test]
 
+# devise を使用(ユーザー認証)
+gem "devise"
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 

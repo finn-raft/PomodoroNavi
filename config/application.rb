@@ -29,5 +29,8 @@ module PomodoroNavi
       g.helper false
       g.test_framework nil
     end
+
+    # ロケールを日本語化
+    config.i18n.default_locale = :ja
   end
 end

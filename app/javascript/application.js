@@ -1,4 +1,5 @@
 // Entry point for the build script in your package.json
+//= require jquery.turbolinks
 //= require turbolinks
 //= require navi
 import "@hotwired/turbo-rails"

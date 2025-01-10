@@ -37,6 +37,7 @@ gem 'sassc-rails'
 
 # turbolinks を使用
 gem 'turbolinks', '~> 5'
+gem 'jquery-turbolinks'
 
 # OpenAI を使用
 gem 'ruby-openai'

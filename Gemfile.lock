@@ -142,6 +142,9 @@ GEM
     jbuilder (2.12.0)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
+    jquery-turbolinks (2.1.0)
+      railties (>= 3.1.0)
+      turbolinks
     jsbundling-rails (1.3.0)
       railties (>= 6.0.0)
     logger (1.6.0)
@@ -308,6 +311,7 @@ DEPENDENCIES
   devise
   dotenv-rails
   jbuilder
+  jquery-turbolinks
   jsbundling-rails
   pg (~> 1.1)
   puma (>= 5.0)

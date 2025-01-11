@@ -25,11 +25,18 @@
                 <p id="navi-name">ニャビ</p>
             </div>
             <div class="navi-message" id="navi-message">
+
+                <% if notice %>
+                  <p class="notice"><%= notice %></p>
+                <% elsif alert %>
+                  <p class="alert"><%= alert %></p>
+                <% end %>
+
                 PomodoroNaviにいらっしゃいニャ！<br>
-                初めての方は画面右上のSignupからお名前とナビを登録してくださいニャ！<br>
-                登録しなくてもタイマーとその設定（画面右上の歯車アイコン）を使うことはできるのニャ。<br>
-                登録するとナビの設定やレポート機能が使えるようになるニャ。<br>
-                それまではニャビが貴方のナビをしますのニャ。
+                ただいまポモドーロタイマー機能と、ニャビにメッセージを送る機能をご利用いただけますニャ！<br>
+                ただアプリ内でページ遷移するとタイマーとニャビが動かなくなるので、その際はリロードしてくださいニャ！<br>
+                ご不便をおかけして申し訳ないニャ…そのうち直すので待ってほしいニャ。<br>
+
             </div>
         </div>
         <form id="usermessage_form">
@@ -39,13 +46,5 @@
             </button>
         </form>
     </main>
-    <script>
-    // aタグでなくonclickの使用でTOPページ遷移後もJavaScriptが動作するようにする
-        document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('home-link-js').onclick = function() {
-            window.location.href = '<%= root_path %>';
-        };
-    });
-    </script>
 </body>
 </html>

@@ -4,6 +4,7 @@
 //= require turbolinks
 //= require_tree .
 //= require navi
+//= require timer
 import "@hotwired/turbo-rails"
 import "./controllers"
 import Turbolinks from "turbolinks"

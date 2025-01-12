@@ -1,0 +1,88 @@
+/* フォームを使用するページの共通レイアウト */
+.formpage-title {
+    font-size: 56px; /* タイトルのフォントサイズ */
+    color: #fff; /* タイトルの文字色 */
+    text-align: center; /* タイトルを中央揃え */
+    margin-bottom: 0px; /* タイトルとフォームの間隔を空ける */
+}
+
+/* フォームのスタイル */
+.formpage-field {
+    border: 1px solid #fff; /* フォームの枠線 */
+    margin-top: 0px; /* フォームの上の余白 */
+    margin-bottom: 30px; /* フォームの下の余白 */
+}
+
+.formpage-field input {
+    width: 500px; /* フォームの横幅 */
+    padding: 10px; /* フォームの余白 */
+    font-size: 14px; /* フォームの文字サイズ */
+    color: #000; /* フォームの文字色 */
+    opacity: 0.5; /* フォームの透明度を下げる */
+}
+
+/* フォームの動作ボタン */
+
+.formpage-actions {
+    text-align: center; /* 水平で真ん中に寄せる */
+}
+
+.formpage-actions input {
+    width: 300px; /* 送信ボタンの横幅 */
+    color: #fff; /* ボタンの文字色 */
+    border: 1px solid #fff; /* ボタンの枠線 */
+    border-radius: 10px; /* ボタンの角を丸くする */
+    padding: 5px 10px; /* ボタンの余白 */
+    font-size: 20px; /* ボタンの文字サイズ */
+    cursor: pointer; /* マウスを重ねた時にカーソルを変更 */
+    background-color: rgba(255, 255, 255, 0.1); /* 白色で10%透過 */
+    margin-top: 10px;
+}
+
+.formpage-actions input:hover {
+    opacity: 0.5;
+}
+
+/* アラート表示部 */
+p.notice, p.alert {
+    font-size: 14px; /* アラートメッセージのフォントサイズ */
+    text-align: center; /* アラートメッセージを中央揃え */
+}
+
+p.alert {
+    color: #be1604; /* エラーメッセージの赤色 */
+}
+
+p.notice {
+    color: #2ecc71; /* 成功メッセージの緑色 */
+}
+
+.error_message {
+    color: #be1604; /* エラーメッセージの赤色 */
+    font-size: 14px; /* エラーメッセージのフォントサイズ */
+    list-style: none; /* デフォルトのリストスタイルを削除 */
+    margin-left: 15%; /* エラーメッセージの文字を右にずらす */
+}
+
+/* リンク */
+a {
+    text-decoration: none; /* リンクの下線を消す */
+    color: #fff; /* リンクの文字色 */
+}
+
+a:hover {
+    opacity: 0.7; /* マウスを重ねた時に透明度を下げる */
+}
+
+/* ここから下は各フォーム使用ページごとのスタイル */
+
+/* ログインページ(app/views/devise/sessions/new.html.erb) */
+.login-new-html-erb-center {
+    text-align: center; /* 水平中央寄せ */
+}
+
+/* パスワード申請ページ(app/views/devise/passwords/new.html.erb) */
+.forgot-password-reset-message {
+    color: #fff;
+    text-align: center; /* メッセージを中央揃え */
+}

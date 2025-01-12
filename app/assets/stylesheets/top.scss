@@ -1,12 +1,14 @@
 /* 共通レイアウト */
 body {
-    background-color: #419DC4;
-    display: flex;
-    justify-content: center;
+    background-color: #419DC4; /* 背景色 */
+    font-family: 'Play', sans-serif; /* フォント */
+    color: #fff; /* フォントカラー */
+    display: flex; /* 要素を横並びにする */
+    justify-content: center; /* 要素を中央揃え */
     align-items: center;
-    height: 100vh;
-    margin: 0;
-    user-select: none;
+    height: 100vh; /* 画面の高さいっぱいに表示 */
+    margin: 0; /* 余白をなくす */
+    user-select: none; /* テキストの選択を禁止 */
 }
 
 /* ヘッダー */
@@ -16,7 +18,6 @@ header {
     align-items: center;
     padding: 20px;
     background-color: #0073e6;
-    font-family: 'Pray', sans-serif;
     color: #fff;
     position: fixed;
     top: 0;
@@ -52,7 +53,6 @@ footer {
     align-items: center;
     padding: 10px 20px;
     background-color: #0073e6;
-    font-family: 'Pray', sans-serif;
     font-size: 14px;
     color: #fff;
     position: fixed;

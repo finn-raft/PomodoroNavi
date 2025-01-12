@@ -1,6 +1,7 @@
 //= link_tree ../images
 //= link_tree ../builds
 //= link top.css
+//= link formpage.css
 //= link timer.css
 //= link navi_message.css
 //= link timer.js

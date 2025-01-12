@@ -5,21 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log In - Pomodoro Navi</title>
     <%= stylesheet_link_tag 'top', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'formpage', media: 'all', 'data-turbolinks-track': 'reload' %>
 </head>
 <body>
     <main>
-        <h1>Login</h1><br>
+        <div class="formpage-title">Login</div><br>
 
         <%= form_with(model: resource, url: session_path(resource_name), local: true) do |f| %>
-          <div class="field">
+          <div class="formpage-field">
             <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "メールアドレス" %>
-          </div><br>
+          </div>
 
-          <div class="field">
+          <div class="formpage-field">
             <%= f.password_field :password, autocomplete: "current-password", placeholder: "パスワード" %>
-          </div><br>
+          </div>
 
-          <div class="actions">
+          <div class="formpage-actions">
             <%= f.submit "ログイン" %>
           </div><br>
         <% end %>

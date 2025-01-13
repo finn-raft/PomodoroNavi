@@ -10,9 +10,22 @@ Rails.application.configure do
   # アセットのダイジェストを有効にする
   config.assets.digest = true
 
+  # アセットのデバッグを有効にする
+  config.assets.debug = true
+
   # アセットのプリコンパイル
   config.assets.compile = false
 
   # アセットのプリコンパイルパス
-  config.assets.precompile += %w( application.js application.css )
+  config.assets.precompile += %w(
+    application.js
+    timer.js
+    navi.js
+    application.css
+    top.css
+    formpage.css
+    timer.css
+    navi_message.css
+    audios/alarm.mp3
+  )
 end

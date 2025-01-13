@@ -37,7 +37,7 @@ gem 'sassc-rails'
 
 # turbolinks を使用
 gem 'turbolinks', '~> 5'
-gem 'jquery-turbolinks'
+gem 'jquery-turbolinks', '~> 2.1.0'
 
 # OpenAI を使用
 gem 'ruby-openai'
@@ -47,6 +47,9 @@ gem 'dotenv-rails', groups: [:development, :test]
 
 # devise を使用(ユーザー認証)
 gem "devise"
+
+# 利用規約、プライバシーポリシーのページなどを簡単に作成
+gem 'high_voltage'
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"

@@ -2,10 +2,10 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: postgres
-  password: <%= ENV['POMODORO_NAVI_DATABASE_PASSWORD'] %>
-  host: db
-  port: 5432
+  username: <%= ENV['DB_USERNAME'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
+  host: <%= ENV['DB_HOST'] %>
+  port: <%= ENV['DB_PORT'] %>
 
 development:
   <<: *default
@@ -17,5 +17,4 @@ test:
 
 production:
   <<: *default
-  database: pomodoronavi_db_production
-  url: <%= ENV['POMODORO_NAVI_DATABASE_URL'] %>
+  url: <%= ENV['DATABASE_URL'] %>

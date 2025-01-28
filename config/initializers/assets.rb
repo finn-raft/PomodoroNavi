@@ -18,6 +18,7 @@ Rails.application.config.assets.precompile += %w(
     application.js
     timer.js
     navi.js
+    icon_preview.js
     application.css
     top.css
     formpage.css

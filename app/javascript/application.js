@@ -5,6 +5,7 @@
 //= require_tree .
 //= require navi
 //= require timer
+//= require icon_preview
 import "@hotwired/turbo-rails"
 import "./controllers"
 import Turbolinks from "turbolinks"

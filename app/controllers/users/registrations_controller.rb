@@ -52,7 +52,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # ユーザー登録をした後のリダイレクト先を指定
   def after_sign_up_path_for(resource)
-    root_path
+    new_navi_character_path
   end
 
   # ユーザー情報を編集した後のリダイレクト先を指定

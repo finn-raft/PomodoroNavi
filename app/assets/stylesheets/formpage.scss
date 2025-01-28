@@ -21,6 +21,20 @@
     opacity: 0.5; /* フォームの透明度を下げる */
 }
 
+.formpage-textarea {
+    margin-top: 0px; /* フォームの上の余白 */
+    margin-bottom: 30px; /* フォームの下の余白 */
+}
+
+.formpage-textarea textarea {
+    border: 1px solid #fff; /* フォームの枠線 */
+    width: 500px; /* フォームの横幅 */
+    padding: 10px; /* フォームの余白 */
+    font-size: 14px; /* フォームの文字サイズ */
+    color: #000; /* フォームの文字色 */
+    opacity: 0.5; /* フォームの透明度を下げる */
+}
+
 /* フォームの動作ボタン */
 
 .formpage-actions {

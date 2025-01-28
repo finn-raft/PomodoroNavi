@@ -6,4 +6,5 @@
 //= link navi_message.css
 //= link timer.js
 //= link navi.js
+//= link icon_preview.js
 //= link alarm.mp3

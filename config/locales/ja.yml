@@ -26,8 +26,16 @@ ja:
         unconfirmed_email: 未確認Eメール
         unlock_token: ロック解除用トークン
         updated_at: 更新日
+      navi_character:
+        name: ナビの名前
+        first_person_pronoun: ナビの一人称
+        second_person_pronoun: ナビのあなたの呼び方
+        description: ナビの特徴
+        icon_url: ナビのアイコン画像
+        user_id: このアカウント
     models:
       user: ユーザー
+      navi_character: ナビキャラクター
   devise:
     confirmations:
       confirmed: メールアドレスが確認できました。

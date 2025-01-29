@@ -51,6 +51,9 @@ gem "devise"
 # 利用規約、プライバシーポリシーのページなどを簡単に作成
 gem 'high_voltage'
 
+# 画像のアップロード機能を実装
+gem 'carrierwave'
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 

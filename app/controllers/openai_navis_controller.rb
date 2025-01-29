@@ -1,9 +1,10 @@
 class OpenaiNavisController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:respond] # CSRFトークンを無効にする場合
+  before_action :set_navi_character, only: [:respond]
 
   def respond
     user_input = permitted_params[:user_input]
-    response_text = get_openai_response(user_input)
+    response_text = get_openai_response(user_input, @navi_character)
 
     if response_text
       render json: { text: response_text }
@@ -20,15 +21,24 @@ class OpenaiNavisController < ApplicationController
     params.require(:openai_navi).permit(:user_input)
   end
 
-  def get_openai_response(user_input)
+  def set_navi_character
+    @navi_character = current_user&.navi_characters&.first || NaviCharacter.default
+  end
+
+  def get_openai_response(user_input, navi_character)
     api_key = ENV['OPENAI_ACCESS_TOKEN']
     client = OpenAI::Client.new(access_token: api_key)
+
+    system_message = {
+      role: "system",
+      content: "あなたは「#{navi_character.name}」という名前で、ユーザーのことが大好きなナビキャラクターです。一人称は「#{navi_character.first_person_pronoun}」。ユーザーを「#{navi_character.second_person_pronoun}」と呼びます。#{navi_character.description}"
+    }
 
     response = client.chat(
       parameters: {
         model: "gpt-3.5-turbo",
         messages: [
-          { role: "system", content: "あなたは「ニャビ」という名前で、ユーザーのナビキャラクターです。一人称は「ワガハイ」。ユーザーを「ご主人」と呼ぶ。礼儀正しい敬語口調で語尾は「ニャ」。" },
+          system_message,
           { role: "user", content: user_input }
         ]
       }

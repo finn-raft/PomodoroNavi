@@ -12,11 +12,11 @@
     <main>
       <h2>ナビキャラクター登録</h2><br>
         あなたのナビの情報を登録しましょう！<br>
-        後からマイページ（右上の人物アイコン）で変更もできます。<br>
-        ※ スキップするとニャビが引き続きナビを務めます<br><br><br>
+        後からマイページ（右上の人物アイコン）で登録・変更もできます。<br>
+        ※ 登録をスキップすると「ニャビ」が引き続きナビを務めます<br><br><br>
 
     <%= form_with model: @navi_character, local: true do |f| %>
-    
+
       <%= f.label :name, "名前" %><br>
       <div class="formpage-field">
         <%= f.text_field :name, autocomplete: "name", placeholder: "（例）ニャビ" %>
@@ -32,7 +32,7 @@
         <%= f.text_field :second_person_pronoun, autocomplete: "second_person_pronoun", placeholder: "（例）ご主人" %>
       </div>
 
-      <%= f.label :description, "特徴" %>
+      <%= f.label :description, "特徴（任意）" %>
       <div class="formpage-textarea">
         <%= f.text_area :description, autocomplete: "description", placeholder: "（例）語尾は「ニャ」。性別はオス。ご主人には礼儀正しい敬語口調。", rows: 6 %>
       </div>
@@ -45,7 +45,9 @@
 
         <div class="formpage-actions">
           <%= f.submit "登録" %>
-        </div>
+        </div><br>
+
+        <div class="error_message"><%= render 'shared/error_messages', model: @navi_character %></div>
         <% end %>
     </main>
 </body>

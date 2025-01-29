@@ -20,10 +20,15 @@
                 <button id="end">End</button>
             </div>
         <div class="navi-container">
-            <div class="navi-icon">
-                <img src="<%= asset_path 'cat.png' %>" alt="ニャビ">
-                <p id="navi-name">ニャビ</p>
-            </div>
+        <div class="navi-icon">
+          <% if @navi_character %>
+            <%= image_tag @navi_character.icon_url.url, alt: @navi_character.name %>
+            <p id="navi-name"><%= @navi_character.name %></p>
+          <% else %>
+            <%= image_tag 'cat.png', alt: 'ニャビ' %>
+            <p id="navi-name">ニャビ</p>
+          <% end %>
+        </div>
             <div class="navi-message" id="navi-message">
 
                 <% if notice %>

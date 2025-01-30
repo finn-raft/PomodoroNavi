@@ -19,7 +19,7 @@
 
       <%= f.label :name, "名前" %><br>
       <div class="formpage-field">
-        <%= f.text_field :name, autocomplete: "name", placeholder: "（例）ニャビ" %>
+        <%= f.text_field :name, autofocus: true, autocomplete: "name", placeholder: "（例）ニャビ" %>
       </div>
 
       <%= f.label :first_person_pronoun, "一人称" %>
@@ -46,9 +46,9 @@
         <div class="formpage-actions">
           <%= f.submit "登録" %>
         </div><br>
+        <% end %>
 
         <div class="error_message"><%= render 'shared/error_messages', model: @navi_character %></div>
-        <% end %>
     </main>
 </body>
 </html>

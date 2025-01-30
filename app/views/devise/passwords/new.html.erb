@@ -18,7 +18,6 @@
         </div>
 
         <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-          <%= render "devise/shared/error_messages", resource: resource %>
 
           <div class="formpage-field">
             <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "メールアドレス" %>
@@ -26,9 +25,10 @@
 
           <div class="formpage-actions">
             <%= f.submit "送信" %>
-          </div>
+          </div><br>
         <% end %>
 
+        <div class="error_message"><%= render 'shared/error_messages', model: resource %></div>
         <%= render "devise/shared/links" %>
     </main>
 </body>

@@ -54,6 +54,10 @@ gem 'high_voltage'
 # 画像のアップロード機能を実装
 gem 'carrierwave'
 
+# 画像のアップロード先をAWS S3に設定
+gem "aws-sdk-s3"
+gem "fog-aws"
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 

@@ -68,7 +68,7 @@ p.alert {
 }
 
 p.notice {
-    color: #2ecc71; /* 成功メッセージの緑色 */
+    color: #00963f; /* 成功メッセージの緑色 */
 }
 
 .error_message {
@@ -95,7 +95,7 @@ a:hover {
     text-align: center; /* 水平中央寄せ */
 }
 
-/* パスワード申請ページ(app/views/devise/passwords/new.html.erb) */
+/* パスワード申請・再設定ページ(app/views/devise/passwords/new.html.erb) */
 .forgot-password-reset-message {
     color: #fff;
     text-align: center; /* メッセージを中央揃え */

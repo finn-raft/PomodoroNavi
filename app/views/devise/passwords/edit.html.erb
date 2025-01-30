@@ -1,25 +1,39 @@
-<h2>Change your password</h2>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro Navi - パスワード再設定</title>
+    <%= stylesheet_link_tag 'top', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'formpage', media: 'all', 'data-turbolinks-track': 'reload' %>
+</head>
+<body>
+    <main>
+      <div class="formpage-title">パスワード再設定</div><br>
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-  <%= f.hidden_field :reset_password_token %>
+        <div class="forgot-password-reset-message">
+          新しいパスワードをご入力ください。<br><br>
+          <b>メールアドレス : <%= resource.email %></b><br><br>
+        </div>
 
-  <div class="field">
-    <%= f.label :password, "New password" %><br />
-    <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em><br />
-    <% end %>
-    <%= f.password_field :password, autofocus: true, autocomplete: "new-password" %>
-  </div>
+        <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+          <%= f.hidden_field :reset_password_token %>
 
-  <div class="field">
-    <%= f.label :password_confirmation, "Confirm new password" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
+        <div class="formpage-field">
+          <%= f.password_field :password, autofocus: true, autocomplete: "new-password", placeholder: "パスワード" %>
+        </div>
 
-  <div class="actions">
-    <%= f.submit "Change my password" %>
-  </div>
-<% end %>
+        <div class="formpage-field">
+          <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "もう一度同じパスワードをご入力ください" %>
+        </div>
 
-<%= render "devise/shared/links" %>
+          <div class="formpage-actions">
+            <%= f.submit "パスワードを再設定" %>
+          </div><br>
+        <% end %>
+
+        <div class="error_message"><%= render 'shared/error_messages', model: resource %></div>
+        <%= render "devise/shared/links" %>
+    </main>
+</body>
+</html>

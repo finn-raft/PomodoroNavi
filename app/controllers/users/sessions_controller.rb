@@ -25,14 +25,14 @@ class Users::SessionsController < Devise::SessionsController
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
   # end
 
-  #ログイン後のリダイレクト先を指定する
-  def after_sign_in_path_for(resource)
+  # ログイン後のリダイレクト先を指定する
+  def after_sign_in_path_for(_resource)
     session[:loading_shown] = false
     root_path
   end
 
-  #ログアウト後のリダイレクト先を指定する
-  def after_sign_out_path_for(resource_or_scope)
+  # ログアウト後のリダイレクト先を指定する
+  def after_sign_out_path_for(_resource_or_scope)
     session[:loading_shown] = false
     root_path
   end

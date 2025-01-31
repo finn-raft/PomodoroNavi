@@ -51,13 +51,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   # ユーザー登録をした後のリダイレクト先を指定
-  def after_sign_up_path_for(resource)
+  def after_sign_up_path_for(_resource)
     session[:loading_shown] = false
     new_navi_character_path
   end
 
   # ユーザー情報を編集した後のリダイレクト先を指定
-  def after_inactive_sign_up_path_for(resource)
+  def after_inactive_sign_up_path_for(_resource)
     session[:loading_shown] = false
     root_path
   end

@@ -1,25 +1,25 @@
 class UsersController < ApplicationController
-  #before_action :set_user, only: %i[ show edit update destroy ]
+  # before_action :set_user, only: %i[ show edit update destroy ]
 
-  #def index
+  # def index
   #  @users = User.all
-  #end
+  # end
 
   def show
     @user = User.find(params[:id])
   end
 
-  #def new
+  # def new
   #  @user = User.new
-  #end
+  # end
 
-  #def edit
-  #end
+  # def edit
+  # end
 
-  #def create
-  #end
+  # def create
+  # end
 
-  #def update
+  # def update
   #  respond_to do |format|
   #    if @user.update(user_params)
   #      format.html { redirect_to user_url(@user), notice: "User was successfully updated." }
@@ -29,7 +29,7 @@ class UsersController < ApplicationController
   #      format.json { render json: @user.errors, status: :unprocessable_entity }
   #    end
   #  end
-  #end
+  # end
 
   # def destroy
   #   @user.destroy!
@@ -43,7 +43,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    #ストロングパラメータで、名前とメールを受け取ることができるように設定
+    # ストロングパラメータで、名前とメールを受け取ることができるように設定
     params.require(:user).permit(:name, :email)
   end
 end

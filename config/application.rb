@@ -28,6 +28,11 @@ module PomodoroNavi
       g.skip_routes true
       g.helper false
       g.test_framework nil
+      g.test_framework :rspec,
+        fixtures: false, # テストDBにレコードを作るfixtureの作成をスキップ(FactoryBotを使用するため)
+        view_specs: false, # ビューファイル用のスペックを作成しない
+        helper_specs: false, # ヘルパーファイル用のスペックを作成しない
+        routing_specs: false # routes.rb用のスペックファイル作成しない
     end
 
     # ロケールを日本語化

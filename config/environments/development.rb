@@ -42,7 +42,7 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     address: 'smtp.gmail.com',
     port: 587,
-    domain: 'localhost', 
+    domain: 'localhost',
     user_name: ENV['MAILER_SENDER'],
     password: ENV['MAILER_PASSWORD'],
     authentication: 'plain',
@@ -79,7 +79,7 @@ Rails.application.configure do
   Rails.application.configure do
     # アセットの動的コンパイルを有効にする
     config.assets.compile = true
-  
+
     # node_modules ディレクトリをアセットパスに追加
     config.assets.paths << Rails.root.join('node_modules')
   end

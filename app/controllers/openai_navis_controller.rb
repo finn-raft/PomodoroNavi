@@ -9,7 +9,7 @@ class OpenaiNavisController < ApplicationController
     if response_text
       render json: { text: response_text }
     else
-      render json: { error: "Failed to get response from OpenAI" }, status: :internal_server_error
+      render json: { error: 'Failed to get response from OpenAI' }, status: :internal_server_error
     end
   rescue StandardError => e
     render json: { error: e.message }, status: :internal_server_error
@@ -26,28 +26,24 @@ class OpenaiNavisController < ApplicationController
   end
 
   def get_openai_response(user_input, navi_character)
-    api_key = ENV['OPENAI_ACCESS_TOKEN']
+    api_key = ENV.fetch('OPENAI_ACCESS_TOKEN', nil)
     client = OpenAI::Client.new(access_token: api_key)
 
     system_message = {
-      role: "system",
+      role: 'system',
       content: "あなたは「#{navi_character.name}」という名前で、ユーザーのことが大好きなナビキャラクターです。一人称は「#{navi_character.first_person_pronoun}」。ユーザーを「#{navi_character.second_person_pronoun}」と呼びます。#{navi_character.description}"
     }
 
     response = client.chat(
       parameters: {
-        model: "gpt-3.5-turbo",
+        model: 'gpt-3.5-turbo',
         messages: [
           system_message,
-          { role: "user", content: user_input }
+          { role: 'user', content: user_input }
         ]
       }
     )
 
-    if response.dig("choices", 0, "message", "content")
-      response.dig("choices", 0, "message", "content")
-    else
-      nil
-    end
+    response.dig('choices', 0, 'message', 'content') || nil
   end
 end

@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("turbolinks:load", function() {
     const iconUpload = document.getElementById("icon-upload-js");
     const iconPreview = document.getElementById("icon-preview-js");
 

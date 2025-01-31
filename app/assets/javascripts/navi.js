@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener('turbolinks:load', function() {
     const naviMessageDiv = document.getElementById("navi-message");
 
     document.getElementById("usermessage_form").addEventListener("submit", function(event) {

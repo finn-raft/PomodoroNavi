@@ -1,8 +1,8 @@
 <header>
     <div class="header-left">
-        <a href="<%= root_path %>">
-            <h1>Pomodoro Navi</h1>
-        </a>
+      <%= link_to root_path, data: { turbo: false } do %>
+        <h1>Pomodoro Navi</h1>
+      <% end %>
     </div>
     <div class="header-right">
         <%= link_to "Logout", destroy_user_session_path, method: :delete %>

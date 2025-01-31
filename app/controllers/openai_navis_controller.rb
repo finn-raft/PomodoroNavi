@@ -47,7 +47,6 @@ class OpenaiNavisController < ApplicationController
     if response.dig("choices", 0, "message", "content")
       response.dig("choices", 0, "message", "content")
     else
-      logger.error "Invalid response from OpenAI: #{response}"
       nil
     end
   end

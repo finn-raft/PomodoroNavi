@@ -7,6 +7,6 @@ Rails.application.routes.draw do
   resources :navi_characters, only: [:new, :create, :show]
 
   root "staticpages#top"
-  post 'openai_navis/respond', to: 'openai_navis#respond'
+  post 'openai_navis/respond', to: 'openai_navis#respond', as: :openai_navis_respond
   get "up" => "rails/health#show", as: :rails_health_check
 end

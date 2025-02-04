@@ -20,9 +20,27 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # PUT /resource
-  # def update
-  #   super
-  # end
+  def update
+    self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
+    prev_unconfirmed_email = resource.unconfirmed_email if resource.respond_to?(:unconfirmed_email)
+
+    resource_updated = update_resource(resource, account_update_params)
+    yield resource if block_given?
+    if resource_updated
+      if is_flashing_format?
+        flash_key = update_needs_confirmation?(resource, prev_unconfirmed_email) ?
+          :update_needs_confirmation : :updated
+        set_flash_message :notice, flash_key
+      end
+
+      session[:loading_shown] = false
+      redirect_to root_path
+    else
+      clean_up_passwords resource
+      set_minimum_password_length
+      respond_with resource
+    end
+  end
 
   # DELETE /resource
   # def destroy
@@ -54,12 +72,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def after_sign_up_path_for(_resource)
     session[:loading_shown] = false
     new_navi_character_path
-  end
-
-  # ユーザー情報を編集した後のリダイレクト先を指定
-  def after_inactive_sign_up_path_for(_resource)
-    session[:loading_shown] = false
-    root_path
   end
 
   # ユーザー情報を更新する際にパスワードを入力しなくても良いようにする

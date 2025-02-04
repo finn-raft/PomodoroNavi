@@ -1,7 +1,7 @@
 class NaviCharactersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_navi_character, only: [:new, :create]
-  before_action :show_loading, only: [:new]
+  before_action :set_navi_character, only: [:new, :create, :edit, :update]
+  before_action :show_loading, only: [:new , :edit]
 
   def new
     @navi_character = NaviCharacter.new
@@ -14,6 +14,19 @@ class NaviCharactersController < ApplicationController
       redirect_to root_path, notice: 'ナビキャラクターが登録されました。'
     else
       render :new, status: :unprocessable_entity
+    end
+  end
+
+  def edit
+    @navi_character = current_user.navi_characters.first_or_initialize
+  end
+
+  def update
+    if @navi_character.update(navi_character_params)
+      session[:loading_shown] = false
+      redirect_to root_path, notice: 'ナビキャラクターが更新されました。'
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 

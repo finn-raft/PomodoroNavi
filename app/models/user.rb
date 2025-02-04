@@ -7,6 +7,8 @@ class User < ApplicationRecord
   has_many :navi_characters
 
   validates :name, presence: true, length: { maximum: 20 }
+  validates :profile, length: { maximum: 300 }
+  validates :password, presence: true, on: :create # パスワードは新規登録時のみ必須
   # Google認証のためのメソッド
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|

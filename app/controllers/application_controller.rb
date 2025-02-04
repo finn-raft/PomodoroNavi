@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
     # ログイン時に許可するパラメーターを追加
     devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
-    # アカウント更新時に許可するパラメーターを追加
-    devise_parameter_sanitizer.permit(:account_update, keys: [:attribute])
+    # プロフィール更新時に許可するパラメーターを追加
+    devise_parameter_sanitizer.permit(:account_update, keys: [:name, :profile])
   end
 end

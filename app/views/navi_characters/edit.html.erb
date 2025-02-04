@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro Navi - ナビキャラクター登録・更新</title>
+    <%= stylesheet_link_tag 'top', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'formpage', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'icon_preview.js', 'data-turbolinks-track': 'reload', type: "module" %>
+</head>
+<body>
+    <main>
+      <h2>Navi</h2><br>
+
+    <%= form_with model: @navi_character, local: true do |f| %>
+      <%= f.label :name, "名前" %><br>
+      <div class="formpage-field">
+        <%= f.text_field :name, autofocus: true, autocomplete: "name", placeholder: "（例）ニャビ" %>
+      </div>
+
+      <%= f.label :first_person_pronoun, "一人称" %>
+      <div class="formpage-field">
+        <%= f.text_field :first_person_pronoun, autocomplete: "first_person_pronoun", placeholder: "（例）ワガハイ" %>
+      </div>
+
+      <%= f.label :second_person_pronoun, "あなたの呼び方" %>
+      <div class="formpage-field">
+        <%= f.text_field :second_person_pronoun, autocomplete: "second_person_pronoun", placeholder: "（例）ご主人" %>
+      </div>
+
+      <%= f.label :description, "特徴（任意）" %>
+      <div class="formpage-textarea">
+        <%= f.text_area :description, autocomplete: "description", placeholder: "（例）語尾は「ニャ」。性別はオス。ご主人には礼儀正しい敬語口調。", rows: 6 %>
+      </div>
+
+      <%= f.label :icon_url, "アイコン画像" %><br>
+        <%= f.file_field :icon_url, id: "icon-upload-js" %>
+        <div class="icon-preview">
+          <img id="icon-preview-js" src="<%= @navi_character.icon_url %>" alt="Image Preview" style="display: <%= @navi_character.icon_url.present? ? 'block' : 'none' %>; max-width: 120px; max-height: 120px; border-radius: 50%; object-fit: cover; margin-top: 20px;" />
+        </div><br><br>
+
+        <div class="formpage-actions">
+          <%= f.submit "ナビキャラクターを登録・更新" %>
+        </div><br>
+    <% end %>
+
+    <div class="error_message"><%= render 'shared/error_messages', model: @navi_character %></div>
+    </main>
+</body>
+</html>
+<style>
+main {
+    margin: 100px auto; /* 上下左右の中央揃え */
+}
+
+h2 {
+    text-align: center; /* 中央揃え */
+    color: #fff; /* 見出しの色 */
+    font-size: 36px; /* 見出しのサイズ */
+    padding: 20px 0; /* 上の余白 */
+}
+</style>

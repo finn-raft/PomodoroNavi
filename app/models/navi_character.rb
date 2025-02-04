@@ -4,8 +4,8 @@ class NaviCharacter < ApplicationRecord
   validates :name, presence: true
   validates :first_person_pronoun, presence: true
   validates :second_person_pronoun, presence: true
+  validates :description, length: { maximum: 300 }
   validates :icon_url, presence: { message: 'のファイルを添付してください' }
-
   # 同一ユーザーが複数のナビキャラクターを持てないようにするバリデーション
   validate :unique_user_navi_character, on: :create
 

@@ -58,6 +58,12 @@ gem 'carrierwave'
 gem 'aws-sdk-s3'
 gem 'fog-aws'
 
+# Google認証を実装
+gem 'omniauth', '1.9.1'
+gem 'omniauth-google-oauth2'
+gem 'omniauth-rails_csrf_protection'
+gem 'rack-cors'
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 

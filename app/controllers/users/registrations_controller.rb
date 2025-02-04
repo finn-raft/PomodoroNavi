@@ -61,4 +61,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
     session[:loading_shown] = false
     root_path
   end
+
+  # ユーザー情報を更新する際にパスワードを入力しなくても良いようにする
+  def update_resource(resource, params)
+    resource.update_without_password(params)
+  end
 end

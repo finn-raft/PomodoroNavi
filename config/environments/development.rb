@@ -49,6 +49,9 @@ Rails.application.configure do
     enable_starttls_auto: true
   }
 
+  # 192.168.0.0/16 ネットワークからのアクセスを許可
+  config.web_console.allowed_ips = '192.168.0.0/16'
+
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
 

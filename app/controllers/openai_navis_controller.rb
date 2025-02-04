@@ -1,10 +1,10 @@
 class OpenaiNavisController < ApplicationController
-  skip_before_action :verify_authenticity_token, only: [:respond] # CSRFトークンを無効にする場合
+  skip_before_action :verify_authenticity_token, only: [:respond] # CSRFトークンを無効にする
   before_action :set_navi_character, only: [:respond]
 
   def respond
     user_input = permitted_params[:user_input]
-    response_text = get_openai_response(user_input, @navi_character)
+    response_text = get_openai_response(user_input, @navi_character, current_user)
 
     if response_text
       render json: { text: response_text }
@@ -25,13 +25,13 @@ class OpenaiNavisController < ApplicationController
     @navi_character = current_user&.navi_characters&.first || NaviCharacter.default
   end
 
-  def get_openai_response(user_input, navi_character)
+  def get_openai_response(user_input, navi_character, user)
     api_key = ENV.fetch('OPENAI_ACCESS_TOKEN', nil)
     client = OpenAI::Client.new(access_token: api_key)
 
     system_message = {
       role: 'system',
-      content: "あなたは「#{navi_character.name}」という名前で、ユーザーのことが大好きなナビキャラクターです。一人称は「#{navi_character.first_person_pronoun}」。ユーザーを「#{navi_character.second_person_pronoun}」と呼びます。#{navi_character.description}"
+      content: "あなたは「#{navi_character.name}」という名前で、ユーザーのことが大好きなナビキャラクターです。一人称は「#{navi_character.first_person_pronoun}」。ユーザーを「#{navi_character.second_person_pronoun}」と呼びます。#{navi_character.description} ユーザーのプロフィール情報： #{user.profile}"
     }
 
     response = client.chat(

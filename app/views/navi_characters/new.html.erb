@@ -9,11 +9,12 @@
     <%= javascript_include_tag 'icon_preview.js', 'data-turbolinks-track': 'reload', type: "module" %>
 </head>
 <body>
-    <main>
-      <h2>ナビキャラクター登録</h2><br>
+    <main><br><br><br>
+      <div class="formpage-title">Navi Character</div><br><br>
+
         あなたのナビの情報を登録しましょう！<br>
-        後からマイページ（右上の人物アイコン）で登録・変更もできます。<br>
-        ※ 登録をスキップすると「ニャビ」が引き続きナビを務めます<br><br><br>
+        右上の人物アイコンの「Navi」より、後から登録・変更も可能です。<br>
+        ※ 登録が完了するまでは「ニャビ」が引き続きナビを務めます<br><br><br>
 
     <%= form_with model: @navi_character, local: true do |f| %>
 
@@ -44,7 +45,7 @@
         </div><br><br>
 
         <div class="formpage-actions">
-          <%= f.submit "登録" %>
+          <%= f.submit "ナビキャラクターを登録" %>
         </div><br>
         <% end %>
 
@@ -52,15 +53,9 @@
     </main>
 </body>
 </html>
+
 <style>
 main {
     margin: 100px auto; /* 上下左右の中央揃え */
-}
-
-h2 {
-    text-align: center; /* 中央揃え */
-    color: #fff; /* 見出しの色 */
-    font-size: 36px; /* 見出しのサイズ */
-    padding: 20px 0; /* 上の余白 */
 }
 </style>

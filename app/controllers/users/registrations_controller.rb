@@ -3,7 +3,7 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   before_action :configure_sign_up_params, only: [:create]
   before_action :configure_account_update_params, only: [:update]
-
+  before_action :set_navi_character, only: [:edit]
   # GET /resource/sign_up
   # def new
   #   super
@@ -77,5 +77,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # ユーザー情報を更新する際にパスワードを入力しなくても良いようにする
   def update_resource(resource, params)
     resource.update_without_password(params)
+  end
+
+  private
+
+  def set_navi_character
+    @navi_character = current_user.navi_characters.first
   end
 end

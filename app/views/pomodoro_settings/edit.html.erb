@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro Navi - タイマー設定</title>
+    <%= stylesheet_link_tag 'top', media: 'all', 'data-turbolinks-track': 'reload' %>
+</head>
+<body>
+    <main><br><br><br>
+      <div class="formpage-title">タイマー設定</div><br>
+
+    <%= form_with model: @pomodoro_settings, local: true, url: pomodoro_settings_path, method: :patch do |f| %>
+
+      <%= f.label :work_duration, "作業時間" %><br>
+      <div class="formpage-field">
+        <%= f.number_field :work_duration, autofocus: true, autocomplete: "work_duration", placeholder: "25" %>
+      </div>
+
+      <%= f.label :short_break_duration, "休憩時間" %>
+      <div class="formpage-field">
+        <%= f.number_field :short_break_duration, autocomplete: "short_break_duration", placeholder: "5" %>
+      </div>
+
+      <%= f.label :long_break_duration, "長い休憩" %>
+      <div class="formpage-field">
+        <%= f.number_field :long_break_duration, autocomplete: "long_break_duration", placeholder: "15" %>
+      </div>
+
+      <%= f.label :long_break_cycle, "長い休憩のサイクル" %>
+      <div class="formpage-field">
+        <%= f.number_field :long_break_cycle, autocomplete: "long_break_cycle", placeholder: "4" %>
+      </div>
+
+      <div>
+        <%= f.label :auto_start_work, "次の作業タイマーを自動スタート" %>
+        <%= f.check_box :auto_start_work %>
+      </div>
+
+      <div>
+        <%= f.label :auto_start_break, "次の休憩タイマーを自動スタート" %>
+        <%= f.check_box :auto_start_break %>
+      </div>
+
+      <div>
+        <%= f.label :alarm_on, "タイマー終了時のアラームをONにする" %>
+        <%= f.check_box :alarm_on %>
+      </div>
+
+      <div>
+        <%= f.label :background_color, "背景色" %>
+        <%= f.color_field :background_color %>
+      </div>
+
+      <div>
+        <%= f.label :header_footer_color, "ヘッダー・フッターの色" %>
+        <%= f.color_field :header_footer_color %>
+      </div>
+
+      <div class="formpage-actions">
+        <%= f.submit "設定を更新" %>
+      </div><br>
+      <% end %>
+
+    <div class="error_message"><%= render 'shared/error_messages', model: @pomodoro_settings %></div>
+    </main>
+</body>
+</html>
+
+<style>
+
+</style>

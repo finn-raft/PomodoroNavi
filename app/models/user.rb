@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: %i[google_oauth2]
   has_many :navi_characters
+  has_one :pomodoro_setting
 
   validates :name, presence: true, length: { maximum: 20 }
   validates :profile, length: { maximum: 300 }

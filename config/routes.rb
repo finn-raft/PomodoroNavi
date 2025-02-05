@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   end
   resources :users,only: [:show]
   resources :navi_characters, only: [:new, :create, :edit, :update]
+  resource :pomodoro_settings, only: [:edit, :update]
+  get 'default_pomodoro_settings', to: 'pomodoro_settings#show_default' # デフォルトのポモドーロタイマー設定を参照するルーティング
 
   root "staticpages#top"
   post 'openai_navis/respond', to: 'openai_navis#respond', as: :openai_navis_respond

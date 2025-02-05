@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_02_04_212422) do
+ActiveRecord::Schema[7.1].define(version: 2025_02_05_211130) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -24,6 +24,22 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_04_212422) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_navi_characters_on_user_id"
+  end
+
+  create_table "pomodoro_settings", force: :cascade do |t|
+    t.integer "work_duration", default: 25, null: false
+    t.integer "short_break_duration", default: 5, null: false
+    t.integer "long_break_duration", default: 15, null: false
+    t.integer "long_break_cycle", default: 4, null: false
+    t.boolean "auto_start_work", default: true, null: false
+    t.boolean "auto_start_break", default: true, null: false
+    t.boolean "alarm_on", default: true, null: false
+    t.string "background_color", default: "#419DC4", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.string "header_footer_color", default: "#0073e6", null: false
+    t.index ["user_id"], name: "index_pomodoro_settings_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -43,4 +59,5 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_04_212422) do
   end
 
   add_foreign_key "navi_characters", "users"
+  add_foreign_key "pomodoro_settings", "users"
 end

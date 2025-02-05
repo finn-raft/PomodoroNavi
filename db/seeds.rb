@@ -7,3 +7,14 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+PomodoroSetting.create!(
+  work_duration: 25,
+  short_break_duration: 5,
+  long_break_duration: 15,
+  long_break_cycle: 4,
+  auto_start_work: true,
+  auto_start_break: true,
+  alarm_on: true,
+  background_color: "#419DC4",
+  header_footer_color: "#0073e6"
+)

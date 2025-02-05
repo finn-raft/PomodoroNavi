@@ -5,9 +5,49 @@
       <% end %>
     </div>
     <div class="header-right">
-        <%= link_to "Logout", destroy_user_session_path, method: :delete %>
         <a href="#"><img src="<%= asset_path 'report.png' %>"></a>
         <a href="#"><img src="<%= asset_path 'comand.png' %>"></a>
-        <a href="#"><img src="<%= asset_path 'mypage.png' %>"></a>
+      <div class="menu-wrapper">
+        <%= link_to edit_user_registration_path do %>
+          <%= image_tag 'mypage.png' %>
+        <% end %>
+        <ul class="menu-list">
+          <li><%= link_to "Profile", edit_user_registration_path %></li>
+          <% if @navi_character.present? && @navi_character.persisted? %>
+            <li><%= link_to "Navi", edit_navi_character_path(@navi_character), data: { turbo: false } %></li>
+          <% else %>
+            <li><%= link_to "Navi", new_navi_character_path, data: { turbo: false } %></li>
+          <% end %>
+          <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
+        </ul>
+      </div>
     </div>
 </header>
+
+<style>
+.menu-wrapper {
+  position: relative; /* 人物アイコンの下に配置 */
+  display: inline-block; /* インラインブロック要素にする */
+}
+
+.menu-list {
+  display: none; /* メニューリストを非表示 */
+  position: absolute; /* メニューを開いても人物アイコンの位置を変えない */
+  top: 100%; /* 人物アイコンの下に配置 */
+  right: 0; /* 人物アイコンの右端に配置 */
+  border: 1px solid #ddd; /* メニューの枠線 */
+  list-style: none; /* リストのマーカーを非表示 */
+  width: 160px; /* メニューの幅 */
+  z-index: 10; /* メニューを最前面に表示 */
+}
+
+.menu-list a {
+  display: block; /* リンクをブロック要素にする */
+  text-decoration: none; /* リンクの下線を消す */
+  padding: 6px 8px; /* リンクの内側の余白 */
+}
+
+.menu-wrapper:hover .menu-list {
+  display: block; /* マウスオーバー時にメニューリストを表示 */
+}
+</style>

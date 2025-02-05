@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pomodoro Navi - ナビキャラクター登録・更新</title>
+    <title>Pomodoro Navi - ナビキャラクター</title>
     <%= stylesheet_link_tag 'top', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_link_tag 'formpage', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'icon_preview.js', 'data-turbolinks-track': 'reload', type: "module" %>
 </head>
 <body>
-    <main>
-      <h2>Navi</h2><br>
+    <main><br><br><br>
+      <div class="formpage-title">Navi Character</div><br>
 
     <%= form_with model: @navi_character, local: true do |f| %>
       <%= f.label :name, "名前" %><br>
@@ -40,7 +40,7 @@
         </div><br><br>
 
         <div class="formpage-actions">
-          <%= f.submit "ナビキャラクターを登録・更新" %>
+          <%= f.submit "ナビキャラクターを更新" %>
         </div><br>
     <% end %>
 
@@ -48,15 +48,9 @@
     </main>
 </body>
 </html>
+
 <style>
 main {
     margin: 100px auto; /* 上下左右の中央揃え */
-}
-
-h2 {
-    text-align: center; /* 中央揃え */
-    color: #fff; /* 見出しの色 */
-    font-size: 36px; /* 見出しのサイズ */
-    padding: 20px 0; /* 上の余白 */
 }
 </style>

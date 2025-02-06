@@ -33,6 +33,17 @@ ja:
         description: ナビの特徴
         icon_url: ナビのアイコン画像
         user_id: このアカウント
+      pomodoro_setting:
+        user_id: このアカウント
+        work_duration: 作業時間
+        short_break_duration: 休憩時間
+        long_break_duration: 長い休憩時間
+        long_break_cycle: 長い休憩のサイクル
+        auto_start_work: 作業タイマーを自動開始
+        auto_start_break: 休憩タイマーを自動開始
+        alarm_on: アラームを鳴らす
+        background_color: 背景色
+        header_footer_color: ヘッダー・フッターの色
     models:
       user: ユーザー
       navi_character: ナビキャラクター

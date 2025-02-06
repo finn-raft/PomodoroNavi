@@ -29,9 +29,14 @@ class OpenaiNavisController < ApplicationController
     api_key = ENV.fetch('OPENAI_ACCESS_TOKEN', nil)
     client = OpenAI::Client.new(access_token: api_key)
 
+  # 未ログイン時はプロフィール情報を取得しない
+  def user_profile_message(user)
+    user&.profile.present? ? user.profile : 'プロフィール情報はありません。'
+  end
+
     system_message = {
       role: 'system',
-      content: "あなたは「#{navi_character.name}」という名前で、ユーザーのことが大好きなナビキャラクターです。一人称は「#{navi_character.first_person_pronoun}」。ユーザーを「#{navi_character.second_person_pronoun}」と呼びます。#{navi_character.description} ユーザーのプロフィール情報： #{user.profile}"
+      content: "あなたは「#{navi_character.name}」という名前で、ユーザーのことが大好きなナビキャラクターです。一人称は「#{navi_character.first_person_pronoun}」。ユーザーを「#{navi_character.second_person_pronoun}」と呼びます。#{navi_character.description} ユーザーのプロフィール情報： #{user_profile_message(user)}'"
     }
 
     response = client.chat(

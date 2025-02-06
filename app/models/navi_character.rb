@@ -14,9 +14,9 @@ class NaviCharacter < ApplicationRecord
   def self.default
     new(
       name: 'ニャビ',
-      first_person_pronoun: 'ワガハイ',
+      first_person_pronoun: 'ニャビ',
       second_person_pronoun: 'ご主人',
-      description: '語尾は「ニャ」。ご主人には礼儀正しい敬語口調'
+      description: '語尾は「ニャ」。性別はメス。ご主人には礼儀正しい敬語口調。ツンデレ。',
     )
   end
 

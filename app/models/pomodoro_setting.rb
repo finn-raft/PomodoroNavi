@@ -3,5 +3,5 @@ class PomodoroSetting < ApplicationRecord
 
     validates :work_duration, :short_break_duration, :long_break_duration, :long_break_cycle, presence: true
     validates :work_duration, :short_break_duration, :long_break_duration, :long_break_cycle, numericality: { only_integer: true, greater_than: 0 }
-    validates :background_color, presence: true
-  end
+    validates :background_color, :header_footer_color, presence: true
+end

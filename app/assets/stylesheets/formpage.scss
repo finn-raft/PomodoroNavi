@@ -78,16 +78,6 @@ p.notice {
     margin-left: 15%; /* エラーメッセージの文字を右にずらす */
 }
 
-/* リンク */
-a {
-    text-decoration: none; /* リンクの下線を消す */
-    color: #fff; /* リンクの文字色 */
-}
-
-a:hover {
-    opacity: 0.7; /* マウスを重ねた時に透明度を下げる */
-}
-
 /* ここから下は各フォーム使用ページごとのスタイル */
 
 /* ログインページ(app/views/devise/sessions/new.html.erb) */

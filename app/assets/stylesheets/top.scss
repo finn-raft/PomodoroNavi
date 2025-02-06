@@ -1,14 +1,23 @@
 /* 共通レイアウト */
 body {
-    background-color: #419DC4; /* 背景色 */
     font-family: 'Play', sans-serif; /* フォント */
     color: #fff; /* フォントカラー */
     display: flex; /* 要素を横並びにする */
     justify-content: center; /* 要素を中央揃え */
-    align-items: center;
+    align-items: center; /* 縦方向に中央揃え */
     min-height: 100vh; /* 最小の高さをビューポートに合わせる */
     margin: 0; /* 余白をなくす */
     user-select: none; /* テキストの選択を禁止 */
+}
+
+a {
+    text-decoration: none; /* リンクの下線を消す */
+    color: #fff; /* リンクの文字色 */
+}
+
+a:hover {
+    text-decoration: none; /* リンクの下線を消す */
+    opacity: 0.7; /* マウスを重ねた時に透明度を下げる */
 }
 
 /* 背景グリッド */
@@ -27,64 +36,42 @@ body::before {
 
 /* ヘッダー */
 header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
-    background-color: #0073e6;
-    color: #fff;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 10;
+    display: flex; /* 要素を横並びにする */
+    justify-content: space-between; /* 要素を左右に分散配置 */
+    align-items: center; /* 縦方向に中央揃え */
+    padding: 20px; /* 余白 */
+    position: fixed; /* 固定配置 */
+    top: 0; /* 上から配置 */
+    width: 100%; /* 幅を100% */
+    z-index: 10; /* 入力フォームより上、ドロップダウンより下の重なり優先 */
 }
 
 .header-left h1 {
-    margin: 0;
-    font-weight: bold;
-    color: #fff;
-    text-decoration: none;
-}
-
-.header-left a:hover {
-    text-decoration: none;
+    margin: 0; /* 余白をなくす */
+    font-weight: bold; /* 太字 */
 }
 
 .header-right a {
-    margin-left: 15px;
-    font-size: 20px;
-    color: #fff;
-    text-decoration: none;
-}
-
-.header-right a:hover {
-    opacity: 0.7;
+    margin-left: 15px; /* 余白 */
+    font-size: 20px; /* フォントサイズ */
 }
 
 /* フッター */
 footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #0073e6;
-    font-size: 14px;
-    color: #fff;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+    display: flex; /* 要素を横並びにする */
+    justify-content: space-between; /* 要素を左右に分散配置 */
+    align-items: center; /* 縦方向に中央揃え */
+    padding: 10px 20px; /* 余白 */
+    font-size: 14px; /* フォントサイズ */
+    position: fixed; /* 固定配置 */
+    bottom: 0; /* 下から配置 */
+    width: 100%; /* 幅を100% */
 }
 
 .footer-links a {
-    margin-right: 15px;
-    color: #fff;
-    text-decoration: none;
-}
-
-.footer-links a:hover {
-    opacity: 0.7;
+    margin-right: 15px; /* 余白 */
 }
 
 .footer-copyright {
-    text-align: right;
+    text-align: right; /* 右寄せ */
 }

@@ -1,32 +1,31 @@
-<header>
-    <div class="header-left">
-      <%= link_to root_path, data: { turbo: false } do %>
-        <h1>Pomodoro Navi</h1>
-      <% end %>
-    </div>
+<div class="header-left">
+  <%= link_to root_path, data: { turbo: false } do %>
+    <h1>Pomodoro Navi</h1>
+  <% end %>
+</div>
     <div class="header-right">
-        <a href="#"><img src="<%= asset_path 'report.png' %>"></a>
-        <%= link_to edit_pomodoro_settings_path do %>
-          <%= image_tag 'comand.png' %>
+      <a href="#"><img src="<%= asset_path 'report.png' %>"></a>
+      <%= link_to edit_pomodoro_settings_path do %>
+        <%= image_tag 'comand.png' %>
+      <% end %>
+    <div class="menu-wrapper">
+      <%= link_to edit_user_registration_path do %>
+        <%= image_tag 'mypage.png' %>
+      <% end %>
+      <ul class="menu-list">
+        <li><%= link_to "Profile", edit_user_registration_path %></li>
+        <% if @navi_character.present? && @navi_character.persisted? %>
+          <li><%= link_to "Navi", edit_navi_character_path(@navi_character), data: { turbo: false } %></li>
+        <% else %>
+          <li><%= link_to "Navi", new_navi_character_path, data: { turbo: false } %></li>
         <% end %>
-      <div class="menu-wrapper">
-        <%= link_to edit_user_registration_path do %>
-          <%= image_tag 'mypage.png' %>
-        <% end %>
-        <ul class="menu-list">
-          <li><%= link_to "Profile", edit_user_registration_path %></li>
-          <% if @navi_character.present? && @navi_character.persisted? %>
-            <li><%= link_to "Navi", edit_navi_character_path(@navi_character), data: { turbo: false } %></li>
-          <% else %>
-            <li><%= link_to "Navi", new_navi_character_path, data: { turbo: false } %></li>
-          <% end %>
-          <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
-        </ul>
-      </div>
+        <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
+      </ul>
     </div>
-</header>
+</div>
 
 <style>
+/* ドロップダウンメニューのCSS */
 .menu-wrapper {
   position: relative; /* 人物アイコンの下に配置 */
   display: inline-block; /* インラインブロック要素にする */

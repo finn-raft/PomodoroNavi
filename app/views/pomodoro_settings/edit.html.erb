@@ -47,16 +47,16 @@
         <%= f.label :alarm_on, "タイマー終了時のアラームをONにする" %>
       </div><br>
 
-      <div class="formpage-title">アプリカラー設定</div>
+      <div class="formpage-title">アプリのカラー設定</div>
 
       <div class="color-filed">
-        <%= f.label :background_color, "背景色：" %>
-        <%= f.color_field :background_color %>
+        <%= f.label :background_color, "内側（コンテンツ表示部）：" %>
+        <%= f.color_field :background_color, id: "background_color_picker" %>
       </div>
 
       <div class="color-filed">
-        <%= f.label :header_footer_color, "ヘッダー・フッターの色：" %>
-        <%= f.color_field :header_footer_color %>
+        <%= f.label :header_footer_color, "外側（ヘッダー・フッター部）：" %>
+        <%= f.color_field :header_footer_color, id: "header_footer_color_picker" %>
       </div><br>
 
       <div class="formpage-actions">
@@ -114,6 +114,12 @@ form label {
 .color-filed {
   grid-column: span 2; /* カラースキンを2列に広げる */
   text-align: left; /* カラースキンを左寄せ */
+}
+
+#background_color_picker, #header_footer_color_picker {
+  width: 80px; /* カラースキンの横幅 */
+  padding: 2px; /* カラースキンの余白 */
+  border-radius: 3px; /* カラースキンの角を丸くする */
 }
 
 /* ボタンスタイル */

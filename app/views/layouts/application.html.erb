@@ -7,19 +7,21 @@
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload', type: "module" %>
-    <%= javascript_include_tag 'timer', 'data-turbolinks-track': 'reload', type: "module" %>
-    <%= javascript_include_tag 'navi', 'data-turbolinks-track': 'reload', type: "module" %>
   </head>
 
-  <body>
-    <% if user_signed_in? %>
-      <%= render 'shared/header' %>
-    <% else %>
-      <%= render 'shared/before_login_header' %>
-    <% end %>
+  <body style="background-color: <%= @pomodoro_settings&.background_color %>;">
+    <header style="background-color: <%= @pomodoro_settings&.header_footer_color %>;">
+      <% if user_signed_in? %>
+        <%= render 'shared/header' %>
+      <% else %>
+        <%= render 'shared/before_login_header' %>
+      <% end %>
+    </header>
 
     <%= yield %>
 
-    <%= render 'shared/footer' %>
+    <footer style="background-color: <%= @pomodoro_settings&.header_footer_color %>;">
+      <%= render 'shared/footer' %>
+    </footer>
   </body>
 </html>

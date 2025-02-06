@@ -6,7 +6,7 @@
     </div>
     <div class="header-right">
         <a href="#"><img src="<%= asset_path 'report.png' %>"></a>
-        <%= link_to edit_pomodoro_settings_path, data: { turbo: false } do %>
+        <%= link_to edit_pomodoro_settings_path do %>
           <%= image_tag 'comand.png' %>
         <% end %>
       <div class="menu-wrapper">
@@ -40,7 +40,7 @@
   border: 1px solid #ddd; /* メニューの枠線 */
   list-style: none; /* リストのマーカーを非表示 */
   width: 160px; /* メニューの幅 */
-  z-index: 10; /* メニューを最前面に表示 */
+  z-index: 11; /* メニューを最前面に表示 */
 }
 
 .menu-list a {

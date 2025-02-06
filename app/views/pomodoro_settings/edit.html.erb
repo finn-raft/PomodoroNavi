@@ -7,55 +7,57 @@
     <%= stylesheet_link_tag 'top', media: 'all', 'data-turbolinks-track': 'reload' %>
 </head>
 <body>
-    <main><br><br><br>
+    <main>
       <div class="formpage-title">タイマー設定</div><br>
 
     <%= form_with model: @pomodoro_settings, local: true, url: pomodoro_settings_path, method: :patch do |f| %>
 
-      <%= f.label :work_duration, "作業時間" %><br>
+      <%= f.label :work_duration, "作業時間（分）：" %>
       <div class="formpage-field">
         <%= f.number_field :work_duration, autofocus: true, autocomplete: "work_duration", placeholder: "25" %>
       </div>
 
-      <%= f.label :short_break_duration, "休憩時間" %>
+      <%= f.label :short_break_duration, "休憩時間（分）：" %>
       <div class="formpage-field">
         <%= f.number_field :short_break_duration, autocomplete: "short_break_duration", placeholder: "5" %>
       </div>
 
-      <%= f.label :long_break_duration, "長い休憩" %>
+      <%= f.label :long_break_duration, "長い休憩（分）：" %>
       <div class="formpage-field">
         <%= f.number_field :long_break_duration, autocomplete: "long_break_duration", placeholder: "15" %>
       </div>
 
-      <%= f.label :long_break_cycle, "長い休憩のサイクル" %>
+      <%= f.label :long_break_cycle, "長い休憩のサイクル（回）：" %>
       <div class="formpage-field">
         <%= f.number_field :long_break_cycle, autocomplete: "long_break_cycle", placeholder: "4" %>
-      </div>
+      </div><br>
 
-      <div>
-        <%= f.label :auto_start_work, "次の作業タイマーを自動スタート" %>
+      <div class="check-box-field">
         <%= f.check_box :auto_start_work %>
+        <%= f.label :auto_start_work, "次の作業タイマーを自動スタート" %>
       </div>
 
-      <div>
-        <%= f.label :auto_start_break, "次の休憩タイマーを自動スタート" %>
+      <div class="check-box-field">
         <%= f.check_box :auto_start_break %>
+        <%= f.label :auto_start_break, "次の休憩タイマーを自動スタート" %>
       </div>
 
-      <div>
-        <%= f.label :alarm_on, "タイマー終了時のアラームをONにする" %>
+      <div class="check-box-field">
         <%= f.check_box :alarm_on %>
-      </div>
+        <%= f.label :alarm_on, "タイマー終了時のアラームをONにする" %>
+      </div><br>
 
-      <div>
-        <%= f.label :background_color, "背景色" %>
+      <div class="formpage-title">アプリカラー設定</div>
+
+      <div class="color-filed">
+        <%= f.label :background_color, "背景色：" %>
         <%= f.color_field :background_color %>
       </div>
 
-      <div>
-        <%= f.label :header_footer_color, "ヘッダー・フッターの色" %>
+      <div class="color-filed">
+        <%= f.label :header_footer_color, "ヘッダー・フッターの色：" %>
         <%= f.color_field :header_footer_color %>
-      </div>
+      </div><br>
 
       <div class="formpage-actions">
         <%= f.submit "設定を更新" %>
@@ -68,5 +70,91 @@
 </html>
 
 <style>
+/* ページ全体のスタイル */
+body {
+  margin: 100px auto; /* 上下左右の中央揃え */
+}
 
+/* 見出しスタイル */
+.formpage-title {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  grid-column: span 2; /* ボタンを2列に広げる */
+  text-align: center; /* ボタンを真ん中寄せ */
+}
+
+/* ラベルと入力フィールド */
+form {
+  display: grid; /* グリッドレイアウト */
+  grid-template-columns: 1fr auto; /* 1:1の比率で2列 */
+  gap: 15px; /* グリッド間の余白 */
+  align-items: center; /* 縦方向の中央寄せ */
+  text-align: left; /* 横方向の左寄せ */
+}
+
+form label {
+  justify-self: start; /* 入力フィールド側にラベルを左寄せ */
+}
+
+.formpage-field input {
+  width: 70px;
+  padding: 5px;
+  opacity: 0.5;
+  border: none;
+}
+
+/* チェックボックスのスタイル */
+.check-box-field {
+  grid-column: span 2; /* チェックボックスを2列に広げる */
+  text-align: left; /* チェックボックスを左寄せ */
+}
+
+/* カラースキンのスタイル */
+.color-filed {
+  grid-column: span 2; /* カラースキンを2列に広げる */
+  text-align: left; /* カラースキンを左寄せ */
+}
+
+/* ボタンスタイル */
+.formpage-actions {
+    grid-column: span 2; /* ボタンを2列に広げる */
+    text-align: center; /* ボタンを真ん中寄せ */
+}
+
+.formpage-actions input {
+    width: 300px; /* 送信ボタンの横幅 */
+    color: #fff; /* ボタンの文字色 */
+    border: 1px solid #fff; /* ボタンの枠線 */
+    border-radius: 10px; /* ボタンの角を丸くする */
+    padding: 5px 10px; /* ボタンの余白 */
+    font-size: 20px; /* ボタンの文字サイズ */
+    cursor: pointer; /* マウスを重ねた時にカーソルを変更 */
+    background-color: rgba(255, 255, 255, 0.1); /* 白色で10%透過 */
+    margin-top: 10px;
+}
+
+.formpage-actions input[type='submit']:hover {
+    opacity: 0.5;
+}
+
+/* アラート表示部 */
+p.notice, p.alert {
+    font-size: 14px; /* アラートメッセージのフォントサイズ */
+    text-align: ; /* アラートメッセージを中央揃え */
+}
+
+p.alert {
+    color: #be1604; /* エラーメッセージの赤色 */
+}
+
+p.notice {
+    color: #044e23; /* 成功メッセージの緑色 */
+}
+
+.error_message {
+    color: #be1604; /* エラーメッセージの赤色 */
+    font-size: 14px; /* エラーメッセージのフォントサイズ */
+    list-style: none; /* デフォルトのリストスタイルを削除 */
+}
 </style>

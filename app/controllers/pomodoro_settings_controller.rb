@@ -1,5 +1,5 @@
 class PomodoroSettingsController < ApplicationController
-  before_action :authenticate_user!, except: [:show_default] # show_defaultアクションはログインしていなくてもアクセス可能
+  before_action :authenticate_user!, except: [:show, :show_default] # show_defaultアクションはログインしていなくてもアクセス可能
   before_action :show_loading, only: [:edit]
 
   def edit
@@ -16,9 +16,14 @@ class PomodoroSettingsController < ApplicationController
     end
   end
 
+  def show
+    @pomodoro_settings = current_user.pomodoro_setting || PomodoroSetting.default
+    render json: @pomodoro_settings
+  end
+
   # デフォルトのポモドーロタイマー設定を参照するメソッド（未ログインユーザー用）
   def show_default
-    @pomodoro_settings = PomodoroSetting.find_by(user_id: nil)
+    @pomodoro_settings = PomodoroSetting.default
     render json: @pomodoro_settings
   end
 

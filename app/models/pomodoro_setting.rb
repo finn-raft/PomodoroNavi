@@ -11,8 +11,8 @@ class PomodoroSetting < ApplicationRecord
         short_break_duration: 5,
         long_break_duration: 15,
         long_break_cycle: 4,
-        auto_start_work: false,
-        auto_start_break: false,
+        auto_start_work: true,
+        auto_start_break: true,
         alarm_on: true,
         background_color: '#419DC4',
         header_footer_color: '#0073e6'

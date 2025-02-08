@@ -5,6 +5,103 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pomodoro Navi - タイマー設定</title>
     <%= stylesheet_link_tag 'top', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+    <style>
+    /* ページ全体のスタイル */
+    body {
+      margin: 100px auto; /* 上下左右の中央揃え */
+    }
+
+    /* 見出しスタイル */
+    .formpage-title {
+      font-size: 32px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      grid-column: span 2; /* ボタンを2列に広げる */
+      text-align: center; /* ボタンを真ん中寄せ */
+    }
+
+    /* ラベルと入力フィールド */
+    form {
+      display: grid; /* グリッドレイアウト */
+      grid-template-columns: 1fr auto; /* 1:1の比率で2列 */
+      gap: 15px; /* グリッド間の余白 */
+      align-items: center; /* 縦方向の中央寄せ */
+      text-align: left; /* 横方向の左寄せ */
+    }
+
+    form label {
+      justify-self: start; /* 入力フィールド側にラベルを左寄せ */
+    }
+
+    .formpage-field input {
+      width: 70px;
+      padding: 5px;
+      opacity: 0.5;
+      border: none;
+    }
+
+    /* チェックボックスのスタイル */
+    .check-box-field {
+      grid-column: span 2; /* チェックボックスを2列に広げる */
+      text-align: left; /* チェックボックスを左寄せ */
+    }
+
+    /* カラースキンのスタイル */
+    .color-filed {
+      grid-column: span 2; /* カラースキンを2列に広げる */
+      text-align: left; /* カラースキンを左寄せ */
+    }
+
+    #background_color_picker, #header_footer_color_picker {
+      width: 80px; /* カラースキンの横幅 */
+      padding: 2px; /* カラースキンの余白 */
+      border-radius: 3px; /* カラースキンの角を丸くする */
+    }
+
+    /* ボタンスタイル */
+    .formpage-actions {
+        grid-column: span 2; /* ボタンを2列に広げる */
+        text-align: center; /* ボタンを真ん中寄せ */
+    }
+
+    .formpage-actions input {
+        width: 300px; /* 送信ボタンの横幅 */
+        color: #fff; /* ボタンの文字色 */
+        border: 1px solid #fff; /* ボタンの枠線 */
+        border-radius: 10px; /* ボタンの角を丸くする */
+        padding: 5px 10px; /* ボタンの余白 */
+        font-size: 20px; /* ボタンの文字サイズ */
+        cursor: pointer; /* マウスを重ねた時にカーソルを変更 */
+        background-color: rgba(255, 255, 255, 0.1); /* 白色で10%透過 */
+        margin-top: 10px;
+    }
+
+    .formpage-actions input[type='submit']:hover {
+        opacity: 0.5;
+    }
+
+    /* アラート表示部 */
+    p.notice, p.alert {
+        font-size: 14px; /* アラートメッセージのフォントサイズ */
+        text-align: ; /* アラートメッセージを中央揃え */
+    }
+
+    p.alert {
+        color: #be1604; /* エラーメッセージの赤色 */
+    }
+
+    p.notice {
+        color: #044e23; /* 成功メッセージの緑色 */
+    }
+
+    .error_message {
+        color: #be1604; /* エラーメッセージの赤色 */
+        font-size: 14px; /* エラーメッセージのフォントサイズ */
+        list-style: none; /* デフォルトのリストスタイルを削除 */
+    }
+    </style>
+
 </head>
 <body>
     <main>
@@ -68,99 +165,3 @@
     </main>
 </body>
 </html>
-
-<style>
-/* ページ全体のスタイル */
-body {
-  margin: 100px auto; /* 上下左右の中央揃え */
-}
-
-/* 見出しスタイル */
-.formpage-title {
-  font-size: 32px;
-  font-weight: bold;
-  margin-bottom: 20px;
-  grid-column: span 2; /* ボタンを2列に広げる */
-  text-align: center; /* ボタンを真ん中寄せ */
-}
-
-/* ラベルと入力フィールド */
-form {
-  display: grid; /* グリッドレイアウト */
-  grid-template-columns: 1fr auto; /* 1:1の比率で2列 */
-  gap: 15px; /* グリッド間の余白 */
-  align-items: center; /* 縦方向の中央寄せ */
-  text-align: left; /* 横方向の左寄せ */
-}
-
-form label {
-  justify-self: start; /* 入力フィールド側にラベルを左寄せ */
-}
-
-.formpage-field input {
-  width: 70px;
-  padding: 5px;
-  opacity: 0.5;
-  border: none;
-}
-
-/* チェックボックスのスタイル */
-.check-box-field {
-  grid-column: span 2; /* チェックボックスを2列に広げる */
-  text-align: left; /* チェックボックスを左寄せ */
-}
-
-/* カラースキンのスタイル */
-.color-filed {
-  grid-column: span 2; /* カラースキンを2列に広げる */
-  text-align: left; /* カラースキンを左寄せ */
-}
-
-#background_color_picker, #header_footer_color_picker {
-  width: 80px; /* カラースキンの横幅 */
-  padding: 2px; /* カラースキンの余白 */
-  border-radius: 3px; /* カラースキンの角を丸くする */
-}
-
-/* ボタンスタイル */
-.formpage-actions {
-    grid-column: span 2; /* ボタンを2列に広げる */
-    text-align: center; /* ボタンを真ん中寄せ */
-}
-
-.formpage-actions input {
-    width: 300px; /* 送信ボタンの横幅 */
-    color: #fff; /* ボタンの文字色 */
-    border: 1px solid #fff; /* ボタンの枠線 */
-    border-radius: 10px; /* ボタンの角を丸くする */
-    padding: 5px 10px; /* ボタンの余白 */
-    font-size: 20px; /* ボタンの文字サイズ */
-    cursor: pointer; /* マウスを重ねた時にカーソルを変更 */
-    background-color: rgba(255, 255, 255, 0.1); /* 白色で10%透過 */
-    margin-top: 10px;
-}
-
-.formpage-actions input[type='submit']:hover {
-    opacity: 0.5;
-}
-
-/* アラート表示部 */
-p.notice, p.alert {
-    font-size: 14px; /* アラートメッセージのフォントサイズ */
-    text-align: ; /* アラートメッセージを中央揃え */
-}
-
-p.alert {
-    color: #be1604; /* エラーメッセージの赤色 */
-}
-
-p.notice {
-    color: #044e23; /* 成功メッセージの緑色 */
-}
-
-.error_message {
-    color: #be1604; /* エラーメッセージの赤色 */
-    font-size: 14px; /* エラーメッセージのフォントサイズ */
-    list-style: none; /* デフォルトのリストスタイルを削除 */
-}
-</style>

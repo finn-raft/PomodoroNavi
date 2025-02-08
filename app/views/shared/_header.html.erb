@@ -5,15 +5,15 @@
 </div>
     <div class="header-right">
       <a href="#"><img src="<%= asset_path 'report.png' %>"></a>
-      <%= link_to edit_pomodoro_settings_path do %>
+      <%= link_to edit_pomodoro_settings_path, data: { turbo: false }  do %>
         <%= image_tag 'comand.png' %>
       <% end %>
     <div class="menu-wrapper">
-      <%= link_to edit_user_registration_path do %>
+      <%= link_to edit_user_registration_path, data: { turbo: false }  do %>
         <%= image_tag 'mypage.png' %>
       <% end %>
       <ul class="menu-list">
-        <li><%= link_to "Profile", edit_user_registration_path %></li>
+        <li><%= link_to "Profile", edit_user_registration_path, data: { turbo: false }  %></li>
         <% if @navi_character.present? && @navi_character.persisted? %>
           <li><%= link_to "Navi", edit_navi_character_path(@navi_character), data: { turbo: false } %></li>
         <% else %>

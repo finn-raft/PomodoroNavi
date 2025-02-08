@@ -17,13 +17,17 @@ class PomodoroSettingsController < ApplicationController
   end
 
   def show
-    @pomodoro_settings = current_user.pomodoro_setting || PomodoroSetting.default
-    render json: @pomodoro_settings
+    if current_user
+      @pomodoro_settings = current_user.pomodoro_setting || PomodoroSetting.default
+      render json: @pomodoro_settings
+    else
+      show_default
+    end
   end
 
   # デフォルトのポモドーロタイマー設定を参照するメソッド（未ログインユーザー用）
   def show_default
-    @pomodoro_settings = PomodoroSetting.default
+    @pomodoro_settings = PomodoroSetting.find_by(user_id: nil)
     render json: @pomodoro_settings
   end
 

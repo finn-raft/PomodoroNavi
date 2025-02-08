@@ -4,7 +4,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: %i[google_oauth2]
-  has_many :navi_characters
+  # ユーザーは1つのナビキャラクターを持つ
+  has_one :navi_character
+  # ユーザーは1つのポモドーロタイマー設定を持つ
   has_one :pomodoro_setting
 
   validates :name, presence: true, length: { maximum: 20 }
@@ -19,8 +21,8 @@ class User < ApplicationRecord
     end
   end
 
-  #ナビキャラクターが登録されているかどうかを判定するメソッド
+  # ナビキャラクターが登録されているかどうかを判定するメソッド
   def navi_character_registered?
-    navi_characters.exists?
+    navi_character.present?
   end
 end

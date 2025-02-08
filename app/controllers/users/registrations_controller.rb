@@ -82,6 +82,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
   private
 
   def set_navi_character
-    @navi_character = current_user.navi_characters.first
+    @navi_character = current_user.navi_character
   end
 end

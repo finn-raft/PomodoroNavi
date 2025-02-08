@@ -22,7 +22,7 @@ class OpenaiNavisController < ApplicationController
   end
 
   def set_navi_character
-    @navi_character = current_user&.navi_characters&.first || NaviCharacter.default
+    @navi_character = current_user&.navi_character || NaviCharacter.default
   end
 
   def get_openai_response(user_input, navi_character, user)

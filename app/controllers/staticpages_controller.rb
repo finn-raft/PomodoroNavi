@@ -9,7 +9,7 @@ class StaticpagesController < ApplicationController
 
   def set_navi_character
     @navi_character = if current_user
-                        current_user.navi_characters.first || NaviCharacter.default
+                        current_user.navi_character || NaviCharacter.default
                       else
                         NaviCharacter.default
                       end

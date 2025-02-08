@@ -31,7 +31,7 @@ class NaviCharactersController < ApplicationController
   private
 
   def set_navi_character
-    @navi_character = current_user.navi_characters.first || NaviCharacter.default
+    @navi_character = current_user.navi_character || NaviCharacter.default
   end
 
   def navi_character_params

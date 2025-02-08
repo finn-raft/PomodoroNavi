@@ -52,4 +52,11 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # def after_omniauth_failure_path_for(scope)
   #   super(scope)
   # end
+
+  private
+
+  # ナビキャラクターが登録されているかどうかを判定するメソッド
+  def navi_character_registered?
+    NaviCharacter.exists?(user_id: current_user.id)
+  end
 end

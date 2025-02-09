@@ -4,7 +4,9 @@
   <% end %>
 </div>
     <div class="header-right">
-      <a href="#"><img src="<%= asset_path 'report.png' %>"></a>
+      <%= link_to report_path, data: { turbo: false }  do %>
+        <%= image_tag 'report.png' %>
+      <% end %>
       <%= link_to edit_pomodoro_settings_path, data: { turbo: false }  do %>
         <%= image_tag 'comand.png' %>
       <% end %>

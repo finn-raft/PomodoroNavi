@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   end
   resources :users, only: [:show]
   resources :navi_characters, only: [:new, :create, :edit, :update]
+  resources :pomodoro_sessions, only: [:index]
 
   # ポモドーロタイマー設定ページを /pomodoro_settings で表示する
   get 'pomodoro_settings', to: 'pomodoro_settings#edit', as: :edit_pomodoro_settings
@@ -14,5 +15,6 @@ Rails.application.routes.draw do
 
   root "staticpages#top"
   post 'openai_navis/respond', to: 'openai_navis#respond', as: :openai_navis_respond
+  get 'report', to: 'pomodoro_sessions#reports', as: :report
   get "up" => "rails/health#show", as: :rails_health_check
 end

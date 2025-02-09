@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro Navi - レポート</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css" rel="stylesheet" />
+    <%= stylesheet_link_tag 'top', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'navi_message', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <style>
+    /* 共通のスタイル */
+    body {
+        display: flex; /* フレックスボックス */
+        flex-direction: column; /* 縦並び */
+        align-items: center; /* 中央揃え */
+        padding: 2em; /* 余白 */
+        margin: 100px auto; /* 上下左右の中央揃え */
+    }
+
+    /* タブのスタイル */
+    .tabs {
+        display: flex; /* フレックスボックス */
+        justify-content: center; /* 中央揃え */
+        margin-bottom: 2em; /* タブとグラフの間の余白 */
+        color: #ffffff; /* タブの文字色 */
+        background-color: #1a1a1a; /* タブの背景色 */
+        border: 3px solid #ffffff; /* タブの境界線 */
+        border-radius: 8px; /* タブの角丸 */
+    }
+
+    .tabs ul {
+        list-style: none; /* リストのマーカーを消す */
+        padding: 0; /* パディングを消す */
+    }
+
+    .tabs ul li {
+        display: inline; /* タブの「DAY」他を横並びにする */
+        padding: 10px 10px; /* タブの「DAY」他の余白 */
+    }
+
+    .tabs ul li a:hover {
+        background-color: #ffffff55; /* マウスを合わせた際のタブの背景色 */
+        opacity: 0.7;
+    }
+
+    .tabs ul li a.active {
+        background-color: #ffffff55; /* アクティブなタブの背景色 */
+        color: #ffffff; /* アクティブなタブの文字色 */
+        border-radius: 3px; /* アクティブなタブの角丸 */
+    }
+
+    .tab-content {
+        display: none; /* タブの内容を非表示 */
+    }
+
+    .tab-content.active {
+        display: block; /* タブの内容を表示 */
+    }
+
+    /* グラフのスタイル */
+    canvas {
+        width: 80%; /* グラフの幅 */
+        height: 400px; /* グラフの高さ */
+        border-radius: 8px; /* グラフの角丸 */
+        background-color: rgba(255, 255, 255, 0.1); /* グラフの背景色 */
+    }
+
+    /* グラフ上部の累計作業時間のスタイル */
+    total {
+        display: block; /* ブロック要素にする */
+        text-align: center; /* 中央揃え */
+        font-size: 1.2em; /* フォントサイズ */
+        margin-bottom: 1em; /* 下の余白 */
+    }
+
+    /* ナビメッセージとフォームのスタイル */
+    #usermessage_form {
+        width: 43.5%; /* ナビメッセージコンテナと送信フォームの幅合わせ */
+    }
+
+    </style>
+    <%= javascript_include_tag 'navi', 'data-turbolinks-track': 'reload', type: "module" %>
+  </head>
+<body>
+
+<div class="tabs">
+  <ul>
+    <li><a href="#daily" class="active">Day</a></li>
+    <li><a href="#weekly">Week</a></li>
+    <li><a href="#monthly">Month</a></li>
+    <li><a href="#yearly">Year</a></li>
+    <li><a href="#calendar">Calendar</a></li>
+  </ul>
+</div>
+
+<div id="daily" class="tab-content active">
+  <total>本日の合計作業時間：</total>
+  <canvas id="dailyChart"></canvas>
+</div>
+
+<div id="weekly" class="tab-content">
+  <total>今週の合計作業時間：</total>
+  <canvas id="weeklyChart"></canvas>
+</div>
+
+<div id="monthly" class="tab-content">
+  <total>今月の合計作業時間：</total>
+  <canvas id="monthlyChart"></canvas>
+</div>
+
+<div id="yearly" class="tab-content">
+  <total>今年の合計作業時間：</total>
+  <canvas id="yearlyChart"></canvas>
+</div>
+
+<div id="calendar" class="tab-content">
+  <total>ポモドーロ記録カレンダー</total>
+  <div id="calendarContainer"></div>
+</div>
+
+<!-- グラフ表示のためのJavaScript -->
+<script>
+  document.addEventListener('turbolinks:load', function() {
+    var dailyChart, weeklyChart, monthlyChart, yearlyChart, calendar;
+
+    function renderCharts() {
+      // 本日のグラフ
+      var ctxDaily = document.getElementById('dailyChart').getContext('2d');
+      dailyChart = new Chart(ctxDaily, {
+        type: 'bar',
+        data: {
+          labels: ['本日'],
+          datasets: [{
+            label: '作業時間 (分)',
+            data: [<%= @daily_total %>],
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+
+      // 週間のグラフ
+      var ctxWeekly = document.getElementById('weeklyChart').getContext('2d');
+      weeklyChart = new Chart(ctxWeekly, {
+        type: 'bar',
+        data: {
+          labels: ['週間'],
+          datasets: [{
+            label: '作業時間 (分)',
+            data: [<%= @weekly_total %>],
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+
+      // 月間のグラフ
+      var ctxMonthly = document.getElementById('monthlyChart').getContext('2d');
+      monthlyChart = new Chart(ctxMonthly, {
+        type: 'bar',
+        data: {
+          labels: ['月間'],
+          datasets: [{
+            label: '作業時間 (分)',
+            data: [<%= @monthly_total %>],
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+
+      // 年間のグラフ
+      var ctxYearly = document.getElementById('yearlyChart').getContext('2d');
+      yearlyChart = new Chart(ctxYearly, {
+        type: 'bar',
+        data: {
+          labels: ['年間'],
+          datasets: [{
+            label: '作業時間 (分)',
+            data: [<%= @yearly_total %>],
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+    }
+
+    function destroyCharts() {
+      if (dailyChart) dailyChart.destroy();
+      if (weeklyChart) weeklyChart.destroy();
+      if (monthlyChart) monthlyChart.destroy();
+      if (yearlyChart) yearlyChart.destroy();
+    }
+
+    renderCharts();
+
+    // カレンダー
+    var calendarEl = document.getElementById('calendarContainer');
+    calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridMonth',
+      events: [
+        <% @sessions.each do |session| %>
+          {
+            title: '作業時間: <%= session.duration %> 分',
+            start: '<%= session.start_time %>',
+            end: '<%= session.end_time %>'
+          },
+        <% end %>
+      ]
+    });
+    calendar.render();
+  });
+
+  // タブ切り替え
+  document.addEventListener('turbolinks:load', () => {
+    const tabs = document.querySelectorAll('.tabs ul li a');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = document.querySelector(tab.getAttribute('href'));
+
+        tabContents.forEach(content => content.classList.remove('active'));
+        target.classList.add('active');
+
+        tabs.forEach(tab => tab.classList.remove('active'));
+        tab.classList.add('active');
+
+        // グラフとカレンダーの再描画
+        destroyCharts();
+        renderCharts();
+        if (calendar) {
+          calendar.render();
+        }
+      });
+    });
+  });
+</script>
+
+<!-- ナビメッセージとフォーム -->
+<div class="navi-container">
+  <div class="navi-icon">
+    <% if @navi_character %>
+      <%= image_tag @navi_character.icon_url.url, alt: @navi_character.name %>
+      <p id="navi-name"><%= @navi_character.name %></p>
+    <% else %>
+      <%= image_tag 'cat.png', alt: 'ニャビ' %>
+      <p id="navi-name">ニャビ</p>
+    <% end %>
+  </div>
+    <div class="navi-message" id="navi-message">
+      <% if notice %>
+        <p class="notice"><%= notice %></p>
+      <% elsif alert %>
+        <p class="alert"><%= alert %></p>
+      <% end %>
+
+    こちらのページでは、ユーザーのこれまでのポモドーロ作業時間を記録予定です。<br>
+    各期間の合計作業時間の表示、棒グラフ描写、カレンダー機能について現在制作中です。<br>
+    ナビによる応援メッセージ等も実装予定。もうしばらくお待ちください！<br>
+    </div>
+  </div>
+  <form id="usermessage_form">
+    <input type="text" id="user_input" placeholder="ナビにメッセージを送る（例：ポモドーロタイマーの使い方は？）">
+    <button id="user_input_button">
+      <img src="<%= asset_path 'navichat.png' %>" alt="送信">
+    </button>
+  </form>
+</body>
+</html>

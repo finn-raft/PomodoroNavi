@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_02_05_211130) do
+ActiveRecord::Schema[7.1].define(version: 2025_02_08_202905) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -24,6 +24,17 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_05_211130) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_navi_characters_on_user_id"
+  end
+
+  create_table "pomodoro_sessions", force: :cascade do |t|
+    t.datetime "start_time", null: false
+    t.datetime "end_time", null: false
+    t.integer "duration", null: false
+    t.integer "break_duration", null: false
+    t.string "status", null: false
+    t.string "mode", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "pomodoro_settings", force: :cascade do |t|

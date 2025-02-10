@@ -5,8 +5,12 @@ document.addEventListener('turbolinks:load', () => {
   let isWorking = true;
   let timer = null;
   let startTime = null;
-  let elapsedTime = 0;
+  let elapsedWorkTime = 0; // 作業時間の合計（レポート用）
+  let elapsedBreakTime = 0; // 休憩時間の合計（レポート用）
   let cycleCount = 0;
+  let pausedTime = 0; // 一時停止時刻（再開時に経過時間を調整するため）
+  let isPaused = false; // 一時停止中かどうか（再開時に経過時間を調整するため）
+  let isEnded = false; // タイマーが終了したかどうか（終了時にセッションを記録するため）
 
   const timerElement = document.getElementById('timer');
   const statusElement = document.getElementById('status');
@@ -17,7 +21,7 @@ document.addEventListener('turbolinks:load', () => {
   // ポモドーロ設定ページからデータを取得する
   function fetchSettings() {
     return fetch('/pomodoro_settings/show')
-      .then(response => { // 未ログインユーザーの場合はデフォルト値を取得
+      .then(response => {
         if (response.status === 401 || response.status === 404) {
           return fetch('/default_pomodoro_settings');
         }
@@ -57,7 +61,6 @@ document.addEventListener('turbolinks:load', () => {
     const seconds = String(currentSeconds).padStart(2, '0');
     timerElement.textContent = `${minutes}:${seconds}`;
 
-    // タイマー動作中のみタイトル更新
     if (timer !== null) {
       document.title = `PomodoroNavi ${minutes}:${seconds}`;
     } else {
@@ -93,7 +96,6 @@ document.addEventListener('turbolinks:load', () => {
     currentSeconds = 0;
     isWorking = !isWorking;
     startTime = new Date();
-    elapsedTime = 0;
     updateTimerDisplay();
   }
 
@@ -107,12 +109,17 @@ document.addEventListener('turbolinks:load', () => {
   // タイマーのカウントダウン処理
   function tick() {
     const now = new Date();
-    const elapsed = Math.floor((now - startTime) / 1000) + elapsedTime;
+    const elapsed = Math.floor((now - startTime) / 1000);
     const totalInitialSeconds = (isWorking ? workDuration : (cycleCount % longBreakCycle === 0 ? longBreakDuration : shortBreakDuration)) * 60;
     const remainingSeconds = totalInitialSeconds - elapsed;
 
     if (remainingSeconds <= 0) {
       playAlarm();
+      if (isWorking) {
+        elapsedWorkTime += totalInitialSeconds;
+      } else {
+        elapsedBreakTime += totalInitialSeconds;
+      }
       switchMode();
     } else {
       currentMinutes = Math.floor(remainingSeconds / 60);
@@ -124,11 +131,16 @@ document.addEventListener('turbolinks:load', () => {
   // タイマーの開始処理
   function startTimer() {
     if (timer === null) {
-      startTime = new Date();
+      if (isPaused && !isEnded) {
+        startTime = new Date(startTime.getTime() + (new Date().getTime() - pausedTime));
+        isPaused = false;
+      } else {
+        startTime = new Date();
+        isEnded = false;
+      }
       timer = setInterval(tick, 1000);
       startStopButton.textContent = 'Stop';
 
-      // 長い休憩中、通常休憩中、作業中を正確に表示
       if (!isWorking && cycleCount % longBreakCycle === 0) {
         statusElement.textContent = '長い休憩中';
       } else {
@@ -141,8 +153,9 @@ document.addEventListener('turbolinks:load', () => {
   function stopTimer() {
     if (timer !== null) {
       clearInterval(timer);
+      pausedTime = new Date();
+      isPaused = true;
       timer = null;
-      elapsedTime += Math.floor((new Date() - startTime) / 1000);
       startStopButton.textContent = 'Start';
       document.title = 'PomodoroNavi';
     }
@@ -155,7 +168,8 @@ document.addEventListener('turbolinks:load', () => {
     currentSeconds = 0;
     isWorking = true;
     cycleCount = 0;
-    elapsedTime = 0;
+    elapsedWorkTime = 0;
+    elapsedBreakTime = 0;
     statusElement.textContent = '';
     updateTimerDisplay();
     document.title = 'PomodoroNavi';
@@ -171,7 +185,18 @@ document.addEventListener('turbolinks:load', () => {
   });
 
   endButton.addEventListener('click', () => {
-    resetTimer();
+    stopTimer();
+    const now = new Date();
+    const elapsed = Math.floor((now - startTime) / 1000);
+    if (isWorking) {
+      elapsedWorkTime += elapsed;
+    } else {
+      elapsedBreakTime += elapsed;
+    }
+    isEnded = true;
+    recordSession().finally(() => {
+      resetTimer();
+    });
   });
 
   // ページ遷移時にタイマーをクリア
@@ -180,6 +205,38 @@ document.addEventListener('turbolinks:load', () => {
       clearInterval(timer);
     }
   });
+
+  // セッションを記録する
+  function recordSession() {
+    const endTime = new Date();
+    const workDuration = Math.floor(elapsedWorkTime / 60);
+    const breakDuration = Math.floor(elapsedBreakTime / 60);
+
+    return fetch('/pomodoro_sessions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
+      },
+      body: JSON.stringify({
+        pomodoro_session: {
+          start_time: startTime,
+          end_time: endTime,
+          duration: workDuration,
+          break_duration: breakDuration,
+          status: 'completed',
+          mode: isWorking ? 'work' : 'break'
+        }
+      })
+    }).then(response => {
+      if (!response.ok) throw new Error('Network response was not ok');
+      return response.json();
+    }).then(data => {
+      console.log('Session recorded:', data);
+    }).catch(error => {
+      console.error('Error recording session:', error);
+    });
+  }
 
   fetchSettings();
 });

@@ -4,14 +4,14 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: %i[google_oauth2]
-  # ユーザーは1つのナビキャラクターを持つ
   has_one :navi_character
-  # ユーザーは1つのポモドーロタイマー設定を持つ
   has_one :pomodoro_setting
+  has_many :pomodoro_sessions, dependent: :destroy
 
   validates :name, presence: true, length: { maximum: 20 }
   validates :profile, length: { maximum: 300 }
   validates :password, presence: true, on: :create # パスワードは新規登録時のみ必須
+
   # Google認証のためのメソッド
   def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_02_08_202905) do
+ActiveRecord::Schema[7.1].define(version: 2025_02_09_165729) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -35,6 +35,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_08_202905) do
     t.string "mode", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_pomodoro_sessions_on_user_id"
   end
 
   create_table "pomodoro_settings", force: :cascade do |t|
@@ -70,5 +72,6 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_08_202905) do
   end
 
   add_foreign_key "navi_characters", "users"
+  add_foreign_key "pomodoro_sessions", "users"
   add_foreign_key "pomodoro_settings", "users"
 end

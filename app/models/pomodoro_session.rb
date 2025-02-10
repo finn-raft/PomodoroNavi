@@ -1,4 +1,6 @@
 class PomodoroSession < ApplicationRecord
+    belongs_to :user
+
     validates :start_time, presence: true
     validates :end_time, presence: true
     validates :duration, presence: true, numericality: { only_integer: true, greater_than: 0 }

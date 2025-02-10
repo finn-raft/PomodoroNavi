@@ -13,8 +13,15 @@ Rails.application.routes.draw do
   get 'pomodoro_settings/show', to: 'pomodoro_settings#show', as: :show_pomodoro_settings
   get 'default_pomodoro_settings', to: 'pomodoro_settings#show_default' # デフォルトのポモドーロタイマー設定を参照するルーティング
 
+  # レポートページのルーティング
+  get 'report', to: 'pomodoro_sessions#reports', as: :report
+  get 'report/day', to: 'pomodoro_sessions#reports_day', as: 'pomodoro_sessions_reports_day'
+  get 'report/week', to: 'pomodoro_sessions#reports_week', as: 'pomodoro_sessions_reports_week'
+  get 'report/month', to: 'pomodoro_sessions#reports_month', as: 'pomodoro_sessions_reports_month'
+  get 'report/year', to: 'pomodoro_sessions#reports_year', as: 'pomodoro_sessions_reports_year'
+  get 'report/calendar', to: 'pomodoro_sessions#reports_calendar', as: 'pomodoro_sessions_reports_calendar'
+
   root "staticpages#top"
   post 'openai_navis/respond', to: 'openai_navis#respond', as: :openai_navis_respond
-  get 'report', to: 'pomodoro_sessions#reports', as: :report
   get "up" => "rails/health#show", as: :rails_health_check
 end

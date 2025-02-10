@@ -35,6 +35,10 @@ module PomodoroNavi
         routing_specs: false # routes.rb用のスペックファイル作成しない
     end
 
+    # タイムゾーンを日本時間に設定
+    config.time_zone = 'Tokyo'
+    config.active_record.default_timezone = :local
+
     # ロケールを日本語化
     config.i18n.default_locale = :ja
   end

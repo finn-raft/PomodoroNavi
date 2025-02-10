@@ -3,27 +3,33 @@
     <h1>Pomodoro Navi</h1>
   <% end %>
 </div>
-    <div class="header-right">
-      <%= link_to report_path, data: { turbo: false }  do %>
-        <%= image_tag 'report.png' %>
+<div class="header-right">
+  <div class="menu-wrapper">
+    <%= link_to pomodoro_sessions_reports_day_path, data: { turbo: false } do %>
+      <%= image_tag 'report.png' %>
+    <% end %>
+    <ul class="menu-list">
+      <li><%= link_to "Report", pomodoro_sessions_reports_day_path, data: { turbo: false } %></li>
+      <li><%= link_to "Calendar", pomodoro_sessions_reports_calendar_path, data: { turbo: false } %></li>
+    </ul>
+  </div>
+  <%= link_to edit_pomodoro_settings_path, data: { turbo: false } do %>
+    <%= image_tag 'comand.png' %>
+  <% end %>
+  <div class="menu-wrapper">
+    <%= link_to edit_user_registration_path, data: { turbo: false } do %>
+      <%= image_tag 'mypage.png' %>
+    <% end %>
+    <ul class="menu-list">
+      <li><%= link_to "Profile", edit_user_registration_path, data: { turbo: false } %></li>
+      <% if @navi_character.present? && @navi_character.persisted? %>
+        <li><%= link_to "Navi", edit_navi_character_path(@navi_character), data: { turbo: false } %></li>
+      <% else %>
+        <li><%= link_to "Navi", new_navi_character_path, data: { turbo: false } %></li>
       <% end %>
-      <%= link_to edit_pomodoro_settings_path, data: { turbo: false }  do %>
-        <%= image_tag 'comand.png' %>
-      <% end %>
-    <div class="menu-wrapper">
-      <%= link_to edit_user_registration_path, data: { turbo: false }  do %>
-        <%= image_tag 'mypage.png' %>
-      <% end %>
-      <ul class="menu-list">
-        <li><%= link_to "Profile", edit_user_registration_path, data: { turbo: false }  %></li>
-        <% if @navi_character.present? && @navi_character.persisted? %>
-          <li><%= link_to "Navi", edit_navi_character_path(@navi_character), data: { turbo: false } %></li>
-        <% else %>
-          <li><%= link_to "Navi", new_navi_character_path, data: { turbo: false } %></li>
-        <% end %>
-        <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
-      </ul>
-    </div>
+      <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
+    </ul>
+  </div>
 </div>
 
 <style>
@@ -35,9 +41,9 @@
 
 .menu-list {
   display: none; /* メニューリストを非表示 */
-  position: absolute; /* メニューを開いても人物アイコンの位置を変えない */
-  top: 100%; /* 人物アイコンの下に配置 */
-  right: 0; /* 人物アイコンの右端に配置 */
+  position: absolute; /* メニューを開いてもアイコンの位置を変えない */
+  top: 100%; /* アイコンの下に配置 */
+  right: 0; /* アイコンの右端に配置 */
   border: 1px solid #ddd; /* メニューの枠線 */
   list-style: none; /* リストのマーカーを非表示 */
   width: 160px; /* メニューの幅 */

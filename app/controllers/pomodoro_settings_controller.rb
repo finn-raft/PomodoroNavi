@@ -1,6 +1,6 @@
 class PomodoroSettingsController < ApplicationController
   before_action :authenticate_user!, except: [:show, :show_default] # show_defaultアクションはログインしていなくてもアクセス可能
-  before_action :show_loading, only: [:edit]
+  before_action :show_loading, only: [:update]
 
   def edit
     @pomodoro_settings = current_user.pomodoro_setting || current_user.build_pomodoro_setting

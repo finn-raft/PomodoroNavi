@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   end
   resources :users, only: [:show]
   resources :navi_characters, only: [:new, :create, :edit, :update]
-  resources :pomodoro_sessions, only: [:index]
+  resources :pomodoro_sessions, only: [:create]
 
   # ポモドーロタイマー設定ページを /pomodoro_settings で表示する
   get 'pomodoro_settings', to: 'pomodoro_settings#edit', as: :edit_pomodoro_settings

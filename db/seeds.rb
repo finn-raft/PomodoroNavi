@@ -7,7 +7,9 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
-PomodoroSetting.create!(
+
+# PomodoroSettingのデフォルト値を設定
+PomodoroSetting.find_or_create_by!(
   work_duration: 25,
   short_break_duration: 5,
   long_break_duration: 15,
@@ -18,3 +20,11 @@ PomodoroSetting.create!(
   background_color: "#419DC4",
   header_footer_color: "#0073e6"
 )
+
+# ナビキャラクターの固定メッセージの追加
+user = User.first
+
+FixedMessage.find_or_create_by!(content: '頑張ってください！', user: user)
+FixedMessage.find_or_create_by!(content: '素晴らしい進捗です！', user: user)
+FixedMessage.find_or_create_by!(content: 'お疲れ様です！', user: user)
+FixedMessage.find_or_create_by!(content: '休憩を忘れずに！', user: user)

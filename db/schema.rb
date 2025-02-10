@@ -10,9 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_02_09_165729) do
+ActiveRecord::Schema[7.1].define(version: 2025_02_10_221759) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "fixed_messages", force: :cascade do |t|
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_fixed_messages_on_user_id"
+  end
 
   create_table "navi_characters", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -24,6 +32,27 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_09_165729) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_navi_characters_on_user_id"
+  end
+
+  create_table "navi_fixed_messages", force: :cascade do |t|
+    t.bigint "navi_message_id", null: false
+    t.bigint "fixed_message_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["fixed_message_id"], name: "index_navi_fixed_messages_on_fixed_message_id"
+    t.index ["navi_message_id"], name: "index_navi_fixed_messages_on_navi_message_id"
+    t.index ["user_id"], name: "index_navi_fixed_messages_on_user_id"
+  end
+
+  create_table "navi_messages", force: :cascade do |t|
+    t.text "user_message"
+    t.text "response"
+    t.text "context"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_navi_messages_on_user_id"
   end
 
   create_table "pomodoro_sessions", force: :cascade do |t|
@@ -71,7 +100,12 @@ ActiveRecord::Schema[7.1].define(version: 2025_02_09_165729) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "fixed_messages", "users"
   add_foreign_key "navi_characters", "users"
+  add_foreign_key "navi_fixed_messages", "fixed_messages"
+  add_foreign_key "navi_fixed_messages", "navi_messages"
+  add_foreign_key "navi_fixed_messages", "users"
+  add_foreign_key "navi_messages", "users"
   add_foreign_key "pomodoro_sessions", "users"
   add_foreign_key "pomodoro_settings", "users"
 end

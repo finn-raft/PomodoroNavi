@@ -24,5 +24,6 @@ Rails.application.config.assets.precompile += %w(
     formpage.css
     timer.css
     navi_message.css
+    report.css
     audios/alarm.mp3
 )

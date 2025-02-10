@@ -11,7 +11,6 @@
         margin: 100px auto; /* 上下左右の中央揃え */
       }
     </style>
-    <%= javascript_include_tag 'icon_preview.js', 'data-turbolinks-track': 'reload', type: "module" %>
 </head>
 <body>
     <main><br><br><br>
@@ -56,5 +55,6 @@
 
         <div class="error_message"><%= render 'shared/error_messages', model: @navi_character %></div>
     </main>
+    <%= javascript_include_tag 'icon_preview.js', 'data-turbolinks-track': 'reload', type: "module" %>
 </body>
 </html>

@@ -26,6 +26,7 @@ Rails.application.configure do
     formpage.css
     timer.css
     navi_message.css
+    report.css
     audios/alarm.mp3
   )
 end

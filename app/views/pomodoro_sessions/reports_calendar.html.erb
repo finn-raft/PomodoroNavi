@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro Navi - カレンダー</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css" rel="stylesheet" />
+    <%= stylesheet_link_tag 'top', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'navi_message', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <style>
+      /* 共通のスタイル */
+      body {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          padding: 2em;
+          margin: 100px auto;
+      }
+
+      /* グラフ上部の累計作業時間のスタイル */
+      total {
+          display: block;
+          text-align: center;
+          font-size: 1.2em;
+          margin-bottom: 1em;
+      }
+
+      /* ナビメッセージとフォームのスタイル */
+      #usermessage_form {
+          width: 43.5%;
+      }
+
+      /* カレンダーのスタイル */
+      #calendarContainer {
+        width: 150%;
+        border-radius: 8px;
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+
+    </style>
+    <%= javascript_include_tag 'navi', 'data-turbolinks-track': 'reload', type: "module" %>
+  </head>
+<body>
+
+  <div id="calendar">
+    <h2>Pomodoro Navi カレンダー</h2>
+    <total>これまでの作業時間合計：<%= @total_duration_formatted %></total>
+    <div id="calendarContainer"></div>
+  </div>
+
+  <!-- カレンダー表示のためのJavaScript -->
+  <script>
+    document.addEventListener('turbolinks:load', function() {
+      var calendarEl = document.getElementById('calendarContainer');
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        events: [
+          <% @sessions.each do |session| %>
+            {
+              title: '作業時間: <%= session.duration %> 分',
+              start: '<%= session.start_time %>',
+              end: '<%= session.end_time %>'
+            },
+          <% end %>
+        ]
+      });
+      calendar.render();
+    });
+  </script>
+
+  <!-- ナビメッセージとフォーム -->
+  <div class="navi-container">
+    <div class="navi-icon">
+      <% if @navi_character %>
+        <%= image_tag @navi_character.icon_url.url, alt: @navi_character.name %>
+        <p id="navi-name"><%= @navi_character.name %></p>
+      <% else %>
+        <%= image_tag 'cat.png', alt: 'ニャビ' %>
+        <p id="navi-name">ニャビ</p>
+      <% end %>
+    </div>
+    <div class="navi-message" id="navi-message">
+      <% if notice %>
+        <p class="notice"><%= notice %></p>
+      <% elsif alert %>
+        <p class="alert"><%= alert %></p>
+      <% end %>
+      こちらのページでは、ユーザーのこれまでのポモドーロ作業時間を記録予定です。<br>
+      各期間の合計作業時間の表示、棒グラフ描写、カレンダー機能について現在制作中です。<br>
+      ナビによる応援メッセージ等も実装予定。もうしばらくお待ちください！<br>
+    </div>
+  </div>
+  <form id="usermessage_form">
+    <input type="text" id="user_input" placeholder="ナビにメッセージを送る（例：ポモドーロタイマーの使い方は？）">
+    <button id="user_input_button">
+      <img src="<%= asset_path 'navichat.png' %>" alt="送信">
+    </button>
+  </form>
+</body>
+</html>

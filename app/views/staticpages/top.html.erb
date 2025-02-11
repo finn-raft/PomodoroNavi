@@ -37,15 +37,18 @@
                   <p class="alert"><%= alert %></p>
                 <% end %>
 
-                『Pomodoro Navi』にようこそ！<br>
-                ただいまポモドーロタイマー機能・ユーザー認証機能（ナビキャラクターの登録）・ナビにメッセージを送る機能をご利用いただけます。<br>
-                まだ開発途中なので、作成した登録データは消える可能性があります。ご了承ください。<br>
-                2月はポモドーロタイマーの設定機能 → レポート（記録）機能 → ナビによる応援メッセージを実装して本リリースの予定です。<br>
+                <% unless current_user %>
+                『Pomodoro Navi』へようこそ！<br>
+                初めての方は画面右上の Sighup か Google認証 からアカウントを登録してくださいニャ。<br>
+                登録されますとユーザー専用のナビキャラクターの設定やタイマーの設定変更、レポート機能を使えるようになりますのニャ。<br>
+                新しいナビキャラクターを登録されるまでは、このニャビが、ご主人のポモドーロのナビを務めますニャ。<br>
+                もっと詳しいことは、画面右上端の「？」アイコン（使い方ページ）をクリックしてご確認くださいニャ。<br>
+                <% end %>
 
             </div>
         </div>
         <form id="usermessage_form">
-            <input type="text" id="user_input" placeholder="ナビにメッセージを送る（例：ポモドーロタイマーの使い方は？）">
+            <input type="text" id="user_input" placeholder="ナビにメッセージを送る">
             <button id="user_input_button">
                 <img src="<%= asset_path 'navichat.png' %>" alt="送信">
             </button>
@@ -53,5 +56,20 @@
     </main>
     <%= javascript_include_tag 'timer', 'data-turbolinks-track': 'reload', type: "module" %>
     <%= javascript_include_tag 'navi', 'data-turbolinks-track': 'reload', type: "module" %>
+    <script>
+    // ナビのランダムメッセージ
+    document.addEventListener('turbolinks:load', function() {
+      fetch('navi_messages/6')
+        .then(response => response.json())
+        .then(data => {
+          const naviMessageElement = document.getElementById('navi-message');
+          if (naviMessageElement) {
+            naviMessageElement.innerHTML = `
+              <p>${data.response}</p>
+            `;
+          }
+        });
+    });
+    </script>
 </body>
 </html>

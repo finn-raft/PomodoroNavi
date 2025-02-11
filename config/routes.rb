@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   resources :navi_characters, only: [:new, :create, :edit, :update]
   resources :pomodoro_sessions, only: [:create]
 
+  root "staticpages#top"
+
   # ポモドーロタイマー設定ページを /pomodoro_settings で表示する
   get 'pomodoro_settings', to: 'pomodoro_settings#edit', as: :edit_pomodoro_settings
   patch 'pomodoro_settings', to: 'pomodoro_settings#update'
@@ -21,7 +23,10 @@ Rails.application.routes.draw do
   get 'report/year', to: 'pomodoro_sessions#reports_year', as: 'pomodoro_sessions_reports_year'
   get 'report/calendar', to: 'pomodoro_sessions#reports_calendar', as: 'pomodoro_sessions_reports_calendar'
 
-  root "staticpages#top"
+  # ナビキャラクターとのチャットを表示するルーティング
   post 'openai_navis/respond', to: 'openai_navis#respond', as: :openai_navis_respond
+  get 'navi_messages/random', to: 'navi_messages#show_random_message'
+  get 'navi_messages/:id', to: 'navi_messages#show_specific_message', as: 'specific_navi_message'
+
   get "up" => "rails/health#show", as: :rails_health_check
 end

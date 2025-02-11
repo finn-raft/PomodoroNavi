@@ -75,9 +75,11 @@ document.addEventListener('turbolinks:load', () => {
       if (cycleCount % longBreakCycle === 0) {
         currentMinutes = longBreakDuration;
         statusElement.textContent = '長い休憩中';
+        fetchSpecificMessage(8, cycleCount, Math.floor(elapsedWorkTime / 60), "+++ 現在のポモドーロの経過 +++");
       } else {
         currentMinutes = shortBreakDuration;
         statusElement.textContent = '休憩中';
+        fetchSpecificMessage(8, cycleCount, Math.floor(elapsedWorkTime / 60), "+++ 現在のポモドーロの経過 +++");
       }
       if (autoStartBreak) {
         startTimer();
@@ -87,6 +89,7 @@ document.addEventListener('turbolinks:load', () => {
     } else {
       currentMinutes = workDuration;
       statusElement.textContent = '作業中';
+      fetchSpecificMessage(7);
       if (autoStartWork) {
         startTimer();
       } else {
@@ -194,6 +197,7 @@ document.addEventListener('turbolinks:load', () => {
       elapsedBreakTime += elapsed;
     }
     isEnded = true;
+    fetchSpecificMessage(9, cycleCount, Math.floor(elapsedWorkTime / 60), "+++ 今回のポモドーロの結果 +++");
     recordSession().finally(() => {
       resetTimer();
     });
@@ -236,6 +240,27 @@ document.addEventListener('turbolinks:load', () => {
     }).catch(error => {
       console.error('Error recording session:', error);
     });
+  }
+
+  // 固定メッセージを取得して表示する
+  function fetchSpecificMessage(id, cycles = null, totalWorkTime = null, additionalMessage = "") {
+    let url = `/navi_messages/${id}`;
+    if (cycles !== null) url += `?cycles=${cycles}`;
+    if (totalWorkTime !== null) url += `&totalWorkTime=${totalWorkTime}`;
+
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        const naviMessageElement = document.getElementById('navi-message');
+        if (naviMessageElement) {
+          naviMessageElement.innerHTML = `
+            <p>${data.response}</p>
+            <p>${additionalMessage}</p>
+            ${cycles !== null ? `<p>ポモドーロ回数: ${cycles}</p>` : ''}
+            ${totalWorkTime !== null ? `<p>作業時間合計: ${totalWorkTime}分</p>` : ''}
+          `;
+        }
+      });
   }
 
   fetchSettings();

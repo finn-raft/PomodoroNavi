@@ -21,10 +21,14 @@ PomodoroSetting.find_or_create_by!(
   header_footer_color: "#0073e6"
 )
 
-# ナビキャラクターの固定メッセージの追加
-user = User.first
-
-FixedMessage.find_or_create_by!(content: '頑張ってください！', user: user)
-FixedMessage.find_or_create_by!(content: '素晴らしい進捗です！', user: user)
-FixedMessage.find_or_create_by!(content: 'お疲れ様です！', user: user)
-FixedMessage.find_or_create_by!(content: '休憩を忘れずに！', user: user)
+# ナビキャラクター用の固定メッセージの追加
+FixedMessage.find_or_create_by!(content: 'お疲れ様です！')
+FixedMessage.find_or_create_by!(content: '頑張ってください！')
+FixedMessage.find_or_create_by!(content: 'あと少しです！')
+FixedMessage.find_or_create_by!(content: '素晴らしい進捗です！')
+FixedMessage.find_or_create_by!(content: '休憩を忘れずに！')
+FixedMessage.find_or_create_by!(content: '挨拶をしたあと、ユーザーが作業に対してやる気を出せる応援をしましょう！「もちろん」などの言葉はいりません')
+FixedMessage.find_or_create_by!(content: '作業を始めたユーザーを励ましましょう！「もちろん」などの言葉はいりません')
+FixedMessage.find_or_create_by!(content: '作業をしたユーザーを褒めたあと、少し休憩を促しましょう！「もちろん」などの言葉はいりません')
+FixedMessage.find_or_create_by!(content: 'お疲れ様と作業を終えたユーザーを労ったあと、たくさん褒めましょう！')
+FixedMessage.find_or_create_by!(content: '勉強に関する豆知識を話しましょう！「もちろん」などの言葉はいりません')

@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_one :navi_character
   has_one :pomodoro_setting
   has_many :pomodoro_sessions, dependent: :destroy
+  has_many :navi_messages
 
   validates :name, presence: true, length: { maximum: 20 }
   validates :profile, length: { maximum: 300 }

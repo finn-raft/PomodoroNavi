@@ -79,17 +79,31 @@
       <% elsif alert %>
         <p class="alert"><%= alert %></p>
       <% end %>
-      こちらのページでは、ユーザーのこれまでのポモドーロ作業時間を記録予定です。<br>
-      各期間の合計作業時間の表示、棒グラフ描写、カレンダー機能について現在制作中です。<br>
-      ナビによる応援メッセージ等も実装予定。もうしばらくお待ちください！<br>
     </div>
   </div>
+
   <form id="usermessage_form">
     <input type="text" id="user_input" placeholder="ナビにメッセージを送る（例：ポモドーロタイマーの使い方は？）">
     <button id="user_input_button">
       <img src="<%= asset_path 'navichat.png' %>" alt="送信">
     </button>
   </form>
+
   <%= javascript_include_tag 'navi', 'data-turbolinks-track': 'reload', type: "module" %>
+  <script>
+  // ナビのランダムメッセージ
+  document.addEventListener('turbolinks:load', function() {
+    fetch('navi_messages/random')
+      .then(response => response.json())
+      .then(data => {
+        const naviMessageElement = document.getElementById('navi-message');
+        if (naviMessageElement) {
+          naviMessageElement.innerHTML = `
+            <p>${data.response}</p>
+          `;
+        }
+      });
+  });
+  </script>
 </body>
 </html>

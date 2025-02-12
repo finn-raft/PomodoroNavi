@@ -1,5 +1,5 @@
 class NaviMessagesController < ApplicationController
-  before_action :set_navi_character, only: [:show_specific_message]
+  before_action :set_navi_character, only: [:show_specific_message, :show_random_message]
 
     # ナビキャラクターからの自動送信メッセージを生成するほうのコントローラー
     # 特定の固定メッセージをランダムに表示する（固定メッセージのIDを指定）

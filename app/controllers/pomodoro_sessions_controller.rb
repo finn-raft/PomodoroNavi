@@ -16,10 +16,37 @@ class PomodoroSessionsController < ApplicationController
 
   # レポートページの表示
   def reports_day
-    @daily_total = PomodoroSession.where(start_time: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day).sum(:duration)
-    @hourly_data = (0..23).map do |hour|
-      PomodoroSession.where(start_time: Time.zone.now.beginning_of_day + hour.hours..Time.zone.now.beginning_of_day + (hour + 1).hours).sum(:duration)
+    start_of_today = Time.zone.now.beginning_of_day
+    start_of_tomorrow = start_of_today + 1.day
+
+    @daily_total = PomodoroSession.where(start_time: start_of_today..start_of_tomorrow).sum(:duration)
+    hourly_data = Array.new(24, 0)  # 0分で初期化
+
+    # すべてのポモドーロセッションを取得
+    PomodoroSession.where(start_time: start_of_today..start_of_tomorrow).each do |session|
+      start_hour = session.start_time.hour
+      end_time = session.start_time + session.duration.minutes
+
+      # 作業が翌日に食い込む場合、最大の時間を23:59に制限せず、翌日の0:00以降にも作業時間を振り分ける
+      end_hour = end_time.hour
+      remaining_duration = session.duration  # 残りの作業時間
+
+      (start_hour..end_hour).each do |hour|
+        break if remaining_duration <= 0  # 作業時間がすべて割り当てられたら終了
+
+        # 現在の時間帯に割り当てられる作業時間を計算
+        if hour == start_hour
+          available_time = [60 - session.start_time.min, remaining_duration].min
+        else
+          available_time = [60, remaining_duration].min
+        end
+
+        hourly_data[hour] += available_time
+        remaining_duration -= available_time
+      end
     end
+
+    @hourly_data = hourly_data
     @daily_total_formatted = format_duration(@daily_total)
   end
 

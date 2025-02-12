@@ -1,22 +1,20 @@
 <!DOCTYPE html>
 <html lang="ja">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pomodoro Navi - 本日のレポート</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <%= stylesheet_link_tag 'top', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= stylesheet_link_tag 'navi_message', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= stylesheet_link_tag 'report', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <style>
-
-      /* ナビメッセージとフォームのスタイル */
-      #usermessage_form {
-          width: 43.5%;
-      }
-
-    </style>
-  </head>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pomodoro Navi - 本日のレポート</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <%= stylesheet_link_tag 'top', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= stylesheet_link_tag 'navi_message', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= stylesheet_link_tag 'report', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <style>
+    /* ナビメッセージとフォームのスタイル */
+    #usermessage_form {
+        width: 43.5%;
+    }
+  </style>
+</head>
 <body>
   <div class="tabs">
     <ul>
@@ -35,30 +33,33 @@
   <!-- グラフ表示のためのJavaScript -->
   <script>
     document.addEventListener('turbolinks:load', function() {
-      var ctxDaily = document.getElementById('dailyChart').getContext('2d');
-      var dailyChart = new Chart(ctxDaily, {
-        type: 'bar',
-        data: {
-          labels: Array.from({ length: 24 }, (_, i) => `${i}:00`),
-          datasets: [{
-            label: '作業時間 (分)',
-            data: <%= @hourly_data.to_json.html_safe %>,
-            backgroundColor: 'rgba(255, 255, 255, 0.2)',
-            borderColor: 'rgba(255, 255, 255, 1)',
-            borderWidth: 1
-          }]
-        },
-        options: {
-          scales: {
-            y: {
-              beginAtZero: true
-            },
-            x: {
-              beginAtZero: true
+      var dailyChartElement = document.getElementById('dailyChart');
+      if (dailyChartElement) {
+        var ctxDaily = dailyChartElement.getContext('2d');
+        var dailyChart = new Chart(ctxDaily, {
+          type: 'bar',
+          data: {
+            labels: Array.from({ length: 24 }, (_, i) => `${i}:00`),
+            datasets: [{
+              label: '作業時間 (分)',
+              data: <%= @hourly_data.to_json.html_safe %>,
+              backgroundColor: 'rgba(255, 255, 255, 0.2)',
+              borderColor: 'rgba(255, 255, 255, 1)',
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true
+              },
+              x: {
+                beginAtZero: true
+              }
             }
           }
-        }
-      });
+        });
+      }
     });
   </script>
 
@@ -79,6 +80,7 @@
       <% elsif alert %>
         <p class="alert"><%= alert %></p>
       <% end %>
+      Loading...
     </div>
   </div>
 
@@ -91,19 +93,21 @@
 
   <%= javascript_include_tag 'navi', 'data-turbolinks-track': 'reload', type: "module" %>
   <script>
-  // ナビのランダムメッセージ
-  document.addEventListener('turbolinks:load', function() {
-    fetch('navi_messages/random')
-      .then(response => response.json())
-      .then(data => {
-        const naviMessageElement = document.getElementById('navi-message');
-        if (naviMessageElement) {
-          naviMessageElement.innerHTML = `
-            <p>${data.response}</p>
-          `;
-        }
-      });
-  });
+    // ナビのランダムメッセージ
+    document.addEventListener('turbolinks:load', function() {
+      var naviMessageElement = document.getElementById('navi-message');
+      if (naviMessageElement) {
+        fetch('/navi_messages/random')
+          .then(response => response.json())
+          .then(data => {
+            if (naviMessageElement) {
+              naviMessageElement.innerHTML = `
+                <p>${data.response}</p>
+              `;
+            }
+          });
+      }
+    });
   </script>
 </body>
 </html>

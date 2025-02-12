@@ -25,7 +25,7 @@ Rails.application.routes.draw do
 
   # ナビキャラクターとのチャットを表示するルーティング
   post 'openai_navis/respond', to: 'openai_navis#respond', as: :openai_navis_respond
-  get 'navi_messages/random', to: 'navi_messages#show_random_message'
+  get 'navi_messages/random', to: 'navi_messages#show_random_message', as: 'random_navi_message'
   get 'navi_messages/:id', to: 'navi_messages#show_specific_message', as: 'specific_navi_message'
 
   get "up" => "rails/health#show", as: :rails_health_check

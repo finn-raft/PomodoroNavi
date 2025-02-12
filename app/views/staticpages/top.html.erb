@@ -40,7 +40,7 @@
                 <% unless current_user %>
                 『Pomodoro Navi』へようこそ！<br>
                 初めての方は画面右上の Sighup か Google認証 からアカウントを登録してくださいニャ。<br>
-                登録されますとユーザー専用のナビキャラクターの設定やタイマーの設定変更、レポート機能を使えるようになりますのニャ。<br>
+                登録されますと、ユーザー専用のナビキャラクターの設定・タイマーの時間設定等変更・レポート機能を使えるようになりますの。<br>
                 新しいナビキャラクターを登録されるまでは、このニャビが、ご主人のポモドーロのナビを務めますニャ。<br>
                 もっと詳しいことは、画面右上端の「？」アイコン（使い方ページ）をクリックしてご確認くださいニャ。<br>
                 <% end %>
@@ -57,18 +57,19 @@
     <%= javascript_include_tag 'timer', 'data-turbolinks-track': 'reload', type: "module" %>
     <%= javascript_include_tag 'navi', 'data-turbolinks-track': 'reload', type: "module" %>
     <script>
-    // ナビのランダムメッセージ
+    // ナビのランダムメッセージ（ログイン時のみ）
     document.addEventListener('turbolinks:load', function() {
-      fetch('navi_messages/6')
-        .then(response => response.json())
-        .then(data => {
-          const naviMessageElement = document.getElementById('navi-message');
-          if (naviMessageElement) {
-            naviMessageElement.innerHTML = `
-              <p>${data.response}</p>
-            `;
-          }
-        });
+      const isLoggedIn = document.querySelector("meta[name='user-logged-in']").content === "true";
+      if (isLoggedIn) {
+        fetch('navi_messages/6')
+          .then(response => response.json())
+          .then(data => {
+            const naviMessageElement = document.getElementById('navi-message');
+            if (naviMessageElement) {
+              naviMessageElement.innerHTML = `<p>${data.response}</p>`;
+            }
+          });
+      }
     });
     </script>
 </body>

@@ -242,7 +242,7 @@ document.addEventListener('turbolinks:load', () => {
     });
   }
 
-  // 固定メッセージを取得して表示する
+  // ナビのメッセージを表示する
   function fetchSpecificMessage(id, cycles = null, totalWorkTime = null, additionalMessage = "") {
     let url = `/navi_messages/${id}`;
     if (cycles !== null) url += `?cycles=${cycles}`;
@@ -256,8 +256,8 @@ document.addEventListener('turbolinks:load', () => {
           naviMessageElement.innerHTML = `
             <p>${data.response}</p>
             <p>${additionalMessage}</p>
-            ${cycles !== null ? `<p>ポモドーロ回数: ${cycles}</p>` : ''}
-            ${totalWorkTime !== null ? `<p>作業時間合計: ${totalWorkTime}分</p>` : ''}
+            ${cycles !== null ? `<p>▼ ポモドーロサイクル: ${cycles} 回</p>` : ''}
+            ${totalWorkTime !== null ? `<p>▼ 作業時間合計: ${totalWorkTime} 分</p>` : ''}
           `;
         }
       });

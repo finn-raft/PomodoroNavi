@@ -7,6 +7,20 @@ class OpenaiNavisController < ApplicationController
     response_text = get_openai_response(user_input, @navi_character, current_user)
 
     if response_text
+      if user_signed_in?
+        # 過去の履歴を取得（最新5件）
+        past_messages = NaviMessage.where(user_id: current_user.id).order(created_at: :desc).limit(5)
+        context = past_messages.map { |msg| "User: #{msg.user_message}\nNavi: #{msg.response}" }.join("\n")
+
+        # DB（Navi_Messagesテーブル)に保存
+        NaviMessage.create!(
+          user_id: current_user.id,
+          user_message: user_input,
+          response: response_text,
+          context: context
+        )
+      end
+
       render json: { text: response_text }
     else
       render json: { error: 'Failed to get response from OpenAI' }, status: :internal_server_error
@@ -29,14 +43,17 @@ class OpenaiNavisController < ApplicationController
     api_key = ENV.fetch('OPENAI_ACCESS_TOKEN', nil)
     client = OpenAI::Client.new(access_token: api_key)
 
-  # 未ログイン時はプロフィール情報を取得しない
-  def user_profile_message(user)
-    user&.profile.present? ? user.profile : 'プロフィール情報はありません。'
-  end
+    # ログインユーザーなら過去の履歴を考慮
+    context = if user
+                past_messages = NaviMessage.where(user_id: user.id).order(created_at: :desc).limit(5)
+                past_messages.map { |msg| "User: #{msg.user_message}\nNavi: #{msg.response}" }.join("\n")
+              else
+                ""
+              end
 
     system_message = {
       role: 'system',
-      content: "あなたは「#{navi_character.name}」という名前で、ユーザーのことが大好きなナビキャラクターです。一人称は「#{navi_character.first_person_pronoun}」。ユーザーを「#{navi_character.second_person_pronoun}」と呼びます。#{navi_character.description} ユーザーのプロフィール情報： #{user_profile_message(user)}'"
+      content: "あなたは「#{navi_character.name}」という名前で、ユーザーのことが大好きなナビキャラクターです。一人称は「#{navi_character.first_person_pronoun}」。ユーザーを「#{navi_character.second_person_pronoun}」と呼びます。#{navi_character.description} 過去の会話:\n#{context}"
     }
 
     response = client.chat(

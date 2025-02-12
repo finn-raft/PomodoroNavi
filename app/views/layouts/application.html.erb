@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <% if user_signed_in? %>
+      <meta name="user-logged-in" content="true">
+    <% else %>
+      <meta name="user-logged-in" content="false">
+    <% end %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload', type: "module" %>
   </head>

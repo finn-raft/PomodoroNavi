@@ -7,6 +7,14 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= display_meta_tags(default_meta_tags) %>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JRP02JNPEX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-JRP02JNPEX');
+    </script>
     <% if user_signed_in? %>
       <meta name="user-logged-in" content="true">
     <% else %>

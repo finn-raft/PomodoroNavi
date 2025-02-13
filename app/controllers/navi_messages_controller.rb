@@ -4,7 +4,7 @@ class NaviMessagesController < ApplicationController
     # ナビキャラクターからの自動送信メッセージを生成するほうのコントローラー
     # 特定の固定メッセージをランダムに表示する（固定メッセージのIDを指定）
     def show_random_message
-      @fixed_message = FixedMessage.where(id: 10..10).order('RANDOM()').first
+      @fixed_message = FixedMessage.where(id: 10..32).order('RANDOM()').first
       @response = generate_openai_response(@fixed_message.content, current_user, @navi_character)
 
       render json: { fixed_message: @fixed_message.content, response: @response }

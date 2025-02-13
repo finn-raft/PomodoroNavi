@@ -198,9 +198,15 @@ document.addEventListener('turbolinks:load', () => {
     }
     isEnded = true;
     fetchSpecificMessage(9, cycleCount, Math.floor(elapsedWorkTime / 60), "+++ 今回のポモドーロの結果 +++");
-    recordSession().finally(() => {
+
+    // ユーザーがログインしているかどうかをチェック
+    if (document.querySelector('meta[name="user-logged-in"]').content === 'true') {
+      recordSession().finally(() => {
+        resetTimer();
+      });
+    } else {
       resetTimer();
-    });
+    }
   });
 
   // ページ遷移時にタイマーをクリア
@@ -235,8 +241,6 @@ document.addEventListener('turbolinks:load', () => {
     }).then(response => {
       if (!response.ok) throw new Error('Network response was not ok');
       return response.json();
-    }).then(data => {
-      console.log('Session recorded:', data);
     }).catch(error => {
       console.error('Error recording session:', error);
     });

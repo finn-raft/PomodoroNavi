@@ -9,7 +9,6 @@ class PomodoroSessionsController < ApplicationController
     if @pomodoro_session.save
       render json: @pomodoro_session, status: :created
     else
-      Rails.logger.error(@pomodoro_session.errors.full_messages.join(", "))
       render json: @pomodoro_session.errors, status: :unprocessable_entity
     end
   end
@@ -27,22 +26,22 @@ class PomodoroSessionsController < ApplicationController
       start_hour = session.start_time.hour
       end_time = session.start_time + session.duration.minutes
 
-      # 作業が翌日に食い込む場合、最大の時間を23:59に制限せず、翌日の0:00以降にも作業時間を振り分ける
-      end_hour = end_time.hour
+      # 開始時間を基準にするため、終了時間が翌日に食い込む場合も考慮
       remaining_duration = session.duration  # 残りの作業時間
+      current_time = session.start_time
 
-      (start_hour..end_hour).each do |hour|
-        break if remaining_duration <= 0  # 作業時間がすべて割り当てられたら終了
-
+      while remaining_duration > 0
+        current_hour = current_time.hour
         # 現在の時間帯に割り当てられる作業時間を計算
-        if hour == start_hour
-          available_time = [60 - session.start_time.min, remaining_duration].min
+        if current_hour == start_hour
+          available_time = [60 - current_time.min, remaining_duration].min
         else
           available_time = [60, remaining_duration].min
         end
 
-        hourly_data[hour] += available_time
+        hourly_data[current_hour] += available_time
         remaining_duration -= available_time
+        current_time += available_time.minutes
       end
     end
 

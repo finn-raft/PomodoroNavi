@@ -13,6 +13,7 @@ document.addEventListener('turbolinks:load', () => {
   let isEnded = false; // タイマーが終了したかどうか（終了時にセッションを記録するため）
 
   const timerElement = document.getElementById('timer');
+  if (!timerElement) return; // タイマーが存在しない場合は処理を終了
   const statusElement = document.getElementById('status');
   const startStopButton = document.getElementById('start-stop');
   const endButton = document.getElementById('end');

@@ -8,7 +8,7 @@
     <%= stylesheet_link_tag 'timer', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_link_tag 'navi_message', media: 'all', 'data-turbolinks-track': 'reload' %>
 </head>
-<body>
+<body data-page="top">
 <audio id="alarm-sound" src="<%= Rails.env.development? ? '/assets/alarm.mp3' : asset_path('alarm.mp3') %>"></audio>
     <main>
         <div class="timer-container">
@@ -61,19 +61,29 @@
     <%= javascript_include_tag 'navi', 'data-turbolinks-track': 'reload', type: "module" %>
     <script>
     // ナビのランダムメッセージ（ログイン時のみ）
-    document.addEventListener('turbolinks:load', function() {
-      const isLoggedIn = document.querySelector("meta[name='user-logged-in']").content === "true";
-      if (isLoggedIn) {
-        fetch('/navi_messages/6')
+    const fetchNaviMessageHandler = () => {
+      const isLoggedIn = document.querySelector("meta[name='user-logged-in']")?.content === "true";
+      const naviMessageElement = document.getElementById('navi-message');
+      const currentPage = document.body.dataset.page; // bodyタグに data-page="top" や data-page="report" を設定
+
+      if (!isLoggedIn || !naviMessageElement) return;
+
+      const fetchUrl = currentPage === "top" ? '/navi_messages/6' : '/navi_messages/random';
+
+      const fetchNaviMessage = () => {
+        fetch(fetchUrl)
           .then(response => response.json())
           .then(data => {
-            const naviMessageElement = document.getElementById('navi-message');
-            if (naviMessageElement) {
-              naviMessageElement.innerHTML = `<p>${data.response}</p>`;
-            }
+            naviMessageElement.innerHTML = `<p>${data.response}</p>`;
           });
-      }
-    });
+      };
+
+      fetchNaviMessage();
+    };
+
+    // 一度リスナーを削除してから再登録する
+    document.removeEventListener('turbolinks:load', fetchNaviMessageHandler);
+    document.addEventListener('turbolinks:load', fetchNaviMessageHandler);
     </script>
 </body>
 </html>

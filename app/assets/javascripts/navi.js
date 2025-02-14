@@ -2,14 +2,22 @@ document.addEventListener('turbolinks:load', function() {
     const naviMessageDiv = document.getElementById("navi-message");
     const userMessageForm = document.getElementById("usermessage_form");
 
-    userMessageForm.addEventListener("submit", function(event) {
+    if (!naviMessageDiv || !userMessageForm) return; // フォームがない場合は処理を終了
+
+    // **既存のイベントリスナーを削除**
+    userMessageForm.removeEventListener("submit", handleFormSubmit);
+
+    // **新しいイベントリスナーを追加**
+    userMessageForm.addEventListener("submit", handleFormSubmit);
+
+    function handleFormSubmit(event) {
         event.preventDefault();
         const userInput = document.getElementById("user_input").value;
         if (userInput.trim() === "") return;
 
         fetchAIResponse(userInput);
         document.getElementById("user_input").value = "";
-    });
+    }
 
     function fetchAIResponse(userInput) {
         fetch("/openai_navis/respond", {

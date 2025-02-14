@@ -54,3 +54,18 @@ total {
     font-size: 1.2em;
     margin-bottom: 1em;
     }
+
+/* シェアボタンのスタイル */
+.twitter-share {
+    align-self: flex-end; /* 右寄せ */
+    display: inline-block; /* インラインブロック要素 */
+    padding: 4px 6px;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 20px;
+    border: 1px solid #fff;
+    }
+
+    .twitter-share:hover {
+    opacity: 0.7;
+    }

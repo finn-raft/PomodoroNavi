@@ -16,6 +16,11 @@
   </style>
 </head>
 <body data-page="report">
+  <a href="https://twitter.com/intent/tweet?text=<%= ERB::Util.url_encode("今週は #{@weekly_total_formatted} ポモドーロで作業しました！\nhttps://pomodoro-navi.com/\n#PomodoroNavi") %>"
+    target="_blank" rel="noopener noreferrer" class="twitter-share">
+    Xにシェアする
+  </a>
+
   <div class="tabs">
     <ul>
       <li><%= link_to 'Day', pomodoro_sessions_reports_day_path, data: { turbo: false } %></li>
@@ -34,7 +39,7 @@
   <script>
   document.addEventListener('turbolinks:load', function() {
     if (typeof Chart === 'undefined') {
-      setTimeout(initChart, 30); // 30ms 後に再試行
+      setTimeout(initChart, 100); // 100ms 後に再試行
       return;
     }
     initChart();

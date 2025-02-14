@@ -258,11 +258,32 @@ document.addEventListener('turbolinks:load', () => {
       .then(data => {
         const naviMessageElement = document.getElementById('navi-message');
         if (naviMessageElement) {
+          let shareLink = "";
+
+          // 作業終了時（休憩開始時）またはタイマー完全終了時に Twitter シェアリンクを表示
+          if (!isWorking || isEnded) {
+            const tweetText = encodeURIComponent(
+              `+++ ポモドーロタイマーで作業しました +++\n` +
+              (cycles !== null ? `▼ ポモドーロサイクル: ${cycles} 回\n` : '') +
+              (totalWorkTime !== null ? `▼ 作業時間合計: ${totalWorkTime} 分\n` : '') +
+              `https://pomodoro-navi.com/\n#PomodoroNavi`
+            );
+            const twitterShareUrl = `https://twitter.com/intent/tweet?text=${tweetText}`;
+            shareLink = `
+              <p>
+                <a href="${twitterShareUrl}" target="_blank" rel="noopener noreferrer" style="text-decoration: underline;">
+                  上記の成果をXにシェアする
+                </a>
+              </p>
+            `;
+          }
+
           naviMessageElement.innerHTML = `
             <p>${data.response}</p>
             <p>${additionalMessage}</p>
             ${cycles !== null ? `<p>▼ ポモドーロサイクル: ${cycles} 回</p>` : ''}
             ${totalWorkTime !== null ? `<p>▼ 作業時間合計: ${totalWorkTime} 分</p>` : ''}
+            ${shareLink}
           `;
         }
       });

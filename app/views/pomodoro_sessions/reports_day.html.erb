@@ -15,7 +15,7 @@
     }
   </style>
 </head>
-<body>
+<body data-page="report">
   <div class="tabs">
     <ul>
       <li><%= link_to 'Day', pomodoro_sessions_reports_day_path, data: { turbo: false }, class: 'active' %></li>
@@ -32,35 +32,44 @@
 
   <!-- グラフ表示のためのJavaScript -->
   <script>
-    document.addEventListener('turbolinks:load', function() {
-      var dailyChartElement = document.getElementById('dailyChart');
-      if (dailyChartElement) {
-        var ctxDaily = dailyChartElement.getContext('2d');
-        var dailyChart = new Chart(ctxDaily, {
-          type: 'bar',
-          data: {
-            labels: Array.from({ length: 24 }, (_, i) => `${i}:00`),
-            datasets: [{
-              label: '作業時間 (分)',
-              data: <%= @hourly_data.to_json.html_safe %>,
-              backgroundColor: 'rgba(255, 255, 255, 0.2)',
-              borderColor: 'rgba(255, 255, 255, 1)',
-              borderWidth: 1
-            }]
-          },
-          options: {
-            scales: {
-              y: {
-                beginAtZero: true
-              },
-              x: {
-                beginAtZero: true
-              }
+  document.addEventListener('turbolinks:load', function() {
+    if (typeof Chart === 'undefined') {
+      setTimeout(initChart, 50); // 50ms 後に再試行
+      return;
+    }
+    initChart();
+  });
+
+  function initChart() {
+    var dailyChartElement = document.getElementById('dailyChart');
+    if (dailyChartElement) {
+      var ctxDaily = dailyChartElement.getContext('2d');
+      var dailyChart = new Chart(ctxDaily, {
+        type: 'bar',
+        data: {
+          labels: Array.from({ length: 24 }, (_, i) => `${i}:00`),
+          datasets: [{
+            label: '作業時間 (分)',
+            data: <%= @hourly_data.to_json.html_safe %>,
+            backgroundColor: 'rgba(255, 255, 255, 0.2)',
+            borderColor: 'rgba(255, 255, 255, 1)',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            },
+            x: {
+              beginAtZero: true
             }
           }
-        });
-      }
-    });
+        }
+      });
+    }
+  }
+
   </script>
 
   <!-- ナビメッセージとフォーム -->
@@ -93,21 +102,29 @@
 
   <%= javascript_include_tag 'navi', 'data-turbolinks-track': 'reload', type: "module" %>
   <script>
-    // ナビのランダムメッセージ
-    document.addEventListener('turbolinks:load', function() {
-      var naviMessageElement = document.getElementById('navi-message');
-      if (naviMessageElement) {
-        fetch('/navi_messages/random')
-          .then(response => response.json())
-          .then(data => {
-            if (naviMessageElement) {
-              naviMessageElement.innerHTML = `
-                <p>${data.response}</p>
-              `;
-            }
-          });
-      }
-    });
+  const fetchNaviMessageHandler = () => {
+    const isLoggedIn = document.querySelector("meta[name='user-logged-in']")?.content === "true";
+    const naviMessageElement = document.getElementById('navi-message');
+    const currentPage = document.body.dataset.page; // bodyタグに data-page="top" や data-page="report" を設定
+
+    if (!isLoggedIn || !naviMessageElement) return;
+
+    const fetchUrl = currentPage === "top" ? '/navi_messages/6' : '/navi_messages/random';
+
+    const fetchNaviMessage = () => {
+      fetch(fetchUrl)
+        .then(response => response.json())
+        .then(data => {
+          naviMessageElement.innerHTML = `<p>${data.response}</p>`;
+        });
+    };
+
+    fetchNaviMessage();
+  };
+
+  // 一度リスナーを削除してから再登録する
+  document.removeEventListener('turbolinks:load', fetchNaviMessageHandler);
+  document.addEventListener('turbolinks:load', fetchNaviMessageHandler);
   </script>
 </body>
 </html>

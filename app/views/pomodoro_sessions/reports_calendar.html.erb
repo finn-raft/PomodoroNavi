@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pomodoro Navi - カレンダー</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css" rel="stylesheet" />
     <%= stylesheet_link_tag 'top', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -52,10 +51,17 @@
   <!-- カレンダー表示のためのJavaScript -->
   <script>
   document.addEventListener('turbolinks:load', function() {
+    if (typeof FullCalendar === 'undefined') {
+      setTimeout(initCalendar, 30); // 30ms 後に再試行
+      return;
+    }
+    initCalendar();
+  });
+
+  function initCalendar() {
     var calendarEl = document.getElementById('calendarContainer');
     if (!calendarEl) return;
 
-    // 日毎の作業時間を計算
     var workSessions = {};
     <% @sessions.each do |session| %>
       var date = '<%= session.start_time.to_date %>';
@@ -71,7 +77,7 @@
         title: workSessions[date] + ' min',
         start: date,
         allDay: true,
-        backgroundColor: 'rgba(0, 128, 0, 0.3)',  // 半透明の緑色
+        backgroundColor: 'rgba(0, 128, 0, 0.3)',
         borderColor: 'rgba(0, 128, 0, 0.3)'
       });
     }
@@ -80,14 +86,13 @@
       initialView: 'dayGridMonth',
       events: events,
       eventContent: function(arg) {
-        // 作業時間を日付欄の中央に表示
         let durationText = arg.event.title;
         return { html: '<div style="text-align: center; font-size: 18px; color: white;">' + durationText + '</div>' };
       }
     });
 
     calendar.render();
-  });
+  }
   </script>
 </body>
 </html>

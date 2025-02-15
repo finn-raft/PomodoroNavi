@@ -28,8 +28,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
     yield resource if block_given?
     if resource_updated
       if is_flashing_format?
-        flash_key = update_needs_confirmation?(resource, prev_unconfirmed_email) ?
-          :update_needs_confirmation : :updated
+        flash_key = if update_needs_confirmation?(resource, prev_unconfirmed_email)
+                      :update_needs_confirmation
+                    else
+                      :updated
+                    end
         set_flash_message :notice, flash_key
       end
 

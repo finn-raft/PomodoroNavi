@@ -7,7 +7,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def callback_for(provider)
-    @user = User.from_omniauth(request.env["omniauth.auth"])
+    @user = User.from_omniauth(request.env['omniauth.auth'])
     if @user.persisted?
       sign_in @user, event: :authentication
 
@@ -18,7 +18,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
         redirect_to new_navi_character_path
       end
     else
-      session["devise.#{provider}_data"] = request.env["omniauth.auth"].except(:extra) # Remove extra as it can overflow some session stores
+      session["devise.#{provider}_data"] = request.env['omniauth.auth'].except(:extra) # Remove extra as it can overflow some session stores
       redirect_to new_user_registration_url
     end
   end

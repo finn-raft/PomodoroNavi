@@ -1,10 +1,13 @@
 class NaviCharactersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_navi_character, only: [:edit, :update]
-  before_action :show_loading, only: [:new , :edit]
+  before_action :show_loading, only: [:new, :edit]
 
   def new
     @navi_character = NaviCharacter.new
+  end
+
+  def edit
   end
 
   def create
@@ -16,8 +19,6 @@ class NaviCharactersController < ApplicationController
       render :new, status: :unprocessable_entity
     end
   end
-
-  def edit; end
 
   def update
     if @navi_character.update(navi_character_params)

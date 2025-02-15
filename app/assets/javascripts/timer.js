@@ -18,6 +18,7 @@ document.addEventListener('turbolinks:load', () => {
   const startStopButton = document.getElementById('start-stop');
   const endButton = document.getElementById('end');
   const alarmSound = document.getElementById('alarm-sound');
+  const timerTextElement = document.getElementById('timer-text'); // 追加
 
   // ポモドーロ設定ページからデータを取得する
   function fetchSettings() {
@@ -150,6 +151,11 @@ document.addEventListener('turbolinks:load', () => {
       } else {
         statusElement.textContent = isWorking ? '作業中' : '休憩中';
       }
+
+      // Endボタンを押すように促すメッセージを表示
+      if (timerTextElement) {
+        timerTextElement.style.display = 'block'; // 追加
+      }
     }
   }
 
@@ -177,6 +183,11 @@ document.addEventListener('turbolinks:load', () => {
     statusElement.textContent = '';
     updateTimerDisplay();
     document.title = 'PomodoroNavi';
+
+      // Endボタンを押すように促すメッセージを非表示
+    if (timerTextElement) {
+      timerTextElement.style.display = 'none'; // 追加
+    }
   }
 
   // ボタンクリック時の処理

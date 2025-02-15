@@ -27,6 +27,7 @@
       <% else %>
         <li><%= link_to "Navi", new_navi_character_path, data: { turbo: false } %></li>
       <% end %>
+      <li><%= link_to "Help", page_path('Help'), data: { turbo: false } %></li>
       <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
     </ul>
   </div>

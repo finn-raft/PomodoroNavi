@@ -15,38 +15,13 @@ class PomodoroSessionsController < ApplicationController
 
   # レポートページの表示
   def reports_day
-    start_of_today = Time.zone.now.beginning_of_day
-    start_of_tomorrow = start_of_today + 1.day
+    @daily_total = PomodoroSession.where(
+      start_time: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day,
+      user: current_user
+    ).sum(:duration)
 
-    @daily_total = PomodoroSession.where(start_time: start_of_today..start_of_tomorrow).sum(:duration)
-    hourly_data = Array.new(24, 0)  # 0分で初期化
-
-    # すべてのポモドーロセッションを取得
-    PomodoroSession.where(start_time: start_of_today..start_of_tomorrow).each do |session|
-      start_hour = session.start_time.hour
-      end_time = session.start_time + session.duration.minutes
-
-      # 開始時間を基準にするため、終了時間が翌日に食い込む場合も考慮
-      remaining_duration = session.duration  # 残りの作業時間
-      current_time = session.start_time
-
-      while remaining_duration > 0
-        current_hour = current_time.hour
-        # 現在の時間帯に割り当てられる作業時間を計算
-        if current_hour == start_hour
-          available_time = [60 - current_time.min, remaining_duration].min
-        else
-          available_time = [60, remaining_duration].min
-        end
-
-        hourly_data[current_hour] += available_time
-        remaining_duration -= available_time
-        current_time += available_time.minutes
-      end
-    end
-
-    @hourly_data = hourly_data
     @daily_total_formatted = format_duration(@daily_total)
+    @hourly_data = calculate_hourly_data
   end
 
   def reports_week
@@ -91,5 +66,38 @@ class PomodoroSessionsController < ApplicationController
 
   def pomodoro_session_params
     params.require(:pomodoro_session).permit(:start_time, :end_time, :duration, :break_duration, :status, :mode)
+  end
+
+  # 1時間ごとの作業時間を計算する
+  def calculate_hourly_data
+    hourly_data = Array.new(24, 0) # 24時間分の作業時間配列
+
+    # 今日のポモドーロセッションを取得
+    sessions = PomodoroSession.where(
+      start_time: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day,
+      user: current_user
+    )
+
+    sessions.each do |session|
+      start_time = session.start_time
+      duration = session.duration
+
+      while duration > 0
+        hour_index = start_time.hour
+        remaining_minutes_in_hour = 60 - (hourly_data[hour_index] % 60)
+        minutes_to_add = [remaining_minutes_in_hour, duration].min
+
+        hourly_data[hour_index] += minutes_to_add
+        duration -= minutes_to_add
+        start_time += 1.hour
+
+        # 日付を超えた場合、翌日の 0:00 から加算
+        if start_time.day != Time.zone.today.day
+          start_time = start_time.change(hour: 0)
+        end
+      end
+    end
+
+    hourly_data
   end
 end

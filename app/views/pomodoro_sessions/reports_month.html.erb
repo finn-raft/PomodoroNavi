@@ -39,7 +39,7 @@
   <script>
   document.addEventListener('turbolinks:load', function() {
     if (typeof Chart === 'undefined') {
-      setTimeout(initChart, 100); // 100ms 後に再試行
+      setTimeout(initChart, 200); // 200ms 後に再試行
       return;
     }
     initChart();

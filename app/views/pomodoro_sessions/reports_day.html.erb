@@ -56,15 +56,16 @@
           datasets: [{
             label: '作業時間 (分)',
             data: <%= @hourly_data.to_json.html_safe %>,
-            backgroundColor: 'rgba(255, 255, 255, 0.2)',
-            borderColor: 'rgba(255, 255, 255, 1)',
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
             borderWidth: 1
           }]
         },
         options: {
           scales: {
             y: {
-              beginAtZero: true
+              beginAtZero: true,
+              max: 60 // 1時間の最大値を60分に設定
             },
             x: {
               beginAtZero: true

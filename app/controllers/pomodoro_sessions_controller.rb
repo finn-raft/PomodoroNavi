@@ -24,32 +24,57 @@ class PomodoroSessionsController < ApplicationController
   end
 
   def reports_week
-    @weekly_total = PomodoroSession.where(start_time: Time.zone.now.all_week).sum(:duration)
+    @weekly_total = PomodoroSession.where(
+      start_time: Time.zone.now.all_week,
+      user: current_user
+    ).sum(:duration)
+
     @weekly_data = (0..6).map do |day|
-      PomodoroSession.where(start_time: Time.zone.now.beginning_of_week + day.days..Time.zone.now.beginning_of_week + (day + 1).days).sum(:duration)
+      PomodoroSession.where(
+        start_time: Time.zone.now.beginning_of_week + day.days..Time.zone.now.beginning_of_week + (day + 1).days,
+        user: current_user
+      ).sum(:duration)
     end
+
     @weekly_total_formatted = format_duration(@weekly_total)
   end
 
   def reports_month
-    @monthly_total = PomodoroSession.where(start_time: Time.zone.now.all_month).sum(:duration)
+    @monthly_total = PomodoroSession.where(
+      start_time: Time.zone.now.all_month,
+      user: current_user
+    ).sum(:duration)
+
     @days_in_month = Time.days_in_month(Time.zone.now.month, Time.zone.now.year)
+
     @daily_data = (1..@days_in_month).map do |day|
-      PomodoroSession.where(start_time: Time.zone.now.beginning_of_month + (day - 1).days..Time.zone.now.beginning_of_month + day.days).sum(:duration)
+      PomodoroSession.where(
+        start_time: Time.zone.now.beginning_of_month + (day - 1).days..Time.zone.now.beginning_of_month + day.days,
+        user: current_user
+      ).sum(:duration)
     end
+
     @monthly_total_formatted = format_duration(@monthly_total)
   end
 
   def reports_year
-    @yearly_total = PomodoroSession.where(start_time: Time.zone.now.all_year).sum(:duration)
+    @yearly_total = PomodoroSession.where(
+      start_time: Time.zone.now.all_year,
+      user: current_user
+    ).sum(:duration)
+
     @monthly_data = (1..12).map do |month|
-      PomodoroSession.where(start_time: Time.zone.now.beginning_of_year + (month - 1).months..Time.zone.now.beginning_of_year + month.months).sum(:duration)
+      PomodoroSession.where(
+        start_time: Time.zone.now.beginning_of_year + (month - 1).months..Time.zone.now.beginning_of_year + month.months,
+        user: current_user
+      ).sum(:duration)
     end
+
     @yearly_total_formatted = format_duration(@yearly_total)
   end
 
   def reports_calendar
-    @sessions = PomodoroSession.all
+    @sessions = PomodoroSession.where(user: current_user)
     @total_duration = @sessions.sum(:duration)
     @total_duration_formatted = format_duration(@total_duration)
   end

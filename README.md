@@ -23,7 +23,7 @@
 
 ## 機能紹介
 ### TOPページ
-[![Image from Gyazo](https://i.gyazo.com/7770693dec7ca7425854ddcfcbc64798.png)](https://gyazo.com/7770693dec7ca7425854ddcfcbc64798)
+[![Image from Gyazo](https://i.gyazo.com/4950a4515c407c7528adb57dc8f81170.png)](https://gyazo.com/4950a4515c407c7528adb57dc8f81170)
 - ポモドーロタイマーの機能
   - 作業タイマー（スタート【初期設定：25分】、一時停止、終了）
     - 作業タイマーが0:00になると休憩タイマーに遷移し、次の休憩タイマーを自動開始する（アカウント登録すると自動開始をON/OFF可能）

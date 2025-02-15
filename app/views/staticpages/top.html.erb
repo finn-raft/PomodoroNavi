@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pomodoro Navi</title>
+    <title>PomodoroNavi</title>
     <%= stylesheet_link_tag 'top', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_link_tag 'timer', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_link_tag 'navi_message', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -12,7 +12,7 @@
 <audio id="alarm-sound" src="<%= Rails.env.development? ? '/assets/alarm.mp3' : asset_path('alarm.mp3') %>"></audio>
     <main>
         <div class="timer-container">
-            <span id="timer">25:00</span>
+            <span id="timer"></span>
             <div id="status"></div>
         </div>
             <div class="controls">
@@ -39,10 +39,10 @@
 
                 <% unless current_user %>
                 『Pomodoro Navi』へようこそ！<br>
-                初めての方は画面右上の Sighup か Google認証 からアカウントを登録してくださいニャ。<br>
-                登録されますと、専用のナビキャラクターの設定・タイマーの時間設定などの変更・レポート機能を使えるようになりますの。<br>
+                初めての方はアプリ画面右上の「Sighup」からアカウントを登録してくださいニャ。<br>
+                登録されますと、専用のナビキャラクターの設定・タイマーの時間設定などの変更・レポート機能を使えるようになりますのニャ。<br>
                 新しいナビキャラクターを登録されるまでは、このニャビが、ご主人のポモドーロのナビを務めますニャ。<br>
-                もっと詳しいことは、画面右上端の「？」アイコン（使い方ページ）をクリックしてご確認くださいニャ。<br>
+                もっと詳しいことは、アプリ画面右上の「？」アイコン（ヘルプページ）をクリックしてご確認くださいニャ。<br>
                 <% end %>
                 <% if current_user %>
                 Loading...

@@ -24,7 +24,7 @@
 
       <%= f.label :name, "名前" %><br>
       <div class="formpage-field">
-        <%= f.text_field :name, autofocus: true, autocomplete: "name", placeholder: "（例）ニャビ" %>
+        <%= f.text_field :name, autocomplete: "name", placeholder: "（例）ニャビ" %>
       </div>
 
       <%= f.label :first_person_pronoun, "一人称" %>
@@ -45,7 +45,7 @@
       <%= f.label :icon_url, "アイコン画像" %><br>
         <%= f.file_field :icon_url, id: "icon-upload-js" %>
         <div class="icon-preview">
-          <img id="icon-preview-js" src="#" alt="Image Preview" style="display: none; max-width: 120px; max-height: 120px; border-radius: 50%; object-fit: cover; margin-top: 20px;" />
+          <img id="icon-preview-js" alt="Image Preview" style="display: none; max-width: 120px; max-height: 120px; border-radius: 50%; object-fit: cover; margin-top: 20px;" />
         </div><br><br>
 
         <div class="formpage-actions">

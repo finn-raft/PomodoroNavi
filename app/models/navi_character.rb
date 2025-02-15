@@ -22,8 +22,9 @@ class NaviCharacter < ApplicationRecord
 
   private
 
+  # 同一ユーザーが複数のナビキャラクターを持てないようにするバリデーション
   def unique_user_navi_character
-    return unless user.navi_characters.exists?
+    return unless user.navi_character.nil?
 
     errors.add(:user_id, 'は既にナビキャラクターを登録しています')
   end

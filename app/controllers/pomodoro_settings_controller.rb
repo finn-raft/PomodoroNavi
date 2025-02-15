@@ -10,7 +10,7 @@ class PomodoroSettingsController < ApplicationController
     @pomodoro_settings = current_user.pomodoro_setting || current_user.build_pomodoro_setting
     if @pomodoro_settings.update(pomodoro_settings_params)
       session[:loading_shown] = false
-      redirect_to root_path, notice: 'ポモドーロタイマーの設定を更新しました。'
+      redirect_to root_path, notice: '+++ ポモドーロタイマーの設定を更新しました +++'
     else
       render :edit, status: :unprocessable_entity
     end

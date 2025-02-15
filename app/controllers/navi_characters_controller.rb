@@ -8,10 +8,10 @@ class NaviCharactersController < ApplicationController
   end
 
   def create
-    @navi_character = current_user.navi_characters.build(navi_character_params)
+    @navi_character = current_user.build_navi_character(navi_character_params)
     if @navi_character.save
       session[:loading_shown] = false
-      redirect_to root_path, notice: 'ナビキャラクターが登録されました。'
+      redirect_to root_path, notice: '+++ ナビキャラクターが登録されました +++'
     else
       render :new, status: :unprocessable_entity
     end
@@ -22,7 +22,7 @@ class NaviCharactersController < ApplicationController
   def update
     if @navi_character.update(navi_character_params)
       session[:loading_shown] = false
-      redirect_to root_path, notice: 'ナビキャラクターが更新されました。'
+      redirect_to root_path, notice: '+++ ナビキャラクターが更新されました +++'
     else
       render :edit, status: :unprocessable_entity
     end

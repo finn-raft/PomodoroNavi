@@ -4,7 +4,6 @@ class PomodoroSessionsController < ApplicationController
 
   # ポモドーロ時間の記録
   def create
-
     @pomodoro_session = current_user.pomodoro_sessions.new(pomodoro_session_params)
     if @pomodoro_session.save
       render json: @pomodoro_session, status: :created
@@ -16,7 +15,7 @@ class PomodoroSessionsController < ApplicationController
   # レポートページの表示
   def reports_day
     @daily_total = PomodoroSession.where(
-      start_time: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day,
+      start_time: Time.zone.now.all_day,
       user: current_user
     ).sum(:duration)
 
@@ -25,7 +24,7 @@ class PomodoroSessionsController < ApplicationController
   end
 
   def reports_week
-    @weekly_total = PomodoroSession.where(start_time: Time.zone.now.beginning_of_week..Time.zone.now.end_of_week).sum(:duration)
+    @weekly_total = PomodoroSession.where(start_time: Time.zone.now.all_week).sum(:duration)
     @weekly_data = (0..6).map do |day|
       PomodoroSession.where(start_time: Time.zone.now.beginning_of_week + day.days..Time.zone.now.beginning_of_week + (day + 1).days).sum(:duration)
     end
@@ -33,7 +32,7 @@ class PomodoroSessionsController < ApplicationController
   end
 
   def reports_month
-    @monthly_total = PomodoroSession.where(start_time: Time.zone.now.beginning_of_month..Time.zone.now.end_of_month).sum(:duration)
+    @monthly_total = PomodoroSession.where(start_time: Time.zone.now.all_month).sum(:duration)
     @days_in_month = Time.days_in_month(Time.zone.now.month, Time.zone.now.year)
     @daily_data = (1..@days_in_month).map do |day|
       PomodoroSession.where(start_time: Time.zone.now.beginning_of_month + (day - 1).days..Time.zone.now.beginning_of_month + day.days).sum(:duration)
@@ -42,7 +41,7 @@ class PomodoroSessionsController < ApplicationController
   end
 
   def reports_year
-    @yearly_total = PomodoroSession.where(start_time: Time.zone.now.beginning_of_year..Time.zone.now.end_of_year).sum(:duration)
+    @yearly_total = PomodoroSession.where(start_time: Time.zone.now.all_year).sum(:duration)
     @monthly_data = (1..12).map do |month|
       PomodoroSession.where(start_time: Time.zone.now.beginning_of_year + (month - 1).months..Time.zone.now.beginning_of_year + month.months).sum(:duration)
     end
@@ -74,7 +73,7 @@ class PomodoroSessionsController < ApplicationController
 
     # 今日のポモドーロセッションを取得
     sessions = PomodoroSession.where(
-      start_time: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day,
+      start_time: Time.zone.now.all_day,
       user: current_user
     )
 
@@ -92,9 +91,7 @@ class PomodoroSessionsController < ApplicationController
         start_time += 1.hour
 
         # 日付を超えた場合、翌日の 0:00 から加算
-        if start_time.day != Time.zone.today.day
-          start_time = start_time.change(hour: 0)
-        end
+        start_time = start_time.change(hour: 0) if start_time.day != Time.zone.today.day
       end
     end
 

@@ -2,6 +2,15 @@ class PomodoroSettingsController < ApplicationController
   before_action :authenticate_user!, except: [:show, :show_default] # show_defaultアクションはログインしていなくてもアクセス可能
   before_action :show_loading, only: [:update]
 
+  def show
+    if current_user
+      @pomodoro_settings = current_user.pomodoro_setting || PomodoroSetting.default
+      render json: @pomodoro_settings
+    else
+      show_default
+    end
+  end
+
   def edit
     @pomodoro_settings = current_user.pomodoro_setting || current_user.build_pomodoro_setting
   end
@@ -13,15 +22,6 @@ class PomodoroSettingsController < ApplicationController
       redirect_to root_path, notice: '+++ ポモドーロタイマーの設定を更新しました +++'
     else
       render :edit, status: :unprocessable_entity
-    end
-  end
-
-  def show
-    if current_user
-      @pomodoro_settings = current_user.pomodoro_setting || PomodoroSetting.default
-      render json: @pomodoro_settings
-    else
-      show_default
     end
   end
 

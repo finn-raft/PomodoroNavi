@@ -48,7 +48,7 @@ class OpenaiNavisController < ApplicationController
                 past_messages = NaviMessage.where(user_id: user.id).order(created_at: :desc).limit(5)
                 past_messages.map { |msg| "User: #{msg.user_message}\nNavi: #{msg.response}" }.join("\n")
               else
-                ""
+                ''
               end
 
     system_message = {

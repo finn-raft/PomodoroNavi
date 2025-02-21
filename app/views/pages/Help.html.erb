@@ -3,65 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pomodoro Navi - ヘルプ</title>
+    <title>Pomodoro Navi - 説明書</title>
     <%= stylesheet_link_tag 'top', media: 'all', 'data-turbolinks-track': 'reload' %>
-
-    <style>
-      .black-window {
-          background-color: #1a1a1a; /* コンテナの背景色 */
-          border : 5px solid #fff; /* 枠線 */
-          border-radius: 10px; /* 角丸 */
-          padding: 30px; /* 内側の余白 */
-          width: 90%; /* 幅 */
-          max-width: 1000px; /* 最大幅 */
-          margin: 100px auto; /* 上下左右の中央揃え */
-      }
-
-      h2 {
-          text-align: center; /* 中央揃え */
-          color: #fff; /* 見出しの色 */
-          font-size: 24px; /* 見出しのサイズ */
-          padding: 20px 0; /* 上の余白 */
-          margin-bottom: 30px; /* 下の余白 */
-          border-bottom: 2px solid #B0B0B0; /* 下の線 */
-      }
-
-      h3 {
-          color: #A3BE8C; /* セクション見出しの色 */
-          font-size: 20px; /* セクション見出しのサイズ */
-          margin-top: 30px; /* 上の余白 */
-          margin-bottom: 30px; /* 下の余白 */
-          border-left: 4px solid #A3BE8C; /* 左の線 */
-          padding-left: 10px; /* 左の余白 */
-      }
-
-      p, li {
-          line-height: 1.6; /* 行間 */
-          font-size: 16px; /* フォントサイズ */
-          margin: 14px 0; /* 上下の余白 */
-      }
-
-      p.end {
-          text-align: right; /* 右寄せ */
-          margin-top: 30px; /* 上の余白 */
-          font-size: 16px; /* フォントサイズ */
-          color: #B0B0B0; /* テキストの色 */
-      }
-
-      ol {
-          margin-left: 20px; /* 左の余白 */
-          padding-left: 20px; /* 左の余白 */
-      }
-
-      li {
-          margin-bottom: 5px; /* 下の余白 */
-      }
-
-      li.only {
-          list-style: none; /* リストのマーカーを消す */
-      }
-      </style>
-
+    <%= stylesheet_link_tag 'pages', media: 'all', 'data-turbolinks-track': 'reload' %>
 </head>
 <body>
   <main>
@@ -105,7 +49,7 @@
                   ナビの名前、一人称、あなた（ユーザー）の呼び方、アイコン画像、特徴を好きなように設定することができます。<br>
                   特徴は、上記の画像の例のようにシンプルな形式で羅列するように記述するのがオススメです。<br><br>
                   <%= image_tag 'help3.png', width: 400, height: 380 %><br><br>
-                  また画面右上にある人物アイコンの下の「Profile」から、ユーザーのプロフィールを設定することができます。<br>
+                  また、同じく画面右上にある人物アイコンの下の「Profile」から、ユーザーのプロフィールを設定することができます。<br>
                   プロフィールに、今取り組んでいる作業や目標などを記載すると、ナビキャラクターがそのことに関してあなたを応援してくれるようになります。<br>
                   <p>ナビキャラクターは上記に設定された内容に応じて、ユーザーの送信メッセージに返信してくれたり、タイマー使用時やレポート閲覧時にメッセージを送ってくれたりするので、自分好みになるよう変更を試してみましょう。</p>
                 </div>
@@ -120,15 +64,15 @@
                   <%= image_tag 'help5.png', width: 600, height: 400 %><br><br>
                   画面右上にあるグラフアイコンの下の「Report」から、本日（Day)・今週（Week)・今月（Month)・今年（Year)の作業時間を棒グラフで可視化して振り返ることができます。<br><br>
                   <%= image_tag 'help6.png', width: 600, height: 600 %><br><br>
-                  画面右上にあるグラフアイコンの下の「Calendar」からは、これまでの作業時間をカレンダー形式で振り返ることができます。<br>
+                  同じく画面右上にあるグラフアイコンの下の「Calendar」からは、これまでの作業時間をカレンダー形式で振り返ることができます。<br>
                   <p>余談ですが、『SOFT SKILLS』の著者であるジョン・ソンメズ氏はその著書の中で「その日に何ポモドーロするという目標を立て、その目標分の仕事をしたら、たとえ仕事が片付かなかったとしてもその日すべきだった仕事をしたということであり、ポモドーロを達成したこと自体に満足しても何ら間違っていない」と書いています。<br>
                   集中してポモドーロに取り組むことは、やっていることは簡単そうに見えて実ははるかに苦しく、慣れが必要だと著者も経験を語っています（私もそう感じています）。</p>
                   ポモドーロ・テクニックを実行して継続できること自体が凄いことなので、そんなあなたは推しにたくさん褒めてもらってください。もちろん、自分でも自分自身のことをたくさん褒めてあげてください！
                 </div>
                   <h3>お問い合わせについて</h3>
                   本アプリに関するバグや不具合のご報告は、アプリ画面左下の「お問い合わせ」よりお願いします。<br>
+                  <p class="end"><a href="javascript:history.back();">▲ 前のページに戻る</a></p>
                 </div>
-                <p class="end">以上</p>
             </div>
         </main>
     </body>

@@ -5,6 +5,7 @@
 //= link timer.css
 //= link navi_message.css
 //= link report.css
+//= link pages.css
 //= link timer.js
 //= link navi.js
 //= link icon_preview.js

@@ -7,6 +7,11 @@
     <%= stylesheet_link_tag 'top', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_link_tag 'timer', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_link_tag 'navi_message', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <style>
+    body {
+      margin: 50px auto; /* 上下左右の中央揃え */
+    }
+    </style>
 </head>
 <body data-page="top">
 <audio id="alarm-sound" src="<%= Rails.env.development? ? '/assets/alarm.mp3' : asset_path('alarm.mp3') %>"></audio>

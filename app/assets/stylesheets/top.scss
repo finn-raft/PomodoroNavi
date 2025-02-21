@@ -66,6 +66,7 @@ footer {
     position: fixed; /* 固定配置 */
     bottom: 0; /* 下から配置 */
     width: 100%; /* 幅を100% */
+    z-index: 10; /* 入力フォーム等より上の重なり優先 */
 }
 
 .footer-links a {

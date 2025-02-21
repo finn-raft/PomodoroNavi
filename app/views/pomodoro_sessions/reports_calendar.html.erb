@@ -15,6 +15,7 @@
         flex-direction: column;
         align-items: center;
         padding: 2em;
+        margin: 100px auto; /* 上下左右の中央揃え */
       }
 
       /* カレンダーのスタイル */
@@ -51,7 +52,7 @@
   <script>
   document.addEventListener('turbolinks:load', function() {
     if (typeof FullCalendar === 'undefined') {
-      setTimeout(initCalendar, 30); // 30ms 後に再試行
+      setTimeout(initCalendar, 100); // 100ms 後に再試行
       return;
     }
     initCalendar();

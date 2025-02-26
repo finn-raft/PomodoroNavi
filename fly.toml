@@ -3,7 +3,7 @@
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'pomodoro-navi-db'
+app = 'pomodoro-navi'
 primary_region = 'nrt'
 
 [build]
@@ -54,21 +54,19 @@ primary_region = 'nrt'
 
 [checks]
   [checks.pg]
-    port = 5500
-    type = 'http'
+    port = 5432
+    type = 'tcp'
     interval = '15s'
     timeout = '10s'
-    path = '/flycheck/pg'
 
   [checks.role]
-    port = 5500
-    type = 'http'
+    port = 5433
+    type = 'tcp'
     interval = '15s'
     timeout = '10s'
-    path = '/flycheck/role'
 
   [checks.vm]
-    port = 5500
+    port = 3000
     type = 'http'
     interval = '15s'
     timeout = '10s'

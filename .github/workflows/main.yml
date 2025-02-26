@@ -4,7 +4,10 @@ on:
   push:
 
 env:
-  RENDER_DB_URL: ${{secrets.RENDER_DB_URL}}
+  DATABASE_URL: ${{secrets.DATABASE_URL}}
+  DB_USERNAME: ${{secrets.DB_USERNAME}}
+  DB_PASSWORD: ${{secrets.DB_PASSWORD}}
+  DB_HOST: ${{secrets.DB_HOST}}
 
 jobs:
   rspec:

@@ -78,6 +78,3 @@ primary_region = 'nrt'
   port = 9187
   path = '/metrics'
   https = false
-
-[deploy]
-  release_command = "bin/rails db:migrate"

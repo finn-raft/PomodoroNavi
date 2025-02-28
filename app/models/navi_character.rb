@@ -5,8 +5,6 @@ class NaviCharacter < ApplicationRecord
   validates :first_person_pronoun, presence: true
   validates :second_person_pronoun, presence: true
   validates :description, length: { maximum: 300 }
-  # 同一ユーザーが複数のナビキャラクターを持てないようにするバリデーション
-  validate :unique_user_navi_character, on: :create
 
   mount_uploader :icon_url, IconUploader
 
@@ -26,14 +24,5 @@ class NaviCharacter < ApplicationRecord
     else
       'default.png'
     end
-  end
-
-  private
-
-  # 同一ユーザーが複数のナビキャラクターを持てないようにするバリデーション
-  def unique_user_navi_character
-    return unless user.navi_character.nil?
-
-    errors.add(:user_id, 'は既にナビキャラクターを登録しています')
   end
 end

@@ -1,6 +1,7 @@
 class NaviCharactersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_navi_character, only: [:edit, :update]
+  before_action :redirect_if_navi_character_exists, only: [:new, :create]
   before_action :show_loading, only: [:new, :edit]
 
   def new
@@ -38,6 +39,13 @@ class NaviCharactersController < ApplicationController
   def navi_character_params
     params.require(:navi_character).permit(:name, :first_person_pronoun, :second_person_pronoun, :description, :icon_url,
                                            :icon_url_cache)
+  end
+
+  # ナビキャラクターがすでに登録されている場合、TOPページにリダイレクトする
+  def redirect_if_navi_character_exists
+    if current_user.navi_character.present?
+      redirect_to root_path, notice: '+++ すでにナビキャラクターを登録しています +++'
+    end
   end
 
   def show_loading

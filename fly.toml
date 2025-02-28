@@ -76,3 +76,6 @@ primary_region = 'nrt'
   port = 9187
   path = '/metrics'
   https = false
+
+[env]
+SECRET_KEY_BASE = 'c830c701463ae34da423f0f39f9c4474a7785ee330992da352c05fdae3f1b4127061bd0110d4cd15e6a97fe56efb92155f708366d06b0fb8f798eb5efcfdd884'

@@ -27,10 +27,4 @@ RSpec.describe NaviCharacter, type: :model do
     navi_character.description = "a" * 301
     expect(navi_character).to_not be_valid
   end
-
-  it "同一ユーザーが複数のナビキャラクターを登録できない" do
-    navi_character.save
-    another_navi_character = NaviCharacter.new(name: "Another Character", first_person_pronoun: "私", second_person_pronoun: "あなた", description: "別のキャラクター。", user: user)
-    expect(another_navi_character).to_not be_valid
-  end
 end

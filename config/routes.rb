@@ -28,5 +28,7 @@ Rails.application.routes.draw do
   get 'navi_messages/random', to: 'navi_messages#show_random_message', as: 'random_navi_message'
   get 'navi_messages/:id', to: 'navi_messages#show_specific_message', as: 'specific_navi_message'
 
+  # ヘルスチェック用のルーティング
   get "up" => "rails/health#show", as: :rails_health_check
+  get '/flycheck/vm', to: proc { [200, {}, ['OK']] }
 end

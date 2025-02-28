@@ -11,6 +11,9 @@
 /.env*
 !/.env*.erb
 
+# データベースのバックアップファイル
+backup.sql
+
 # Ignore all logfiles and tempfiles.
 /log/*
 /tmp/*

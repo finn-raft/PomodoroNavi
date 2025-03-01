@@ -30,5 +30,4 @@ Rails.application.routes.draw do
 
   # ヘルスチェック用のルーティング
   get "up" => "rails/health#show", as: :rails_health_check
-  get '/flycheck/vm', to: proc { [200, {}, ['OK']] }
 end

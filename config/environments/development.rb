@@ -1,5 +1,9 @@
 require "active_support/core_ext/integer/time"
 
+if defined?(Dotenv)
+  Dotenv::Rails.load
+end
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 

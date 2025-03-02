@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe PomodoroSetting, type: :model do
-  let(:user) { User.create(name: "Test User", email: "test@example.com", password: "password") }
+  let(:user) { User.create(name: 'Test User', email: 'test@example.com', password: 'password') }
 
-  describe "バリデーション" do
-    it "ユーザーのポモドーロタイマーの設定を保存できる" do
+  describe 'バリデーション' do
+    it 'ユーザーのポモドーロタイマーの設定を保存できる' do
       pomodoro_setting = PomodoroSetting.new(
         user: user,
         work_duration: 25,
@@ -17,7 +17,7 @@ RSpec.describe PomodoroSetting, type: :model do
       expect(pomodoro_setting).to be_valid
     end
 
-    it "作業時間が空白の場合無効である" do
+    it '作業時間が空白の場合無効である' do
       pomodoro_setting = PomodoroSetting.new(
         user: user,
         work_duration: nil,
@@ -30,7 +30,7 @@ RSpec.describe PomodoroSetting, type: :model do
       expect(pomodoro_setting).to_not be_valid
     end
 
-    it "休憩時間が空白の場合無効である" do
+    it '休憩時間が空白の場合無効である' do
       pomodoro_setting = PomodoroSetting.new(
         user: user,
         work_duration: 25,
@@ -43,7 +43,7 @@ RSpec.describe PomodoroSetting, type: :model do
       expect(pomodoro_setting).to_not be_valid
     end
 
-    it "長い休憩が空白の場合無効である" do
+    it '長い休憩が空白の場合無効である' do
       pomodoro_setting = PomodoroSetting.new(
         user: user,
         work_duration: 25,
@@ -56,7 +56,7 @@ RSpec.describe PomodoroSetting, type: :model do
       expect(pomodoro_setting).to_not be_valid
     end
 
-    it "長い休憩のサイクルが空白の場合無効である" do
+    it '長い休憩のサイクルが空白の場合無効である' do
       pomodoro_setting = PomodoroSetting.new(
         user: user,
         work_duration: 25,
@@ -69,7 +69,7 @@ RSpec.describe PomodoroSetting, type: :model do
       expect(pomodoro_setting).to_not be_valid
     end
 
-    it "アプリの背景色が空白の場合無効である" do
+    it 'アプリの背景色が空白の場合無効である' do
       pomodoro_setting = PomodoroSetting.new(
         user: user,
         work_duration: 25,
@@ -82,7 +82,7 @@ RSpec.describe PomodoroSetting, type: :model do
       expect(pomodoro_setting).to_not be_valid
     end
 
-    it "アプリのヘッダー/フッターの色が空白の場合無効である" do
+    it 'アプリのヘッダー/フッターの色が空白の場合無効である' do
       pomodoro_setting = PomodoroSetting.new(
         user: user,
         work_duration: 25,
@@ -95,7 +95,7 @@ RSpec.describe PomodoroSetting, type: :model do
       expect(pomodoro_setting).to_not be_valid
     end
 
-    it "作業時間が整数でない場合無効である" do
+    it '作業時間が整数でない場合無効である' do
       pomodoro_setting = PomodoroSetting.new(
         user: user,
         work_duration: 25.5,
@@ -108,7 +108,7 @@ RSpec.describe PomodoroSetting, type: :model do
       expect(pomodoro_setting).to_not be_valid
     end
 
-    it "休憩時間が整数でない場合無効である" do
+    it '休憩時間が整数でない場合無効である' do
       pomodoro_setting = PomodoroSetting.new(
         user: user,
         work_duration: 25,
@@ -121,7 +121,7 @@ RSpec.describe PomodoroSetting, type: :model do
       expect(pomodoro_setting).to_not be_valid
     end
 
-    it "長い休憩時間が整数でない場合無効である" do
+    it '長い休憩時間が整数でない場合無効である' do
       pomodoro_setting = PomodoroSetting.new(
         user: user,
         work_duration: 25,
@@ -134,7 +134,7 @@ RSpec.describe PomodoroSetting, type: :model do
       expect(pomodoro_setting).to_not be_valid
     end
 
-    it "長い休憩のサイクルが整数でない場合無効である" do
+    it '長い休憩のサイクルが整数でない場合無効である' do
       pomodoro_setting = PomodoroSetting.new(
         user: user,
         work_duration: 25,
@@ -147,7 +147,7 @@ RSpec.describe PomodoroSetting, type: :model do
       expect(pomodoro_setting).to_not be_valid
     end
 
-    it "作業時間が0以下の場合無効である" do
+    it '作業時間が0以下の場合無効である' do
       pomodoro_setting = PomodoroSetting.new(
         user: user,
         work_duration: 0,
@@ -160,7 +160,7 @@ RSpec.describe PomodoroSetting, type: :model do
       expect(pomodoro_setting).to_not be_valid
     end
 
-    it "休憩時間が0以下の場合無効である" do
+    it '休憩時間が0以下の場合無効である' do
       pomodoro_setting = PomodoroSetting.new(
         user: user,
         work_duration: 25,
@@ -173,7 +173,7 @@ RSpec.describe PomodoroSetting, type: :model do
       expect(pomodoro_setting).to_not be_valid
     end
 
-    it "長い休憩時間が0以下の場合無効である" do
+    it '長い休憩時間が0以下の場合無効である' do
       pomodoro_setting = PomodoroSetting.new(
         user: user,
         work_duration: 25,
@@ -186,7 +186,7 @@ RSpec.describe PomodoroSetting, type: :model do
       expect(pomodoro_setting).to_not be_valid
     end
 
-    it "長い休憩のサイクルが0以下の場合無効である" do
+    it '長い休憩のサイクルが0以下の場合無効である' do
       pomodoro_setting = PomodoroSetting.new(
         user: user,
         work_duration: 25,
@@ -200,8 +200,8 @@ RSpec.describe PomodoroSetting, type: :model do
     end
   end
 
-  describe "タイマー及びアプリカラーのデフォルト設定" do
-    it "初期設定及び未ログイン時にデフォルトのポモドーロ設定の値を反映する" do
+  describe 'タイマー及びアプリカラーのデフォルト設定' do
+    it '初期設定及び未ログイン時にデフォルトのポモドーロ設定の値を反映する' do
       default_setting = PomodoroSetting.default
       expect(default_setting.work_duration).to eq(25)
       expect(default_setting.short_break_duration).to eq(5)

@@ -43,9 +43,9 @@ class NaviCharactersController < ApplicationController
 
   # ナビキャラクターがすでに登録されている場合、TOPページにリダイレクトする
   def redirect_if_navi_character_exists
-    if current_user.navi_character.present?
-      redirect_to root_path, notice: '+++ すでにナビキャラクターを登録しています +++'
-    end
+    return unless current_user.navi_character.present?
+
+    redirect_to root_path, notice: '+++ すでにナビキャラクターを登録しています +++'
   end
 
   def show_loading

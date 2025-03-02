@@ -78,15 +78,20 @@
 
   <!-- ナビメッセージとフォーム -->
   <div class="navi-container">
-    <div class="navi-icon">
-      <% if @navi_character %>
-        <%= image_tag @navi_character.icon_url.url, alt: @navi_character.name %>
+  <div class="navi-icon">
+    <% if user_signed_in? %>
+      <% if current_user.navi_character %>
+        <%= image_tag current_user.navi_character.icon_image_url, alt: current_user.navi_character.name %>
         <p id="navi-name"><%= @navi_character.name %></p>
       <% else %>
         <%= image_tag 'cat.png', alt: 'ニャビ' %>
         <p id="navi-name">ニャビ</p>
       <% end %>
-    </div>
+    <% else %>
+      <%= image_tag 'cat.png', alt: 'ニャビ' %>
+      <p id="navi-name">ニャビ</p>
+    <% end %>
+  </div>
     <div class="navi-message" id="navi-message">
       <% if notice %>
         <p class="notice"><%= notice %></p>

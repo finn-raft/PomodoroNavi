@@ -6,7 +6,7 @@
     <title>Pomodoro Navi - カレンダー</title>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.min.css" rel="stylesheet" />
-    <%= stylesheet_link_tag 'top', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'top', media: 'all' %>
     <style>
 
       /* 共通のスタイル */
@@ -251,7 +251,7 @@
     }).then(response => {
       if (response.ok) {
         response.json().then(data => {
-          location.reload();
+          Turbolinks.visit(window.location.href, { action: "replace" });
         });
       } else {
         console.error("Failed to submit form");

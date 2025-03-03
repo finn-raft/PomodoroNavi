@@ -54,7 +54,7 @@
         data: {
           labels: Array.from({ length: 12 }, (_, i) => `${i + 1}月`),
           datasets: [{
-            label: '作業時間 (分)',
+            label: '作業時間 (min)',
             data: <%= @monthly_data.to_json.html_safe %>,
             backgroundColor: 'rgba(255, 255, 255, 0.2)',
             borderColor: 'rgba(255, 255, 255, 1)',

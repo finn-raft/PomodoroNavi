@@ -20,7 +20,6 @@ class PomodoroSessionsController < ApplicationController
     ).sum(:duration)
 
     @daily_total_formatted = format_duration(@daily_total)
-    @hourly_data = calculate_hourly_data
   end
 
   def reports_week
@@ -90,36 +89,5 @@ class PomodoroSessionsController < ApplicationController
 
   def pomodoro_session_params
     params.require(:pomodoro_session).permit(:start_time, :end_time, :duration, :break_duration, :status, :mode)
-  end
-
-  # 1時間ごとの作業時間を計算する
-  def calculate_hourly_data
-    hourly_data = Array.new(24, 0) # 24時間分の作業時間配列
-
-    # 今日のポモドーロセッションを取得
-    sessions = PomodoroSession.where(
-      start_time: Time.zone.now.all_day,
-      user: current_user
-    )
-
-    sessions.each do |session|
-      start_time = session.start_time
-      duration = session.duration
-
-      while duration > 0
-        hour_index = start_time.hour
-        remaining_minutes_in_hour = 60 - (hourly_data[hour_index] % 60)
-        minutes_to_add = [remaining_minutes_in_hour, duration].min
-
-        hourly_data[hour_index] += minutes_to_add
-        duration -= minutes_to_add
-        start_time += 1.hour
-
-        # 日付を超えた場合、翌日の 0:00 から加算
-        start_time = start_time.change(hour: 0) if start_time.day != Time.zone.today.day
-      end
-    end
-
-    hourly_data
   end
 end

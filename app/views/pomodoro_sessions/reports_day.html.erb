@@ -49,13 +49,14 @@
     var dailyChartElement = document.getElementById('dailyChart');
     if (dailyChartElement) {
       var ctxDaily = dailyChartElement.getContext('2d');
+      var todayLabel = "<%= Time.zone.today.strftime('%-m / %-d (%a)') %>";
       var dailyChart = new Chart(ctxDaily, {
         type: 'bar',
         data: {
-          labels: Array.from({ length: 24 }, (_, i) => `${i}:00`),
+          labels: [todayLabel],
           datasets: [{
-            label: '作業時間 (分)',
-            data: <%= @hourly_data.to_json.html_safe %>,
+            label: '作業時間 (min)',
+            data: [<%= @daily_total %>],
             backgroundColor: 'rgba(255, 255, 255, 0.2)',
             borderColor: 'rgba(255, 255, 255, 1)',
             borderWidth: 1
@@ -65,11 +66,7 @@
           scales: {
             y: {
               beginAtZero: true,
-              max: 60 // 1時間の最大値を60分に設定
             },
-            x: {
-              beginAtZero: true
-            }
           }
         }
       });

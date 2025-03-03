@@ -98,7 +98,7 @@
       }
     </style>
   </head>
-<body>
+  <body>
   <div class="calendar-title"><b>Pomodoro Navi Calendar</b></div>
   <div id="calendar">
     <total>これまでに積み上げた成果： <b><%= @total_duration %></b> min（<%= @total_duration_formatted %>）</total>
@@ -107,8 +107,8 @@
 
   <!-- カレンダー表示のためのJS -->
   <script>
-  document.addEventListener('turbolinks:load', function() {
-    if (typeof FullCalendar === 'undefined') {
+  document.addEventListener("turbolinks:load", function () {
+    if (typeof FullCalendar === "undefined") {
       setTimeout(initCalendar, 100); // 100ms 後に再試行
       return;
     }
@@ -116,42 +116,46 @@
   });
 
   function initCalendar() {
-    var calendarEl = document.getElementById('calendarContainer');
+    var calendarEl = document.getElementById("calendarContainer");
     if (!calendarEl) return;
 
+    // 日付ごとの作業時間合計を計算するイベント
     var workSessions = {};
     <% @sessions.each do |session| %>
-      var date = '<%= session.start_time.to_date %>';
+      var date = "<%= session.start_time.to_date %>";
       if (!workSessions[date]) {
         workSessions[date] = 0;
       }
       workSessions[date] += <%= session.duration %>;
     <% end %>
 
+    // カレンダーの日付欄に表示するイベントを作成
     var events = [];
     for (var date in workSessions) {
       events.push({
-        title: workSessions[date] + ' min',
+        title: workSessions[date] + " min",
         start: date,
         allDay: true,
-        backgroundColor: 'rgba(0, 128, 0, 0.3)',
-        borderColor: 'rgba(0, 128, 0, 0.3)'
+        backgroundColor: "rgba(0, 128, 0, 0.3)",
+        borderColor: "rgba(0, 128, 0, 0.3)",
       });
     }
 
+    // カレンダーの枠組みの設定
     var calendar = new FullCalendar.Calendar(calendarEl, {
       initialView: "dayGridMonth",
       events: events,
 
+      // 作業時間合計を表示するイベントの設定
       eventContent: function (arg) {
         let durationText = arg.event.title;
         return { html: '<div style="text-align: center; font-size: 18px; color: white;">' + durationText + "</div>" };
       },
 
+      // カレンダーの日付をクリックした際にフォームの日付を更新
       dateClick: function (info) {
-        console.log("Clicked date:", info.dateStr);
-        document.getElementById("session_date").value = formatDate(new Date(info.dateStr));
-      }
+        updateDateAndTime(new Date(info.dateStr));
+      },
     });
 
     calendar.render();
@@ -159,22 +163,17 @@
   </script>
 
   <!-- 作業時間投稿フォーム -->
-  <div class="formpage-title"><b>選択した日付に作業時間を保存</b></div>
+  <div class="formpage-title"><b>選択した日付に作業時間を追加</b></div>
   <%= form_with model: PomodoroSession.new, url: pomodoro_sessions_path, method: :post, local: true do |f| %>
 
     <div class="formpage-field">
-      <label for="session_date">作業した日付：</label>
-      <%= f.text_field :start_time, id: "session_date", readonly: true %>
-    </div>
-
-    <div class="formpage-field">
       <label for="start_time">開始時刻：</label>
-      <%= f.time_field :start_time, id: "start_time" %>
+      <%= f.datetime_local_field :start_time, id: "start_time" %>
     </div>
 
     <div class="formpage-field">
       <label for="end_time">終了時刻：</label>
-      <%= f.time_field :end_time, id: "end_time" %>
+      <%= f.datetime_local_field :end_time, id: "end_time" %>
     </div>
 
     <%= f.hidden_field :duration, id: "duration" %>
@@ -183,57 +182,53 @@
     <%= f.hidden_field :mode, value: "work" %>
 
     <div class="formpage-actions">
-      <button type="submit">作業時間を追加する</button>
+      <button type="submit">作業時間を記録する</button>
     </div>
 
   <% end %>
-  </div>
 
-  <!-- 作業時間投稿フォームのJS --!>
+  <!-- 作業時間投稿フォームのJS -->
   <script>
   document.addEventListener("turbolinks:load", function () {
-    // 選択した日付を yyyy/mm/dd(曜日) 形式で表示
-    let today = new Date();
-    let formattedDate = formatDate(today);
-    document.getElementById("session_date").value = formattedDate;
+    // 開始時刻と終了時刻の入力に応じて作業時間を自動計算
+    updateDateAndTime();
 
-    // 現在時刻を自動取得して開始・終了時刻にセット
-    let now = new Date();
-    let currentTime = now.toTimeString().slice(0, 5);
-    document.getElementById("start_time").value = currentTime;
-    document.getElementById("end_time").value = currentTime;
-
-    // 時刻入力の変化を監視して duration を計算
     document.getElementById("start_time").addEventListener("change", calculateDuration);
     document.getElementById("end_time").addEventListener("change", calculateDuration);
-    });
+  });
 
-    // 日付フォーマット関数
-    function formatDate(date) {
-      let yyyy = date.getFullYear();
-      let mm = ("0" + (date.getMonth() + 1)).slice(-2);
-      let dd = ("0" + date.getDate()).slice(-2);
-      let day = ["日", "月", "火", "水", "木", "金", "土"][date.getDay()];
-      return `${yyyy}/${mm}/${dd} (${day}) `;
-    }
+  // 開始時刻と終了時刻の形式と、現在の時刻を自動で取得
+  function updateDateAndTime(selectedDate = new Date()) {
+    let dateStr = selectedDate.toISOString().split("T")[0]; // yyyy-mm-dd 形式
+    let now = new Date();
+    let startTime = now.toTimeString().slice(0, 5); // 現在時刻
+    let endTime = new Date(now.getTime() + 60 * 60 * 1000) // 1時間後
+      .toTimeString()
+      .slice(0, 5);
 
-    // duration（作業時間）を計算
-    function calculateDuration() {
-      let start = document.getElementById("start_time").value;
-      let end = document.getElementById("end_time").value;
-      let label = document.querySelector("label[for='end_time']");
-      let submitButton = document.querySelector(".formpage-actions button");
+    document.getElementById("start_time").value = `${dateStr}T${startTime}`;
+    document.getElementById("end_time").value = `${dateStr}T${endTime}`;
 
-      if (start && end) {
-        let startTime = new Date("2000-01-01T" + start);
-        let endTime = new Date("2000-01-01T" + end);
-        let duration = (endTime - startTime) / (1000 * 60); // 分単位
+    calculateDuration();
+  }
+
+  // 作業時間を計算
+  function calculateDuration() {
+    let start = document.getElementById("start_time").value;
+    let end = document.getElementById("end_time").value;
+    let label = document.querySelector("label[for='end_time']");
+    let submitButton = document.querySelector(".formpage-actions button");
+
+    if (start && end) {
+      let startTime = new Date(start);
+      let endTime = new Date(end);
+      let duration = (endTime - startTime) / (1000 * 60); // 分単位
 
       document.getElementById("duration").value = Math.max(duration, 0);
-      label.innerHTML = `終了時刻（ 作業時間 ${duration} min ）：`; // ラベルを更新
+      label.innerHTML = `終了時刻（ 作業時間 ${duration} min ）：`;
 
-      // 開始時刻が終了時刻より後ならボタンを無効化
-      if (duration < 0) {
+      // 作業時間が0以下の場合は送信ボタンを無効化
+      if (duration <= 0) {
         submitButton.disabled = true;
         submitButton.classList.add("disabled");
       } else {

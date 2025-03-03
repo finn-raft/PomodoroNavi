@@ -164,7 +164,7 @@
 
   <!-- 作業時間投稿フォーム -->
   <div class="formpage-title"><b>選択した日付に作業時間を追加</b></div>
-  <%= form_with model: PomodoroSession.new, url: pomodoro_sessions_path, method: :post, local: true do |f| %>
+  <%= form_with model: PomodoroSession.new, url: pomodoro_sessions_path, method: :post, local: true, id: "sessionForm" do |f| %>
 
     <div class="formpage-field">
       <label for="start_time">開始時刻：</label>
@@ -237,6 +237,29 @@
       }
     }
   }
+
+  // 作業時間投稿後にページをリロードしてカレンダーを更新
+  document.getElementById("sessionForm").addEventListener("submit", function(event) {
+    event.preventDefault(); // デフォルトのフォーム送信を防ぐ
+    let formData = new FormData(event.target);
+    fetch("<%= pomodoro_sessions_path %>", {
+      method: "POST",
+      body: formData,
+      headers: {
+        "X-CSRF-Token": document.querySelector("meta[name='csrf-token']").getAttribute("content")
+      }
+    }).then(response => {
+      if (response.ok) {
+        response.json().then(data => {
+          location.reload();
+        });
+      } else {
+        console.error("Failed to submit form");
+      }
+    }).catch(error => {
+      console.error("Error submitting form:", error);
+    });
+  });
   </script>
 </body>
 </html>

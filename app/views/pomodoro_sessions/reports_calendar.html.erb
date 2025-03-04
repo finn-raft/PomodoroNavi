@@ -164,7 +164,7 @@
 
   <!-- 作業時間投稿フォーム -->
   <div class="formpage-title"><b>選択した日付に作業時間を追加</b></div>
-  <%= form_with model: PomodoroSession.new, url: pomodoro_sessions_path, method: :post, local: true, id: "sessionForm" do |f| %>
+  <%= form_with model: PomodoroSession.new, url: pomodoro_sessions_path, method: :post, id: "sessionForm" do |f| %>
 
     <div class="formpage-field">
       <label for="start_time">開始時刻：</label>
@@ -202,7 +202,7 @@
     let dateStr = selectedDate.toISOString().split("T")[0]; // yyyy-mm-dd 形式
     let now = new Date();
     let startTime = now.toTimeString().slice(0, 5); // 現在時刻
-    let endTime = new Date(now.getTime() + 60 * 60 * 1000) // 1時間後
+    let endTime = new Date(now.getTime() + 10 * 60 * 1000) // 10分後
       .toTimeString()
       .slice(0, 5);
 

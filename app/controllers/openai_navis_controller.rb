@@ -1,14 +1,15 @@
 class OpenaiNavisController < ApplicationController
-  skip_before_action :verify_authenticity_token, only: [:respond] # CSRFトークンを無効にする
+  skip_before_action :verify_authenticity_token, only: [:respond]
   before_action :set_navi_character, only: [:respond]
 
+  # ユーザーからのメッセージに対してナビキャラクターの返答を返すほうのコントローラー
   def respond
     user_input = permitted_params[:user_input]
     response_text = get_openai_response(user_input, @navi_character, current_user)
 
     if response_text
       if user_signed_in?
-        # 過去の履歴を取得（最新5件）
+        # 過去のメッセージ履歴を取得（最新5件）
         past_messages = NaviMessage.where(user_id: current_user.id).order(created_at: :desc).limit(5)
         context = past_messages.map { |msg| "User: #{msg.user_message}\nNavi: #{msg.response}" }.join("\n")
 
@@ -39,11 +40,11 @@ class OpenaiNavisController < ApplicationController
     @navi_character = current_user&.navi_character || NaviCharacter.default
   end
 
+  # ユーザーからの入力に対してナビキャラクターの応答を生成するための関数
   def get_openai_response(user_input, navi_character, user)
     api_key = ENV.fetch('OPENAI_ACCESS_TOKEN', nil)
     client = OpenAI::Client.new(access_token: api_key)
 
-    # ログインユーザーなら過去の履歴を考慮
     context = if user
                 past_messages = NaviMessage.where(user_id: user.id).order(created_at: :desc).limit(5)
                 past_messages.map { |msg| "User: #{msg.user_message}\nNavi: #{msg.response}" }.join("\n")

@@ -2,12 +2,11 @@ document.addEventListener('turbolinks:load', function() {
     const naviMessageDiv = document.getElementById("navi-message");
     const userMessageForm = document.getElementById("usermessage_form");
 
-    if (!naviMessageDiv || !userMessageForm) return; // フォームがない場合は処理を終了
+    if (!naviMessageDiv || !userMessageForm) return;
 
-    // **既存のイベントリスナーを削除**
+    // 既存のイベントリスナーを削除
     userMessageForm.removeEventListener("submit", handleFormSubmit);
-
-    // **新しいイベントリスナーを追加**
+    // 新しいイベントリスナーを追加
     userMessageForm.addEventListener("submit", handleFormSubmit);
 
     function handleFormSubmit(event) {

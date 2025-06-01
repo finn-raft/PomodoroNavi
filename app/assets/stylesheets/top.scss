@@ -112,8 +112,12 @@ footer {
     }
 
     .footer-links a {
-        font-size: 0.85rem; /* フッターのリンクフォントサイズを小さく */
-        margin-bottom: 1.5rem; /* フッターのリンクの下に余白 */
+        font-size: 0.8rem; /* フッターのリンクフォントサイズを小さく */
+        margin-bottom: 2rem; /* フッターのリンクの下に余白 */
+    }
+
+    .footer-copyright {
+        font-size: 0.7rem; /* フッターの著作権フォントサイズを小さく */
     }
 
   /* タイマーや中央コンテンツの幅調整例 */

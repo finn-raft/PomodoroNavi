@@ -26,10 +26,12 @@ h3 {
     padding-left: 10px; /* 左の余白 */
 }
 
-p, li {
-    line-height: 1.6; /* 行間 */
-    font-size: 16px; /* フォントサイズ */
-    margin: 14px 0; /* 上下の余白 */
+.black-window p,
+.black-window ul li,
+.black-window ol li {
+    line-height: 1.6;
+    font-size: 16px;
+    margin: 14px 0;
 }
 
 p.end {
@@ -44,10 +46,21 @@ ol {
     padding-left: 20px; /* 左の余白 */
 }
 
-li {
-    margin-bottom: 5px; /* 下の余白 */
+.black-window ul li,
+.black-window ol li {
+    margin-bottom: 5px;
 }
 
 li.only {
     list-style: none; /* リストのマーカーを消す */
+}
+
+@media (max-width: 600px) {
+    .black-window img {
+        width: 100%; /* 画像の幅を100%に */
+    }
+
+    .main {
+        margin: none; /* マージンをなくす */
+    }
 }

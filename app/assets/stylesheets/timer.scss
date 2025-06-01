@@ -40,3 +40,14 @@
 .controls button:hover {
     opacity: 0.7;
 }
+
+/* ▼スマホ対応（追加） */
+@media (max-width: 600px) {
+  .timer-container {
+    width: 100%;        /* 幅を画面いっぱいに */
+    max-width: 100%;    /* はみ出さないように */
+    padding: 10px;      /* パディングも縮小 */
+    margin: 10px 0;     /* 上下だけに余白 */
+    border-width: 3px;  /* 枠線を細く */
+  }
+}

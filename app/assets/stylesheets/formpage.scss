@@ -90,3 +90,46 @@ p.notice {
     color: #fff;
     text-align: center; /* メッセージを中央揃え */
 }
+
+/* ▼スマホ対応（追加） */
+@media (max-width: 600px) {
+  main, form {
+  width: 100%;
+  max-width: 420px;
+  padding: 0 10px;
+  }
+
+  .formpage-title {
+    font-size: 2rem;
+    padding-left: 5px;
+    padding-right: 5px;
+    word-break: break-word;
+  }
+  .formpage-field input,
+  .formpage-textarea textarea {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    font-size: 16px;
+    padding: 12px;
+  }
+  .formpage-field,
+  .formpage-textarea {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .formpage-actions input {
+    width: 100%;
+    font-size: 18px;
+    padding: 12px 0;
+  }
+  .error_message {
+    margin-left: 0;
+    padding-left: 5px;
+    padding-right: 5px;
+    font-size: 13px;
+  }
+}

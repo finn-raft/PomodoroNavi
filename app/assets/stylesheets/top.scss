@@ -1,4 +1,8 @@
 /* 共通レイアウト */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 body {
     font-family: 'Play', sans-serif; /* フォント */
     color: #fff; /* フォントカラー */
@@ -75,4 +79,47 @@ footer {
 
 .footer-copyright {
     text-align: right; /* 右寄せ */
+}
+
+/* スマホ対応 */
+@media (max-width: 600px) {
+  body {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    min-width: 0;
+  }
+
+  main {
+    margin: 150px auto; /* 上下左右の中央揃え */
+  }
+
+  header, footer {
+    flex-direction: column; /* ヘッダーとフッターの要素を縦並びに */
+    align-items: center; /* 中央揃え */
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+  }
+
+    .header-left h1 {
+        font-size: 2rem; /* ヘッダーのタイトルフォントサイズを大きく */
+        margin-bottom: 1rem; /* ヘッダーのタイトルの下に余白 */
+    }
+
+    .header-right a {
+        font-size: 1.5rem; /* ヘッダーのリンクフォントサイズを大きく */
+    }
+
+    .footer-links a {
+        font-size: 0.85rem; /* フッターのリンクフォントサイズを小さく */
+        margin-bottom: 1.5rem; /* フッターのリンクの下に余白 */
+    }
+
+  /* タイマーや中央コンテンツの幅調整例 */
+  .timer-section, .main-content {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
 }

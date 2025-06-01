@@ -3,23 +3,19 @@
     <h1>Pomodoro Navi</h1>
   <% end %>
 </div>
-<div class="header-right">
+<div class="header-right-logged-in">
   <div class="menu-wrapper">
-    <%= link_to pomodoro_sessions_reports_day_path, data: { turbo: false } do %>
-      <%= image_tag 'report.png' %>
-    <% end %>
+    <%= image_tag 'report.png', class: 'header-icon' %>
     <ul class="menu-list">
       <li><%= link_to "Report", pomodoro_sessions_reports_day_path, data: { turbo: false } %></li>
       <li><%= link_to "Calendar", pomodoro_sessions_reports_calendar_path, data: { turbo: false } %></li>
     </ul>
   </div>
-  <%= link_to edit_pomodoro_settings_path, data: { turbo: false } do %>
-    <%= image_tag 'comand.png' %>
-  <% end %>
-  <div class="menu-wrapper">
-    <%= link_to edit_user_registration_path, data: { turbo: false } do %>
-      <%= image_tag 'mypage.png' %>
+    <%= link_to edit_pomodoro_settings_path, data: { turbo: false } do %>
+      <%= image_tag 'comand.png', class: 'header-icon' %>
     <% end %>
+  <div class="menu-wrapper">
+    <%= image_tag 'mypage.png', class: 'header-icon' %>
     <ul class="menu-list">
       <li><%= link_to "Profile", edit_user_registration_path, data: { turbo: false } %></li>
       <% if @navi_character.present? && @navi_character.persisted? %>
@@ -36,8 +32,13 @@
 <style>
 /* ドロップダウンメニューのCSS */
 .menu-wrapper {
-  position: relative; /* 人物アイコンの下に配置 */
+  position: relative; /* アイコンの下に配置 */
   display: inline-block; /* インラインブロック要素にする */
+  font-size: 20px; /* フォントサイズ */
+}
+
+.header-icon {
+  margin: 0 10px; /* アイコンの左右の余白 */
 }
 
 .menu-list {
@@ -59,5 +60,16 @@
 
 .menu-wrapper:hover .menu-list {
   display: block; /* マウスオーバー時にメニューリストを表示 */
+}
+
+@media (max-width: 600px) {
+  .menu-list {
+    width: 180px; /* モバイル用のメニュー幅 */
+    right: 50%; /* アイコンの中央に配置 */
+    transform: translateX(50%); /* 中央に配置するための調整 */
+    border: 3px solid #fff;
+    border-radius: 10px;
+    background-color: #1a1a1a;
+  }
 }
 </style>

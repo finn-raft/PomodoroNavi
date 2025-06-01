@@ -96,9 +96,71 @@
         opacity: 0.2;
         cursor: not-allowed; /* クリックできないようにする */
       }
+
+      /* ▼スマホ対応 */
+      @media (max-width: 700px) {
+        #calendarContainer {
+          width: 100vw;
+          min-width: 0;
+          border-radius: 0;
+        }
+      }
+
+      @media (max-width: 600px) {
+        body {
+          padding: 0.7em 0.2em;
+          margin: 100px 0 0 0; /* 上下左右の中央揃え */
+        }
+        .calendar-title {
+          font-size: 1.4rem;
+          padding-left: 2vw;
+          padding-right: 2vw;
+        }
+        total {
+          font-size: 1rem;
+          padding-left: 2vw;
+          padding-right: 2vw;
+        }
+        #calendarContainer {
+          width: 100vw;
+          min-width: 0;
+          border-radius: 0;
+          padding: 0;
+        }
+        .formpage-title {
+          font-size: 1.1rem;
+          padding-left: 2vw;
+          padding-right: 2vw;
+        }
+        .formpage-field {
+          width: 100%;
+          padding: 0 2vw;
+        }
+        .formpage-field label {
+          font-size: 1rem;
+          padding-left: 2vw;
+        }
+        .formpage-field input {
+          width: 100%;
+          min-width: 0;
+          font-size: 1rem;
+          padding: 10px 6px;
+          margin: 0;
+        }
+        .formpage-actions {
+          width: 100%;
+          padding: 0 2vw;
+        }
+        .formpage-actions button {
+          width: 100%;
+          font-size: 1.1rem;
+          padding: 14px 0;
+        }
+      }
     </style>
   </head>
   <body>
+  <main>
   <div class="calendar-title"><b>Pomodoro Navi Calendar</b></div>
   <div id="calendar">
     <total>これまでに積み上げた成果： <b><%= @total_duration %></b> min（<%= @total_duration_formatted %>）</total>
@@ -261,5 +323,6 @@
     });
   });
   </script>
+  </main>
 </body>
 </html>

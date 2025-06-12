@@ -271,7 +271,7 @@ document.addEventListener('turbolinks:load', () => {
         if (naviMessageElement) {
           let shareLink = "";
 
-          // 作業終了時（休憩開始時）またはタイマー完全終了時にSNSのシェアリンクを表示
+          // 作業終了時（休憩開始時）またはタイマー完全終了時にSNSへのシェアリンクを表示
           if (!isWorking || isEnded) {
             const shareText =
               `+++ ポモドーロタイマーで作業しました +++\n` +
@@ -279,9 +279,8 @@ document.addEventListener('turbolinks:load', () => {
               (totalWorkTime !== null ? `▼ 作業時間合計: ${totalWorkTime} 分\n` : '') +
               `https://pomodoro-navi.com/\n#PomodoroNavi`;
             const tweetText = encodeURIComponent(shareText);
-            const blueskyText = encodeURIComponent(shareText.replace(/\n/g, '%0A'));
             const twitterShareUrl = `https://twitter.com/intent/tweet?text=${tweetText}`;
-            const blueskyShareUrl = `https://bsky.app/intent/compose?text=${blueskyText}`;
+            const blueskyShareUrl = `https://bsky.app/intent/compose?text=${tweetText}`;
             shareLink = `
               <p>
                 上記の成果をシェアする：

@@ -1,8 +1,8 @@
 module ApplicationHelper
   def default_meta_tags
     {
-      site: 'PomodoroNavi',
-      title: 'PomodoroNavi',
+      site: 'Pomodoro Navi',
+      title: 'Pomodoro Navi',
       reverse: true,
       separator: '|', # Webサイト名とページタイトルを区切るために使用されるテキスト
       description: 'あなたの推しがナビになって作業時間を記録したり褒めてくれるポモドーロタイマーWebアプリです。',
@@ -13,8 +13,8 @@ module ApplicationHelper
         { href: image_url('favicon.ico') }
       ],
       og: {
-        site_name: 'PomodoroNavi',
-        title: 'PomodoroNavi',
+        site_name: 'Pomodoro Navi',
+        title: 'Pomodoro Navi',
         description: 'あなたの推しがナビになって作業時間を記録したり褒めてくれるポモドーロタイマーWebアプリです。',
         type: 'website',
         url: request.original_url,

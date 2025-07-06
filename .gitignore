@@ -48,3 +48,6 @@ backup.sql
 
 # Ignore macOS metadata files
 .DS_Store
+
+# etc.
+/.well-known/*

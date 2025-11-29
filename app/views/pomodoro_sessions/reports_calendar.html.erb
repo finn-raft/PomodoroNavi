@@ -25,11 +25,33 @@
         margin-bottom: 1em;
       }
 
+      /* カレンダー内の作業時間ラベルのスタイル */
+      .fc-custom-event{
+        text-align: center;
+        font-size: 16px; /* デフォルトのラベルサイズ（PC用） */
+        color: white;
+        white-space: normal;
+        word-break: break-word;
+        overflow: hidden;
+        line-height: 1.1;
+        padding: 2px 4px;
+      }
+
+      /* スマホでは作業時間ラベルをさらに小さくする */
+      @media (max-width: 600px) {
+        .fc-custom-event { font-size: 10px !important; }
+      }
+
       total {
         display: block;
         text-align: center;
         font-size: 1.2em;
         margin-bottom: 1em;
+      }
+      /* スマホではtotal内をラベルと値で分割して2行表示にする */
+      total .total-label,
+      total .total-value {
+        display: inline; /* デフォルトは横並び */
       }
 
       #calendarContainer {
@@ -41,6 +63,7 @@
 
       /* 作業時間投稿フォームのスタイル */
       .formpage-title {
+        text-align: center;
         font-size: 24px;
         margin-top: 1em;
         margin-bottom: 1em;
@@ -97,7 +120,9 @@
         cursor: not-allowed; /* クリックできないようにする */
       }
 
-      /* ▼スマホ対応 */
+      /**
+       * スマホ対応
+       */
       @media (max-width: 700px) {
         #calendarContainer {
           width: 100vw;
@@ -109,17 +134,32 @@
       @media (max-width: 600px) {
         body {
           padding: 0.7em 0.2em;
-          margin: 100px 0 0 0; /* 上下左右の中央揃え */
+          margin: 0; /* 上下左右の中央揃え */
         }
         .calendar-title {
-          font-size: 1.4rem;
+          font-size: 1.5rem;
           padding-left: 2vw;
           padding-right: 2vw;
         }
         total {
-          font-size: 1rem;
           padding-left: 2vw;
           padding-right: 2vw;
+        }
+        total .total-label {
+          font-size: 1.1rem;
+        }
+        total .total-value {
+          font-size: 1.3rem;
+        }
+        /* モバイルではtotalを2行にする */
+        total .total-label,
+        total .total-value {
+          display: block;
+          width: 100%;
+          box-sizing: border-box;
+          text-align: center;
+          margin: 0;
+          margin-bottom: 0.3em;
         }
         #calendarContainer {
           width: 100vw;
@@ -128,9 +168,13 @@
           padding: 0;
         }
         .formpage-title {
-          font-size: 1.1rem;
+          font-size: 1.2rem;
           padding-left: 2vw;
           padding-right: 2vw;
+        }
+        #sessionForm {
+          width: 100%;
+          padding: 0 2vw;
         }
         .formpage-field {
           width: 100%;
@@ -163,7 +207,10 @@
   <main>
   <div class="calendar-title"><b>Pomodoro Navi Calendar</b></div>
   <div id="calendar">
-    <total>これまでに積み上げた成果： <b><%= @total_duration %></b> min（<%= @total_duration_formatted %>）</total>
+    <total>
+      <span class="total-label">これまでに積み上げた成果：</span>
+      <span class="total-value"><b><%= @total_duration %></b> min（<%= @total_duration_formatted %>）</span>
+    </total>
     <div id="calendarContainer"></div>
   </div>
 
@@ -210,8 +257,8 @@
 
       // 作業時間合計を表示するイベントの設定
       eventContent: function (arg) {
-        let durationText = arg.event.title;
-        return { html: '<div style="text-align: center; font-size: 18px; color: white;">' + durationText + "</div>" };
+        var durationText = arg.event.title;
+        return { html: '<div class="fc-custom-event">' + durationText + '</div>' };
       },
 
       // カレンダーの日付をクリックした際にフォームの日付を更新
@@ -221,6 +268,16 @@
     });
 
     calendar.render();
+    // 描画直後にサイズを再計算して、スマホ版で投稿後に日付セルが左に寄る問題を防ぐ
+    setTimeout(function() {
+      try {
+        calendar.updateSize();
+      } catch (e) {
+        console.error('Failed to update FullCalendar size:', e);
+      }
+      // ブラウザのリサイズイベントで再計算
+      window.dispatchEvent(new Event('resize'));
+    }, 150);
   }
   </script>
 

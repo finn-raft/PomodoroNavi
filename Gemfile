@@ -111,9 +111,9 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
 
   # RSpec で使用
+  gem 'capybara'
   gem 'factory_bot_rails'
   gem 'rspec-rails'
-  gem 'webdrivers'
-  gem 'capybara'
   gem 'selenium-webdriver'
+  gem 'webdrivers'
 end

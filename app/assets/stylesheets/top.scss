@@ -10,7 +10,7 @@ body {
     justify-content: center; /* 要素を中央揃え */
     align-items: center; /* 縦方向に中央揃え */
     min-height: 100vh; /* 最小の高さをビューポートに合わせる */
-    margin: 0; /* 余白をなくす */
+    margin: 0; /* デフォルトの余白をなくす */
     user-select: none; /* テキストの選択を禁止 */
 }
 

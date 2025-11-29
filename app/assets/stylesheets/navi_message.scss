@@ -85,13 +85,26 @@
     width: 100%;
     max-width: 100%;
     height: 180px;
-    padding: 6px;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+  }
+
+  #usermessage_form {
+    width: 100%;
+    padding: 0 1rem;
+    box-sizing: border-box;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
   }
 
   #user_input {
-    width: calc(100% - 50px); /* フォームの横幅を指定 */
-    margin-left: 0;
-    margin-right: 0;
+    flex: 1 1 auto;
+    width: auto;
+    margin: 0;
+  }
+
+  #user_input_button {
+    flex: 0 0 48px; /* ボタン幅の調整 */
   }
 }

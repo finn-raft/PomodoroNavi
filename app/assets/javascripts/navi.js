@@ -9,6 +9,9 @@ document.addEventListener('turbolinks:load', function() {
     // 新しいイベントリスナーを追加
     userMessageForm.addEventListener("submit", handleFormSubmit);
 
+    /**
+     * ユーザーのメッセージフォームの送信を処理する
+     */
     function handleFormSubmit(event) {
         event.preventDefault();
         const userInput = document.getElementById("user_input").value;
@@ -18,6 +21,9 @@ document.addEventListener('turbolinks:load', function() {
         document.getElementById("user_input").value = "";
     }
 
+    /**
+     * AIナビからの応答を取得してメッセージウィンドウに表示する
+     */
     function fetchAIResponse(userInput) {
         fetch("/openai_navis/respond", {
             method: "POST",
@@ -36,6 +42,9 @@ document.addEventListener('turbolinks:load', function() {
         .catch(error => console.error('Error:', error));
     }
 
+    /**
+     * ナビメッセージウィンドウにメッセージを追加する
+     */
     function appendMessage(message) {
         naviMessageDiv.innerHTML = `<p>${message}</p>`;
     }

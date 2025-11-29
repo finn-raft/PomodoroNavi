@@ -40,7 +40,9 @@
 
 /* 送信フォーム表示部 */
 #usermessage_form {
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #user_input {
@@ -93,10 +95,6 @@
     width: 100%;
     padding: 0 1rem;
     box-sizing: border-box;
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    justify-content: center;
   }
 
   #user_input {

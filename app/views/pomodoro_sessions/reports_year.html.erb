@@ -11,7 +11,7 @@
   <style>
     /* ナビメッセージとフォームのスタイル */
     #usermessage_form {
-        width: 55.5%;
+        width: 74%;
     }
     @media (max-width: 600px) {
         #usermessage_form {
@@ -113,7 +113,7 @@
   </div>
 
   <form id="usermessage_form">
-    <input type="text" id="user_input" placeholder="ナビにメッセージを送る（例：ポモドーロタイマーの使い方は？）">
+    <textarea id="user_input" placeholder="ナビにメッセージを送る（例：ポモドーロタイマーの使い方は？）" rows="1"></textarea>
     <button id="user_input_button">
       <img src="<%= asset_path 'navichat.png' %>" alt="送信">
     </button>
@@ -145,6 +145,24 @@
   // 一度リスナーを削除してから再登録する
   document.removeEventListener('turbolinks:load', fetchNaviMessageHandler);
   document.addEventListener('turbolinks:load', fetchNaviMessageHandler);
+
+    // ユーザーの送信メッセージ入力欄を文字数に応じて自動拡張する
+    function autoResizeTextarea(el) {
+      if (!el) return;
+      el.style.height = 'auto';
+      const newHeight = Math.min(el.scrollHeight, 400); // 最大高さは必要に応じて調整
+      el.style.height = newHeight + 'px';
+    }
+
+    document.removeEventListener('turbolinks:load', () => {});
+    document.addEventListener('turbolinks:load', function() {
+      const ta = document.getElementById('user_input');
+      if (!ta) return;
+      // 初期サイズ調整
+      autoResizeTextarea(ta);
+      ta.addEventListener('input', () => autoResizeTextarea(ta));
+      ta.addEventListener('paste', () => setTimeout(() => autoResizeTextarea(ta), 50));
+    });
   </script>
 </body>
 </html>

@@ -56,11 +56,20 @@ li.only {
 }
 
 @media (max-width: 600px) {
+    .black-window {
+        margin: 0 auto; /* 上下の余白をなくす */
+    }
+
     .black-window img {
         width: 100%; /* 画像の幅を100%に */
+        height: auto; /* 画像の高さを自動調整 */
     }
 
     .main {
         margin: none; /* マージンをなくす */
+    }
+
+    h2 {
+        font-size: 22px; /* 見出しのサイズを小さく */
     }
 }

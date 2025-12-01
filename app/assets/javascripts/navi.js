@@ -17,6 +17,8 @@ document.addEventListener('turbolinks:load', function() {
         const userInput = document.getElementById("user_input").value;
         if (userInput.trim() === "") return;
 
+        naviMessageDiv.innerHTML = `<p>Loading...</p>`;
+
         fetchAIResponse(userInput);
         document.getElementById("user_input").value = "";
     }
